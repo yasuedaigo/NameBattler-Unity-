@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InputFieldManager;
+using Togglejob;
 
 public class MakeCharadate : MonoBehaviour
 {
@@ -14,5 +16,10 @@ public class MakeCharadate : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void makeChara(){
+        if(InputFieldManager.NameCheck() == true);
+        Debug.Log("");
     }
 }
