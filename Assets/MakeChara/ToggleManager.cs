@@ -10,7 +10,7 @@ namespace Togglejob
 public class ToggleManager : MonoBehaviour
 {
     ToggleGroup togglegroup;
-    string tgljob;
+    public static string tgljob;
 
 
     public void Start()
@@ -22,7 +22,7 @@ public class ToggleManager : MonoBehaviour
        tgljob = job;
     }
 
-    public string gettgljob(){
+    public static string Gettgljob(){
        return tgljob;
     }
 

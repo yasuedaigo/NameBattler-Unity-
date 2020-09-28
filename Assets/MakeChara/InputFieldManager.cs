@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace InputFieldManager
+namespace InputFieldManagernamespace
 {
 
 public class InputFieldManager:MonoBehaviour
 {
     InputField inputField;
-    string charaname;
-    bool nameOk;
+    public static string charaname;
+    public static bool nameOk;
 
     // Start is called before the first frame update
     void Start()
@@ -33,11 +33,11 @@ public class InputFieldManager:MonoBehaviour
         Debug.Log("inputfieldのメソッド nameOk="+nameOk);
     }
 
-    public string GetName(){
+    public  static string GetName(){
         return charaname;
     }
 
-    public bool NameCheck(){
+    public static bool NameCheck(){
         if(nameOk == true){
            return true;
         }else{
