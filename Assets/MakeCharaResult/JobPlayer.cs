@@ -10,7 +10,7 @@ using System;
 namespace Job
 {
 
-public class Player : MonoBehaviour
+public class JobPlayer : MonoBehaviour
 {
     protected string PlayerName;
     

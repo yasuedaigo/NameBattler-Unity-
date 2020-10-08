@@ -14,14 +14,14 @@ public class MakePlayerManager : MonoBehaviour
     string usename;
     enum Usejob {戦士,魔法使い,僧侶,忍者,}
     Usejob usejob;
-    Player player;
+    JobPlayer player;
     // Start is called before the first frame update
     void Start()
     {
         usename = InputFieldManager.GetName();
         var getusejob = ToggleManager.Gettgljob();
         var usejob = (Usejob)Enum.Parse(typeof(Usejob), getusejob, true);
-        player = new Player();
+        player = new JobPlayer();
         player.playername = usename;
 
         switch (usejob)
