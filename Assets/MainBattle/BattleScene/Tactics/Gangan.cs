@@ -16,7 +16,7 @@ public class Gangan : ITactics
             sortlist.Add(player);
         }
         sortlist.Sort((a, b) => a.hp - b.hp);
-        Player targetplayer = sortlist.Find(n => n.team != attacker.team);
+        Player targetplayer = sortlist.Find(n => ((n.team != attacker.team) && (n.islive == true)));
         int result = party.FindIndex(n => n.playername == targetplayer.playername);
         return result;
     }

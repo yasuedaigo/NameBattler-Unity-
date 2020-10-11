@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using InputFieldManagernamespace;
-using Togglejob;
 using System.Security.Cryptography;
 using System.Text;
 using System;
 
-namespace Job
+namespace MakeCharaResult
 {
 
-public class JobPlayer : MonoBehaviour
+public class JobPlayer
 {
+
     protected string PlayerName;
     
     public string playername
@@ -76,24 +75,12 @@ public class JobPlayer : MonoBehaviour
         get{return MP;}
     }
 
-    protected string ABNORMALITY;
-    
-    public string abnormality
-    {
-        set{ABNORMALITY = value;}
-        get{return ABNORMALITY;}
-    }
-
-    protected int TEAM;
-    
-    public int team
-    {
-        set{TEAM = value;}
-        get{return TEAM;}
-    }
-
-    public void MakeCharacter(string usename){
-
+    string GetHash(string name){
+         byte[] tmpSource;
+         byte[] tmpHash;
+         tmpSource = ASCIIEncoding.ASCII.GetBytes(name);
+         tmpHash = new MD5CryptoServiceProvider().ComputeHash(tmpSource);
+         return ByteArrayToString(tmpHash); 
     }
 
     public string ByteArrayToString(byte[] arrInput)

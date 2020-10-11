@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using InputFieldManagernamespace;
-using Togglejob;
 using System.Security.Cryptography;
 using System.Text;
 using System;
@@ -111,6 +109,14 @@ public class Player
         get{return Attackfinished;}
     }
 
+    protected bool isLive;
+
+    public bool islive
+    {
+        set{isLive = value;}
+        get{return isLive;}
+    }
+
     public  Player(object usename){
         SqliteDatabase sqlDB = new SqliteDatabase("character.db");
         string selectQuery = "select playername,job,hp,str,def,luck,agi,mp from status where playername='"+usename.ToString()+"'";
@@ -125,6 +131,7 @@ public class Player
         agi = (int)dataTable.Rows[0]["agi"];
         mp = (int)dataTable.Rows[0]["mp"];
         attackfinished = false;
+        islive = true;
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
     }
 

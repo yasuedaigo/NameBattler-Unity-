@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace Togglejob
+namespace MakeChara
 {
     
 public class ToggleManager : MonoBehaviour
@@ -15,7 +15,7 @@ public class ToggleManager : MonoBehaviour
 
     public void Start()
     {
-       Debug.Log("Togglemanagerのスタートメソッド tgljob="+tgljob);
+       
     }
 
     public void settgljob(string job){

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace InputFieldManagernamespace
+namespace MakeChara
 {
 
 public class InputFieldManager:MonoBehaviour
 {
     InputField inputField;
     public static string charaname;
-    public static bool nameOk;
+    public bool nameOk;
 
     // Start is called before the first frame update
     void Start()
@@ -29,15 +29,13 @@ public class InputFieldManager:MonoBehaviour
         }else{
             nameOk = true;
         }
-        Debug.Log("inputfieldのメソッド charaname="+charaname);
-        Debug.Log("inputfieldのメソッド nameOk="+nameOk);
     }
 
-    public  static string GetName(){
+    public static string GetName(){
         return charaname;
     }
 
-    public static bool NameCheck(){
+    public bool NameCheck(){//同名チェック入れる
         if(nameOk == true){
            return true;
         }else{

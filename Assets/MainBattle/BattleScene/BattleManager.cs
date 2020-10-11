@@ -11,6 +11,7 @@ namespace  BattleScene
 public class BattleManager : MonoBehaviour
 {
     TextManager textmanager = null;
+    BattleSceneManager battlescenemanager;
     public TacticsManager tacticsmanager;
     public List<Text> textlist;
     public List<Player> finalplayerlist;
@@ -35,6 +36,7 @@ public class BattleManager : MonoBehaviour
         turnNumber = 1;
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
         tacticsmanager = GameObject.Find("Main Camera").GetComponent<TacticsManager>();
+        battlescenemanager = GameObject.Find("Main Camera").GetComponent<BattleSceneManager>();
         textmanager.battleLog("バトル開始");
         //czcz   dada   teret   vnb   dasdas    dfsfs
         player1text = GameObject.Find("player1").GetComponent<Text>();
@@ -74,25 +76,27 @@ public class BattleManager : MonoBehaviour
         int defenderint;
         for(int i=0; i<party.playerlist.Count;i++){
             if(party.playerlist[party.playerlist.Count-1].attackfinished == true){
-                foreach(Player player in party.playerlist) {
-                    player.attackfinished = false;
-                }
+                party.attackReset();
             }
+
             attacker = party.playerlist.Find(player => player.attackfinished == false);
-            
             defenderint = tacticsmanager.choiceTactics.target(party.getPlayerlist(),attacker);
             defender = party.getPlayer(defenderint);
             
-
             attacker.Attack(defender,turnNumber);
+
             if(defender.hp <= 0){
                 textmanager.battleLog(defender.playername+"は倒れた");
-                party.removePlayer(defender);
+                defender.islive = false;
             }
             statusText();
             if(party.gameFinish() == true){
                 textmanager.battleLog("ゲームセット！");
-                textmanager.gameFinish();
+                if(party.playerlist[0].team == 1){
+                    battlescenemanager.playerWin();
+                }else{
+                    battlescenemanager.playerLose();
+                }
                 break;
             }
         }
@@ -112,6 +116,9 @@ public class BattleManager : MonoBehaviour
     public void poisonDamage(){
         for(int i=0; i<party.playerlist.Count;i++){
             Player poisonplayer = party.getPlayer(i);
+            if(poisonplayer.islive == false){
+                continue;
+            }
         
             if(poisonplayer.abnormality == "poison"){
                 poisonplayer.damage(20);
@@ -120,8 +127,7 @@ public class BattleManager : MonoBehaviour
 
             if(poisonplayer.hp <= 0){
                 textmanager.battleLog(poisonplayer.playername+"は倒れた");
-                party.removePlayer(poisonplayer);
-                i = i-1;
+                poisonplayer.islive = false;
             }
 
             statusText();

@@ -39,16 +39,24 @@ public class Party
         int count1 = 0;
         int count2 = 0;
         foreach(Player listplayer in playerlist) {
-            if(listplayer.team == 1){
-                count1++;
-            }else if(listplayer.team == 2){
-                count2++;
+            if(listplayer.islive == true){
+                if(listplayer.team == 1){
+                    count1++;
+                }else{
+                    count2++;
+                }
             }
         }
         if(count1 == 0 || count2 == 0){
              return true;
         }
         return false;
+    }
+
+    public void attackReset(){
+        foreach(Player player in playerlist) {
+            player.attackfinished = false;
+        }
     }
      
 }

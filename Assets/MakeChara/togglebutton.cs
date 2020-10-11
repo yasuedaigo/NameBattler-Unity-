@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Togglejob;
+
+namespace MakeChara
+{
 
 public class togglebutton : MonoBehaviour
 {
@@ -27,10 +29,12 @@ public class togglebutton : MonoBehaviour
         
     }
 
-    public void test(){
+    public void togglechanged(){
         if(toggle.isOn == true){
             togglemanager.settgljob(this.name);
             togglemanager.debug();
         }
     }
+}
+
 }

@@ -18,7 +18,7 @@ public class Inotidaizini : ITactics
         sortlist.Sort((a, b) => b.hp - a.hp);
         Player targetplayer = sortlist.Find(n => n.team != attacker.team);
         if(attacker.job == "僧侶" && attacker.mp >= 20){
-            targetplayer = sortlist.Find(n => n.team == attacker.team);
+            targetplayer = sortlist.Find(n => ((n.team == attacker.team) && (n.islive == true)));
         }
         int result = party.FindIndex(n => n.playername == targetplayer.playername);
         return result;
