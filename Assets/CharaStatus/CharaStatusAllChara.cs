@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+namespace CharaStatus{
+
 public class CharaStatusAllChara : MonoBehaviour
 {
     public void OnClickBackButton()
@@ -10,4 +12,6 @@ public class CharaStatusAllChara : MonoBehaviour
     SceneManager.LoadScene("AllChara");
 }
     
+}
+
 }

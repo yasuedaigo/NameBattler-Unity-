@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using MakeChara;
+using AllChara;
 
 namespace MakeCharaResult{
   
@@ -15,6 +16,7 @@ public class MakePlayerManager : MonoBehaviour
     enum Usejob {戦士,魔法使い,僧侶,忍者,}
     Usejob usejob;
     JobPlayer player;
+    int rowint;
     // Start is called before the first frame update
     void Start()
     {
@@ -76,12 +78,21 @@ public class MakePlayerManager : MonoBehaviour
 
     
     public void OnClickAddButton()
-    {
+    {   
         SqliteDatabase sqlDB = new SqliteDatabase("character.db");
-        string query = "insert into status values('a', 'Yamada', 19, 4,5,6,7,8)";
+        string getintRowQuery = "select count(*) from status";
+        DataTable dataTable = sqlDB.ExecuteQuery(getintRowQuery);
+        int rowint = (int)dataTable.Rows[0]["count(*)"];
+        
+        if(rowint < 10){
+        Debug.Log(player.playername+","+player.job+","+player.hp+","+player.str+","+player.def+","+player.luck+","+player.agi+","+player.mp);
+        //string query = "insert into status values('"+player.playername.ToString()+"', '"+player.job.ToString()+"', "+player.hp.ToString()+", "+player.str.ToString()+","+player.def.ToString()+","+player.luck.ToString()+","+player.agi.ToString()+","+player.mp.ToString()+")";
+        //string query = "insert into status values('a','b',1,2,3,4,5,5)";
+        string query = "insert into status values('"+player.playername.ToString()+"', '"+player.job.ToString()+"', "+player.hp.ToString()+", "+player.str.ToString()+","+player.def.ToString()+","+player.luck.ToString()+","+player.agi.ToString()+","+player.mp.ToString()+")";
         sqlDB.ExecuteNonQuery(query);
         
         SceneManager.LoadScene("MakeChara");
+        }
     }
 }
 

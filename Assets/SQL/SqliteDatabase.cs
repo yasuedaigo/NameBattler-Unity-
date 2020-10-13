@@ -98,7 +98,7 @@ public class SqliteDatabase
 		string sourcePath = System.IO.Path.Combine (Application.streamingAssetsPath, dbName);
 		
 		//if DB does not exist in persistent data folder (folder "Documents" on iOS) or source DB is newer then copy it
-		if (!System.IO.File.Exists (pathDB) || (System.IO.File.GetLastWriteTimeUtc(sourcePath) > System.IO.File.GetLastWriteTimeUtc(pathDB))) {
+		if (!System.IO.File.Exists(pathDB)/*!System.IO.File.Exists (pathDB) || (System.IO.File.GetLastWriteTimeUtc(sourcePath) > System.IO.File.GetLastWriteTimeUtc(pathDB))*/) {
 			
 			if (sourcePath.Contains ("://")) {
 				// Android	
@@ -282,14 +282,28 @@ public class SqliteDatabase
  
 	private IntPtr Prepare (string query)
 	{
-		IntPtr stmHandle;
+		/*IntPtr stmHandle;
         
 		if (sqlite3_prepare_v2 (_connection, query, query.Length, out stmHandle, IntPtr.Zero) != SQLITE_OK) {
 			IntPtr errorMsg = sqlite3_errmsg (_connection);
 			throw new SqliteException (Marshal.PtrToStringAnsi (errorMsg));
 		}
         
-		return stmHandle;
+		return stmHandle;*/
+		IntPtr stmHandle;
+
+        // クエリのバイト数を取得します
+        int byteCount = System.Text.Encoding.UTF8.GetByteCount(query);
+
+        if (sqlite3_prepare_v2(_connection, query, byteCount, out stmHandle, IntPtr.Zero) != SQLITE_OK)
+        {
+            IntPtr errorMsg = sqlite3_errmsg(_connection);
+            throw new SqliteException(Marshal.PtrToStringAnsi(errorMsg));
+        }
+
+        return stmHandle;
+
+
 	}
  
 	private void Finalize (IntPtr stmHandle)

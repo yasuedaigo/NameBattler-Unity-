@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
-namespace AllChara{
+namespace MakeParty{
 
 public class ContentManager : MonoBehaviour
 {
+    public static List<GameObject> togglelist = new List<GameObject>();
     // Start is called before the first frame update
-    public static int charaNum;
     void Start()
     {
-        List<GameObject> Buttonlist = new List<GameObject>();
-        
         for(int i=0;i < this.transform.childCount; i++){
-            Buttonlist.Add(this.transform.GetChild(i).gameObject);
-            Buttonlist[i].GetComponentInChildren<Text>().text = i.ToString();
+            togglelist.Add(this.transform.GetChild(i).gameobject);
+            togglelist[i].GetComponentInChildren<Text>().text = i.ToString();
         }
 
         SqliteDatabase sqlDB = new SqliteDatabase("character.db");
@@ -38,12 +35,15 @@ public class ContentManager : MonoBehaviour
             str = (int)newdataTable.Rows[i]["str"];
             def = (int)newdataTable.Rows[i]["def"];
 
-            Buttonlist[i].GetComponentInChildren<Text>().text = playername +"  "+job+" str "+ str +"  def "+def;
+            togglelist[i].GetComponentInChildren<Text>().text = playername +"  "+job+" str "+ str +"  def "+def;
         }
-        
     }
 
-    
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
 
 }

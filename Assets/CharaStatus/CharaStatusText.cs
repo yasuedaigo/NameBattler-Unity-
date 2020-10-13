@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using AllChara;
+
+namespace CharaStatus
+{
 
 public class CharaStatusText : MonoBehaviour
 {
@@ -10,7 +14,7 @@ public class CharaStatusText : MonoBehaviour
     void Start()
     {
         SqliteDatabase sqlDB = new SqliteDatabase("character.db");
-        string selectQuery = "select playername,job,hp,str,def,luck,agi,mp from status where rowid="+ContentManager.charaNum.ToString();
+        string selectQuery = "select playername,job,hp,str,def,luck,agi,mp from status LIMIT 1 OFFSET "+ContentManager.charaNum.ToString()+"-1";
         DataTable dataTable = sqlDB.ExecuteQuery(selectQuery);
 
         string playername = (string)dataTable.Rows[0]["playername"];
@@ -25,5 +29,7 @@ public class CharaStatusText : MonoBehaviour
         string statustext = "playername    "+playername+"\r\n職業    "+job+"\r\nhp    "+hp+"\r\nstr    "+str+"\r\ndef    "+def+"\r\nluck    "+luck+"\r\nagi    "+agi+"\r\nmp    "+mp;
         this.GetComponent<Text>().text = statustext;
     }
+
+}
 
 }
