@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MakeCharaAllChara : MonoBehaviour
+public class CharaStatusAllChara : MonoBehaviour
 {
-    public void OnClickStartButton()
+    public void OnClickBackButton()
 {
     SceneManager.LoadScene("AllChara");
 }
+    
 }

@@ -4,25 +4,25 @@ using System.Linq;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace Togglejob
+namespace MakeChara
 {
     
 public class ToggleManager : MonoBehaviour
 {
     ToggleGroup togglegroup;
-    string tgljob;
+    public static string tgljob;
 
 
     public void Start()
     {
-       Debug.Log("Togglemanagerのスタートメソッド tgljob="+tgljob);
+       
     }
 
     public void settgljob(string job){
        tgljob = job;
     }
 
-    public string gettgljob(){
+    public static string Gettgljob(){
        return tgljob;
     }
 

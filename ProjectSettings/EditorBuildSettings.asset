@@ -7,7 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: 
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Title.unity
     guid: a0b21970d142f874299fae2ce72dc1ec
@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MakeChara.unity
     guid: c02d68501f8f9d44783cf351c1184d76
+  - enabled: 1
+    path: Assets/Scenes/MakeCharaResult.unity
+    guid: 2e9edfb93e064374a93fed841e5f5bea
+  - enabled: 1
+    path: Assets/Scenes/CharaStatus.unity
+    guid: 9465ef911d7d83c439e0beb1d69e55c7
+  - enabled: 1
+    path: Assets/Scenes/MainBattle.unity
+    guid: 33c68b8e34466d34baea9ff48cbd8ac8
   m_configObjects: {}
