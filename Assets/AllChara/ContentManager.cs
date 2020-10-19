@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using SQLManager;
 
 namespace AllChara{
 
@@ -13,32 +14,16 @@ public class ContentManager : MonoBehaviour
     void Start()
     {
         List<GameObject> Buttonlist = new List<GameObject>();
-        
+        SQLDate sqlDate = new SQLDate();
+
         for(int i=0;i < this.transform.childCount; i++){
             Buttonlist.Add(this.transform.GetChild(i).gameObject);
             Buttonlist[i].GetComponentInChildren<Text>().text = i.ToString();
         }
 
-        SqliteDatabase sqlDB = new SqliteDatabase("character.db");
-        string getintRowQuery = "select count(*) from status";
-        DataTable dataTable = sqlDB.ExecuteQuery(getintRowQuery);
-        int rowint = (int)dataTable.Rows[0]["count(*)"];
-        Debug.Log(rowint);
-
-        string selectQuery = "select playername,job,str,def from status";
-        DataTable newdataTable = sqlDB.ExecuteQuery(selectQuery);
-
-        string playername;
-        string job;
-        int str;
-        int def;
-        for(int i=0; i < rowint; i++){
-            playername = (string)newdataTable.Rows[i]["playername"];
-            job = (string)newdataTable.Rows[i]["job"];
-            str = (int)newdataTable.Rows[i]["str"];
-            def = (int)newdataTable.Rows[i]["def"];
-
-            Buttonlist[i].GetComponentInChildren<Text>().text = playername +"  "+job+" str "+ str +"  def "+def;
+        for(int i=0; i < sqlDate.Rowint; i++){
+            SQLPlayer sqlplayer = sqlDate.SQLPlayerList[i];
+            Buttonlist[i].GetComponentInChildren<Text>().text = sqlplayer.PlayerName +"  "+sqlplayer.JOB+" str "+ sqlplayer.STR +"  def "+sqlplayer.DEF;
         }
         
     }

@@ -24,50 +24,50 @@ public class MakePlayerManager : MonoBehaviour
         var getusejob = ToggleManager.Gettgljob();
         var usejob = (Usejob)Enum.Parse(typeof(Usejob), getusejob, true);
         player = new JobPlayer();
-        player.playername = usename;
+        player.PlayerName = usename;
 
         switch (usejob)
         {
             case Usejob.戦士:
-                player.hp = player.MakeStatusInt(0, 200,usename)+100;   
-		        player.str = player.MakeStatusInt(1, 70,usename)+30;      
-		        player.def = player.MakeStatusInt(2, 70,usename)+30;         
-		        player.luck = player.MakeStatusInt(3,99,usename)+1;      
-		        player.agi = player.MakeStatusInt(4,49,usename)+1;       
-                player.mp = 0;
-		        player.job = "戦士";
+                player.HP = player.MakeStatusInt(0, 200,usename)+100;   
+		        player.STR = player.MakeStatusInt(1, 70,usename)+30;      
+		        player.DEF = player.MakeStatusInt(2, 70,usename)+30;         
+		        player.LUCK = player.MakeStatusInt(3,99,usename)+1;      
+		        player.AGI = player.MakeStatusInt(4,49,usename)+1;       
+                player.MP = 0;
+		        player.JOB = "戦士";
                 break;
             case Usejob.魔法使い:
-                player.hp = player.MakeStatusInt(0, 100,usename)+50;   
-		        player.str = player.MakeStatusInt(1, 50,usename)+30;      
-		        player.def = player.MakeStatusInt(2, 50,usename)+30;       
-		        player.luck = player.MakeStatusInt(3,100,usename)+1;       
-		        player.agi = player.MakeStatusInt(4,40,usename)+1;        
-                player.mp = player.MakeStatusInt(4,50,usename)+30; 
-		        player.job = "魔法使い";
+                player.HP = player.MakeStatusInt(0, 100,usename)+50;   
+		        player.STR = player.MakeStatusInt(1, 50,usename)+30;      
+		        player.DEF = player.MakeStatusInt(2, 50,usename)+30;       
+		        player.LUCK = player.MakeStatusInt(3,100,usename)+1;       
+		        player.AGI = player.MakeStatusInt(4,40,usename)+1;        
+                player.MP = player.MakeStatusInt(4,50,usename)+30; 
+		        player.JOB = "魔法使い";
                 break;
             case Usejob.僧侶:
-                player.hp = player.MakeStatusInt(0, 120,usename)+80;   
-		        player.str = player.MakeStatusInt(1, 60,usename)+10;      
-		        player.def = player.MakeStatusInt(2, 60,usename)+10;       
-		        player.luck = player.MakeStatusInt(3,99,usename)+1;       
-		        player.agi = player.MakeStatusInt(4,40,usename)+20;        
-                player.mp = player.MakeStatusInt(4,30,usename)+20; 
-		        player.job = "僧侶";
+                player.HP = player.MakeStatusInt(0, 120,usename)+80;   
+		        player.STR = player.MakeStatusInt(1, 60,usename)+10;      
+		        player.DEF = player.MakeStatusInt(2, 60,usename)+10;       
+		        player.LUCK = player.MakeStatusInt(3,99,usename)+1;       
+		        player.AGI = player.MakeStatusInt(4,40,usename)+20;        
+                player.MP = player.MakeStatusInt(4,30,usename)+20; 
+		        player.JOB = "僧侶";
                 break;
             case Usejob.忍者:
-                player.hp = player.MakeStatusInt(0, 100,usename)+100;   
-		        player.str = player.MakeStatusInt(1, 50,usename)+20;      
-		        player.def = player.MakeStatusInt(2, 70,usename)+20;       
-		        player.luck = player.MakeStatusInt(3,99,usename)+1;       
-		        player.agi = player.MakeStatusInt(4,40,usename)+40;        
-                player.mp = 0;
-		        player.job = "忍者";
+                player.HP = player.MakeStatusInt(0, 100,usename)+100;   
+		        player.STR = player.MakeStatusInt(1, 50,usename)+20;      
+		        player.DEF = player.MakeStatusInt(2, 70,usename)+20;       
+		        player.LUCK = player.MakeStatusInt(3,99,usename)+1;       
+		        player.AGI = player.MakeStatusInt(4,40,usename)+40;        
+                player.MP = 0;
+		        player.JOB = "忍者";
                 break;
             
         }
         var message = this.GetComponent<Text>();
-        message.text = player.playername.ToString()+"\r\n"+player.job.ToString()+"\r\n"+player.hp.ToString()+"\r\n"+player.str.ToString()+"\r\n"+player.def.ToString()+"\r\n"+player.luck.ToString()+"\r\n"+player.agi.ToString()+"\r\n"+player.mp.ToString(); ;
+        message.text = player.PlayerName.ToString()+"\r\n"+player.JOB.ToString()+"\r\n"+player.HP.ToString()+"\r\n"+player.STR.ToString()+"\r\n"+player.DEF.ToString()+"\r\n"+player.LUCK.ToString()+"\r\n"+player.AGI.ToString()+"\r\n"+player.MP.ToString(); ;
     }
 
     // Update is called once per frame
@@ -85,10 +85,10 @@ public class MakePlayerManager : MonoBehaviour
         int rowint = (int)dataTable.Rows[0]["count(*)"];
         
         if(rowint < 10){
-        Debug.Log(player.playername+","+player.job+","+player.hp+","+player.str+","+player.def+","+player.luck+","+player.agi+","+player.mp);
+        Debug.Log(player.PlayerName+","+player.JOB+","+player.HP+","+player.STR+","+player.DEF+","+player.LUCK+","+player.AGI+","+player.MP);
         //string query = "insert into status values('"+player.playername.ToString()+"', '"+player.job.ToString()+"', "+player.hp.ToString()+", "+player.str.ToString()+","+player.def.ToString()+","+player.luck.ToString()+","+player.agi.ToString()+","+player.mp.ToString()+")";
         //string query = "insert into status values('a','b',1,2,3,4,5,5)";
-        string query = "insert into status values('"+player.playername.ToString()+"', '"+player.job.ToString()+"', "+player.hp.ToString()+", "+player.str.ToString()+","+player.def.ToString()+","+player.luck.ToString()+","+player.agi.ToString()+","+player.mp.ToString()+")";
+        string query = "insert into status values('"+player.PlayerName.ToString()+"', '"+player.JOB.ToString()+"', "+player.HP.ToString()+", "+player.STR.ToString()+","+player.DEF.ToString()+","+player.LUCK.ToString()+","+player.AGI.ToString()+","+player.MP.ToString()+")";
         sqlDB.ExecuteNonQuery(query);
         
         SceneManager.LoadScene("MakeChara");
