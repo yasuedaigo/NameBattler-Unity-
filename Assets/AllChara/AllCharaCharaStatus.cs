@@ -14,7 +14,6 @@ public class AllCharaCharaStatus : MonoBehaviour
     string charaNumstr = this.name;
     ContentManager.charaNum = int.Parse(charaNumstr);
     
-    Debug.Log(ContentManager.charaNum);
     SceneManager.LoadScene("CharaStatus");
 }
 }

@@ -5,6 +5,7 @@ using MakeParty;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using SQLManager;
+using System.Linq;
 
 namespace BattleStart
 {
@@ -13,8 +14,8 @@ public class ContentManager : MonoBehaviour
 {
     public GameObject enemypanel;
     public GameObject myteampanel;
-    public List<Text> myteamtextlist = new List<Text>();
-    public List<Text> enemytextlist = new List<Text>();
+    public List<GameObject> myteampanellist = new List<GameObject>();
+    public List<GameObject> enemypanellist= new List<GameObject>();
     SQLDate sqlDate;
     public static List<int> enemyintlist;
 
@@ -22,8 +23,8 @@ public class ContentManager : MonoBehaviour
     {
         sqlDate = new SQLDate();
         for(int i=0;i<3;i++){
-            myteamtextlist.Add(myteampanel.transform.FindChild(i.ToString()).gameObject.GetComponent<Text>());
-            enemytextlist.Add(enemypanel.transform.FindChild(i.ToString()).gameObject.GetComponent<Text>());
+            myteampanellist.Add(myteampanel.transform.FindChild(i.ToString()).gameObject);
+            enemypanellist.Add(enemypanel.transform.FindChild(i.ToString()).gameObject);
         }
         myteamtext();
         enemytext();
@@ -35,7 +36,11 @@ public class ContentManager : MonoBehaviour
         {
             SQLPlayer sqlplayer = new SQLPlayer();
             sqlplayer = sqlDate.SQLPlayerList[playerint];
-            myteamtextlist[count].GetComponentInChildren<Text>().text = sqlplayer.PlayerName +"  "+sqlplayer.JOB+" str "+ sqlplayer.STR +"  def "+sqlplayer.DEF;
+            myteampanellist[count].GetComponentsInChildren<Text>().First().text
+               = $"{sqlplayer.PlayerName}   {sqlplayer.JOB}";
+            myteampanellist[count].GetComponentsInChildren<Text>().Last().text
+               = $"HP:{sqlplayer.HP} STR:{sqlplayer.STR} DEF:{sqlplayer.DEF} LUCK:{sqlplayer.LUCK} "+
+                 $"AGI:{sqlplayer.AGI} MP:{sqlplayer.MP}";
             count++;
         }
     }
@@ -57,7 +62,11 @@ public class ContentManager : MonoBehaviour
         {
             SQLPlayer sqlplayer = new SQLPlayer();
             sqlplayer = sqlDate.SQLPlayerList[playerint];
-            enemytextlist[count].GetComponentInChildren<Text>().text = sqlplayer.PlayerName +"  "+sqlplayer.JOB+" str "+ sqlplayer.STR +"  def "+sqlplayer.DEF;
+            enemypanellist[count].GetComponentsInChildren<Text>().First().text
+                =$"{sqlplayer.PlayerName}   {sqlplayer.JOB}";
+            enemypanellist[count].GetComponentsInChildren<Text>().Last().text
+                =$"HP:{sqlplayer.HP} STR:{sqlplayer.STR} DEF:{sqlplayer.DEF} "+
+                $"LUCK:{sqlplayer.LUCK} AGI{sqlplayer.AGI} MP:{sqlplayer.MP}";
             count++;
         }
     }

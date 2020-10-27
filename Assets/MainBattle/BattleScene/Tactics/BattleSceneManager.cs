@@ -69,6 +69,13 @@ public class BattleSceneManager : MonoBehaviour
       SceneManager.LoadScene ("Title");
    }
 
+   public void pushnextbattle(){
+      SceneManager.LoadScene ("MakeParty");
+   }
+   
+   public void sceneBack(){
+      SceneManager.LoadScene("BattleStart");
+   }
 }
 
 }

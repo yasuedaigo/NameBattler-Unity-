@@ -22,7 +22,6 @@ public class InputFieldManager:MonoBehaviour
 
     public void NameEnter()
     {
-        //InputFieldからテキスト情報を取得する
         charaname = inputField.text;
         if(charaname == null || charaname == ""){
             nameOk = false;
@@ -35,7 +34,7 @@ public class InputFieldManager:MonoBehaviour
         return charaname;
     }
 
-    public bool NameCheck(){//同名チェック入れる
+    public bool NameCheck(){
         if(nameOk == true){
            return true;
         }else{

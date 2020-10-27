@@ -20,12 +20,12 @@ public class Fighter : Player
         int damage = calcDamage(defender);
         bool isParise = base.isParise();
         if(isParise == true){
-            textmanager.battleLog(base.playername+"は麻痺した");
+            textmanager.battleLog(base.PlayerName+"は麻痺した");
         }else{
-            textmanager.battleLog(this.playername+"の攻撃 ➡ "+defender.playername+"に"+damage+"のダメージ");
+            textmanager.battleLog(this.PlayerName+"の攻撃 ➡ "+defender.PlayerName+"に"+damage+"のダメージ");
             defender.damage(damage);
         }
-        base.attackfinished = true;
+        base.AttackFinished = true;
     }
 }
 

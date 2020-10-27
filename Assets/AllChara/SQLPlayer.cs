@@ -27,11 +27,11 @@ public class SQLPlayer
     public int MP { get; set; }
 
     string GetHash(string name){
-         byte[] tmpSource;
-         byte[] tmpHash;
-         tmpSource = ASCIIEncoding.ASCII.GetBytes(name);
-         tmpHash = new MD5CryptoServiceProvider().ComputeHash(tmpSource);
-         return ByteArrayToString(tmpHash); 
+        byte[] tmpSource;
+        byte[] tmpHash;
+        tmpSource = ASCIIEncoding.ASCII.GetBytes(name);
+        tmpHash = new MD5CryptoServiceProvider().ComputeHash(tmpSource);
+        return ByteArrayToString(tmpHash); 
     }
 
     public string ByteArrayToString(byte[] arrInput)

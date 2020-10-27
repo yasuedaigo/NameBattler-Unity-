@@ -30,15 +30,12 @@ public class ContentManager : MonoBehaviour
             SQLPlayer sqlplayer = new SQLPlayer();
             sqlplayer = sqlDate.SQLPlayerList[i];
             nametextlist[i].text = sqlplayer.PlayerName;
-            statustextlist[i].text = $"{sqlplayer.JOB} HP:{sqlplayer.HP} STR:{sqlplayer.STR} DEF:{sqlplayer.DEF} AGI:{sqlplayer.AGI} LUCK:{sqlplayer.LUCK} MP:{sqlplayer.MP}";
+            statustextlist[i].text = 
+             $"{sqlplayer.JOB} HP:{sqlplayer.HP} STR:{sqlplayer.STR} DEF:{sqlplayer.DEF}"+
+             $"AGI:{sqlplayer.AGI} LUCK:{sqlplayer.LUCK} MP:{sqlplayer.MP}";
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
 
 }

@@ -18,7 +18,7 @@ public class CharaDelete : MonoBehaviour
 
     public void onClickDeleteButton(){
         SqliteDatabase sqlDB = new SqliteDatabase("character.db");
-        string query = "delete from status where playername = (select playername from status limit 1 offset "+rowid+"-1)";
+        string query = "delete from status where playername = (select playername from status limit 1 offset "+rowid+")";
         sqlDB.ExecuteNonQuery(query);
 
         SceneManager.LoadScene("AllChara");
