@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BattleStart.unity
     guid: c1a31ad4045763b44b696eff5fdf2dc4
+  - enabled: 1
+    path: Assets/Scenes/MakeParty.unity
+    guid: 7a15c6fade519a04285a221009fcd8c5
   m_configObjects: {}

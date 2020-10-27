@@ -2,40 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Linq;
+using SQLManager;
 
 namespace MakeParty{
 
 public class ContentManager : MonoBehaviour
 {
-    public static List<GameObject> togglelist = new List<GameObject>();
+    public List<GameObject> objectlist = new List<GameObject>();
+    List<Text> nametextlist = new List<Text>();
+    List<Text> statustextlist = new List<Text>();
+    List<Text> jobtextlist = new List<Text>();
+    SQLDate sqlDate;
     // Start is called before the first frame update
     void Start()
     {
+        sqlDate = new SQLDate();
         for(int i=0;i < this.transform.childCount; i++){
-            togglelist.Add(this.transform.GetChild(i).gameobject);
-            togglelist[i].GetComponentInChildren<Text>().text = i.ToString();
+            objectlist.Add(this.transform.GetChild(i).gameObject);
+            nametextlist.Add(objectlist[i].GetComponentsInChildren<Text>().First());
+            statustextlist.Add(objectlist[i].GetComponentsInChildren<Text>().Last());
+            nametextlist[i].text = i.ToString();
         }
 
-        SqliteDatabase sqlDB = new SqliteDatabase("character.db");
-        string getintRowQuery = "select count(*) from status";
-        DataTable dataTable = sqlDB.ExecuteQuery(getintRowQuery);
-        int rowint = (int)dataTable.Rows[0]["count(*)"];
-        Debug.Log(rowint);
-
-        string selectQuery = "select playername,job,str,def from status";
-        DataTable newdataTable = sqlDB.ExecuteQuery(selectQuery);
-
-        string playername;
-        string job;
-        int str;
-        int def;
-        for(int i=0; i < rowint; i++){
-            playername = (string)newdataTable.Rows[i]["playername"];
-            job = (string)newdataTable.Rows[i]["job"];
-            str = (int)newdataTable.Rows[i]["str"];
-            def = (int)newdataTable.Rows[i]["def"];
-
-            togglelist[i].GetComponentInChildren<Text>().text = playername +"  "+job+" str "+ str +"  def "+def;
+        for(int i=0; i < sqlDate.Rowint; i++){
+            SQLPlayer sqlplayer = new SQLPlayer();
+            sqlplayer = sqlDate.SQLPlayerList[i];
+            nametextlist[i].text = sqlplayer.PlayerName;
+            statustextlist[i].text = $"{sqlplayer.JOB} HP:{sqlplayer.HP} STR:{sqlplayer.STR} DEF:{sqlplayer.DEF} AGI:{sqlplayer.AGI} LUCK:{sqlplayer.LUCK} MP:{sqlplayer.MP}";
         }
     }
 

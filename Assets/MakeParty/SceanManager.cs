@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-namespace BattleStart
+namespace Makeparty
 {
 
-public class BackButton : MonoBehaviour
+
+public class SceanManager : MonoBehaviour
 {
-    
     public void clickBackButton(){
-        SceneManager.LoadScene("MakeParty");
+        SceneManager.LoadScene("Title");
     }
 }
 

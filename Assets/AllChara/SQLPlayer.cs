@@ -5,10 +5,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System;
 
-namespace MakeCharaResult
+namespace SQLManager
 {
 
-public class JobPlayer
+public class SQLPlayer
 {
     public string PlayerName { get; set; }
 
