@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using BattleScene;
+using SQLManager;
 
 namespace BattleScene.Chara
 {
@@ -13,14 +14,14 @@ public class Priest : Player
 {
     TextManager textmanager;
 
-    public Priest(object usename) : base(usename){
+    public Priest(SQLPlayer usename) : base(usename){
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
     }
+    
 
     public override void Attack(Player defender,int turnNumber){
-        bool isParise = base.isParise();
-        if(isParise == true){
-            textmanager.battleLog(base.PlayerName+"は麻痺した");
+        if(base.isParise()){
+            textmanager.battleLog($"{base.PlayerName}は麻痺した");
         }else{
             this.priestAttack(defender,turnNumber);
         }
@@ -53,19 +54,19 @@ public class Priest : Player
     }
 
     public void parise(Player defender){
-        defender.Abnormality = "parise";
-        textmanager.battleLog(base.PlayerName+"のパライズ！ ➡ "+defender.PlayerName+"は麻痺した");
+        defender.Abnormality = Abnormalitys.麻痺;
+        textmanager.battleLog($"{base.PlayerName}のパライズ！ ➡ {defender.PlayerName}は麻痺した");
         base.AttackFinished = true;
     }
 
     public void poison(Player defender){
-        defender.Abnormality = "poison";
-        textmanager.battleLog(base.PlayerName+"のポイズン！ ➡ "+defender.PlayerName+"は毒状態になった");
+        defender.Abnormality = Abnormalitys.毒;
+        textmanager.battleLog($"{base.PlayerName}のポイズン！ ➡ {defender.PlayerName}は毒状態になった");
         base.AttackFinished = true;
     }
 
     public void heal(Player defender){
-        textmanager.battleLog(base.PlayerName+"のヒール ➡ "+defender.PlayerName+"のHPを50回復("+defender.HP+"➡"+(defender.HP+50)+")");
+        textmanager.battleLog($"{base.PlayerName}のヒール ➡ {defender.PlayerName}のHPを50回復({defender.HP}➡({defender.HP}+50))");
         defender.HP = defender.HP+50;
         base.MP = base.MP-20;
         base.AttackFinished = true;

@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using UnityEngine;
 
+namespace SQLManager{
 /*
  * please don't use this code for sell a asset
  * user for free 
@@ -314,4 +315,6 @@ public class SqliteDatabase
 	}
     
     #endregion
+}
+
 }

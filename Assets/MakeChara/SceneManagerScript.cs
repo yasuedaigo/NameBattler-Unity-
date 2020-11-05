@@ -10,17 +10,13 @@ namespace MakeChara{
 public class SceneManagerScript : MonoBehaviour
 {
     public InputFieldManager inputfieldmanager;
-    // Start is called before the first frame update
+    public Text messagetext;
+    
     void Start()
     {
         inputfieldmanager = GameObject.Find("InputField").GetComponent<InputFieldManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
     public void loadAllChara()
 {
@@ -28,7 +24,12 @@ public class SceneManagerScript : MonoBehaviour
 }
 
     public void makeChara(){
-        if(inputfieldmanager.NameCheck() == true){
+        if(InputFieldManager.charaname.Length > 20){
+            messagetext.text = "プレイヤー名は20字以内にしてください";
+            return;
+        }
+
+        if(inputfieldmanager.NameCheck()){
             SceneManager.LoadScene("MakeCharaResult");
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using BattleScene;
+using SQLManager;
 
 namespace BattleScene.Chara
 {
@@ -13,15 +14,14 @@ public class Wizard : Player
 {
     TextManager textmanager;
 
-    public Wizard(object usename) : base(usename){
+    public Wizard(SQLPlayer usename) : base(usename){
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
     }
-
+    
     public override void Attack(Player defender,int turnNumber){
         int damage = calcDamage(defender);
-        bool isParise = base.isParise();
-        if(isParise == true){
-            textmanager.battleLog(base.PlayerName+"は麻痺した");
+        if(base.isParise()){
+            textmanager.battleLog($"{base.PlayerName}は麻痺した");
         }else{
             this.wizardAttack(defender,turnNumber);
         }
@@ -57,7 +57,7 @@ public class Wizard : Player
 
     public void thunder(Player defender){
         int damage = UnityEngine.Random.Range(10,31);
-        textmanager.battleLog(base.PlayerName+"のサンダー！   "+defender.PlayerName+"に"+damage+"のダメージ");
+        textmanager.battleLog($"{base.PlayerName}のサンダー！   {defender.PlayerName}に{damage}のダメージ");
         base.MP = base.MP-20;          //mp消費-20
         defender.damage(damage);
         base.AttackFinished = true;
@@ -65,7 +65,7 @@ public class Wizard : Player
 
     public void fire(Player defender){
         int damage = UnityEngine.Random.Range(10,31);
-        textmanager.battleLog(base.PlayerName+"のファイア！   "+defender.PlayerName+"に"+damage+"のダメージ");
+        textmanager.battleLog($"{base.PlayerName}のファイア！   {defender.PlayerName}に{damage}のダメージ");
         base.MP = base.MP-10;          //mp消費-20
         defender.damage(damage);
         base.AttackFinished = true;

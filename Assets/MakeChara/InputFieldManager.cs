@@ -12,7 +12,7 @@ public class InputFieldManager:MonoBehaviour
     public static string charaname;
     public bool nameOk;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         inputField = GameObject.Find("InputField").GetComponent<InputField>();
@@ -22,8 +22,9 @@ public class InputFieldManager:MonoBehaviour
 
     public void NameEnter()
     {
+        nameOk = false;
         charaname = inputField.text;
-        if(charaname == null || charaname == ""){
+        if(charaname == null || charaname == "" || (charaname.Length > 20)){
             nameOk = false;
         }else{
             nameOk = true;

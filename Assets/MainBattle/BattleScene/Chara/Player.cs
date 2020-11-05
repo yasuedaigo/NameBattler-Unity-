@@ -14,11 +14,16 @@ namespace BattleScene.Chara
     
 public class Player 
 {
+
+    public enum JOBs {戦士,僧侶,魔法使い,忍者}
+
+    public enum Abnormalitys {Invalid,毒,麻痺}
+
     TextManager textmanager;
 
     public string PlayerName { get; set; }
 
-    public string JOB { get; set; }
+    public JOBs JOB { get; set; }
 
     public int HP { get; set; }
 
@@ -37,21 +42,15 @@ public class Player
     public int MP { get; set; }
     
 
-    public string Abnormality { get; set; }
+    public Abnormalitys Abnormality { get; set; }
     
     public int Team { get; set; }
 
     public bool AttackFinished { get; set; }
 
-    public bool isLive { get; set; }
-
-    public  Player(object usename){
-        SQLDate sqlDate = new SQLDate();
-        SQLPlayer sqlplayer = new SQLPlayer();
-        sqlplayer = sqlDate.getSQLPlayer(usename.ToString());
-
+    public  Player(SQLPlayer sqlplayer){
         PlayerName = sqlplayer.PlayerName;
-        JOB = sqlplayer.JOB;
+        JOB = (Player.JOBs)Enum.Parse(typeof(Player.JOBs), sqlplayer.JOB.ToString());
         HP = sqlplayer.HP;
         STR = sqlplayer.STR;
         DEF = sqlplayer.DEF;
@@ -61,13 +60,12 @@ public class Player
         FirstHP = sqlplayer.HP;
         FirstMP = sqlplayer.MP;
         AttackFinished = false;
-        isLive = true;
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
     }
 
     public virtual void Attack(Player defender,int turnNumber){
         int damage = calcDamage(defender);
-        textmanager.battleLog(this.PlayerName+"の攻撃 ➡ "+defender.PlayerName+"に"+damage+"のダメージ");
+        textmanager.battleLog($"{this.PlayerName}の攻撃 ➡ {defender.PlayerName}に{damage}のダメージ");
         defender.damage(damage);
         this.AttackFinished = true;
     }
@@ -93,7 +91,7 @@ public class Player
     }
 
     public bool isParise(){
-        if(this.Abnormality != "parise"){
+        if(this.Abnormality != Abnormalitys.麻痺){
             return false;
         }
         if(UnityEngine.Random.Range(0f,5f) == 0){
@@ -109,10 +107,10 @@ public class Player
         nametext.text = $"{this.PlayerName}\r\n{this.JOB}";
         statustext.text = $"HP  {this.HP}/{this.FirstHP}\r\nMP  {this.MP}/{this.FirstMP}";
 
-        if(this.Abnormality=="parise"){
-            statustext.text = statustext.text.ToString()+"\r\n麻痺";
-        }else if(this.Abnormality=="poison"){
-            statustext.text = statustext.text.ToString()+"\r\n毒";
+        if(this.Abnormality == Abnormalitys.麻痺){
+            statustext.text = $"{statustext.text.ToString()}\r\n麻痺";
+        }else if(this.Abnormality == Abnormalitys.毒){
+            statustext.text = $"{statustext.text.ToString()}\r\n毒";
         }
         
         if(this.HP <= 0){
@@ -122,22 +120,29 @@ public class Player
     }
 
     public void poisonDamage(){
-        if(this.isLive == false){
+        if(!this.isLive()){
             return;
         }
         
-        if(this.Abnormality == "poison"){
+        if(this.Abnormality == Abnormalitys.毒){
             this.damage(20);
-            textmanager.battleLog(this.PlayerName+"は毒によるダメージを受けた");
+            textmanager.battleLog($"{this.PlayerName}は毒によるダメージを受けた");
         }            
         this.downJudge();
     }
 
     public void downJudge(){
-        if(this.HP <= 0){
+        if(!this.isLive()){
             textmanager.battleLog(this.PlayerName+"は倒れた");
-            this.isLive = false;
             this.AttackFinished = true;
+        }
+    }
+
+    public bool isLive(){
+        if(this.HP <= 0){
+            return false;
+        }else{
+            return true;
         }
     }
     

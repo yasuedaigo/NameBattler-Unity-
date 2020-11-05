@@ -454,7 +454,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1391163582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02475d4c931b8ed4a851ac2714a06ef3, type: 3}
+  m_Script: {fileID: 11500000, guid: 009e889d09793584ba2e6066a03063c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1494293396
@@ -514,11 +514,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6528715456519670514, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -103
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 6528715456519670514, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 238
+      value: 223
       objectReference: {fileID: 0}
     - target: {fileID: 6528715456519670514, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_SizeDelta.x
@@ -558,11 +558,11 @@ PrefabInstance:
       objectReference: {fileID: 1494293399}
     - target: {fileID: 6528715456519670515, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CharaStatus.CharaStatusAllChara, Assembly-CSharp
+      value: CharaStatus.SceneManagerScript, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6528715456519670515, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickBackButton
+      value: backSceneAllChara
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
@@ -585,7 +585,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1494293398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68021c7d7582d73419ee8806e46eb26b, type: 3}
+  m_Script: {fileID: 11500000, guid: 36a7bc2e5be95d142ba0cbb6bb9c82ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1504837109
@@ -672,7 +672,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1504837114}
-        m_TargetAssemblyTypeName: CharaStatus.CharaDelete, Assembly-CSharp
+        m_TargetAssemblyTypeName: CharaStatus.CharaStatusSQLController, Assembly-CSharp
         m_MethodName: onClickDeleteButton
         m_Mode: 1
         m_Arguments:
@@ -730,7 +730,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1504837109}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a880225033ebcba438878aee7577f70a, type: 3}
+  m_Script: {fileID: 11500000, guid: 009e889d09793584ba2e6066a03063c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1786387456

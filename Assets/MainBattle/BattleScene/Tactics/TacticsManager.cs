@@ -23,19 +23,19 @@ public class TacticsManager : MonoBehaviour
     }
 
     public void AttackTacticsToggle(){
-        if(attacktactics.isOn == true){
+        if(attacktactics.isOn){
             choiceTactics = new AttackTactics();
         }
     }
 
     public void DefenseTacticsToggle(){
-        if(defensetactics.isOn == true){
+        if(defensetactics.isOn){
             choiceTactics = new DefenseTactics();
         }
     }
 
     public void BalanceTacticsToggle(){
-        if(balancetactics.isOn == true){
+        if(balancetactics.isOn){
             choiceTactics = new BalanceTactics();
         }
     }

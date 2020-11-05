@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 419142023}
   - component: {fileID: 419142022}
   - component: {fileID: 419142024}
+  - component: {fileID: 419142025}
   m_Layer: 5
   m_Name: "\u30AD\u30E3\u30E9\u4F5C\u6210\u30B9\u30C6\u30FC\u30BF\u30B9"
   m_TagString: Untagged
@@ -317,6 +318,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44288a262e7370c4482cdcbbcc06f668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &419142025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419142020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520ec7a46725d3640acc4471c6daef65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &422800616
@@ -411,7 +424,7 @@ GameObject:
   - component: {fileID: 558465366}
   - component: {fileID: 558465365}
   m_Layer: 5
-  m_Name: Button
+  m_Name: MakeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,8 +493,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 419142024}
-        m_TargetAssemblyTypeName: MakeCharaResult.MakePlayerManager, Assembly-CSharp
+      - m_Target: {fileID: 419142025}
+        m_TargetAssemblyTypeName: MakeCharaResult.MakeCharaResultSQLController, Assembly-CSharp
         m_MethodName: OnClickAddButton
         m_Mode: 1
         m_Arguments:
@@ -609,7 +622,6 @@ GameObject:
   - component: {fileID: 843075358}
   - component: {fileID: 843075357}
   - component: {fileID: 843075361}
-  - component: {fileID: 843075360}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -730,18 +742,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843075355}
   m_CullTransparentMesh: 0
---- !u!114 &843075360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 843075355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c161655a3dd17e94c8a5350e9966c972, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &843075361
 MonoBehaviour:
   m_ObjectHideFlags: 0

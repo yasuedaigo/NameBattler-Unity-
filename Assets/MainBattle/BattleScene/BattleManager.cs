@@ -5,13 +5,16 @@ using UnityEngine.UI;
 using BattleScene.Chara;
 using BattleScene.Tactics;
 using SQLManager;
+using System;
+using MakeParty;
+using AllChara;
+using BattleStart;
 
 namespace  BattleScene
 {
     
 public class BattleManager : MonoBehaviour
 {
-    SQLDate sqlDate;
     TextManager textmanager = null;
     BattleSceneManager battlescenemanager;
     public TacticsManager tacticsmanager;
@@ -25,9 +28,6 @@ public class BattleManager : MonoBehaviour
     
     void Start()
     {
-        sqlDate = new SQLDate();
-        playerintlist = MakeParty.MakePartyBattleStart.playerintlist;
-        enemyintlist = BattleStart.ContentManager.enemyintlist;
         turnNumber = 1;
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
         tacticsmanager = GameObject.Find("Main Camera").GetComponent<TacticsManager>();
@@ -38,22 +38,22 @@ public class BattleManager : MonoBehaviour
             statuspanellist.Add(childTransform.gameObject);
         }
         party = new Party();
-        addPlayertoParty(playerintlist);
-        addPlayertoParty(enemyintlist);
+        addPlayertoParty(BattleStartSQLManager.myteamPlayerList);
+        addPlayertoParty(BattleStartSQLManager.enemyPlayerList);
         setTeam();
         party.makeSortlist();
         statusText();
     }
 
     public void nextTurn(){
-        textmanager.battleLog(turnNumber+"ターン目");
+        textmanager.battleLog($"{turnNumber}ターン目");
         Player attacker;
         Player defender;
         int defenderint;
         party.attackReset();
 
         while((party.isTurnFinish() == false) && (party.gameJudge() == false)){
-            attacker = party.getAGIDescendinglist().Find(player => ((player.AttackFinished == false) && (player.isLive == true)));
+            attacker = party.getAGIDescendinglist().Find(player => ((player.AttackFinished == false) && (player.isLive() == true)));
             defenderint = tacticsmanager.choiceTactics.target(party,attacker);
             defender = party.getPlayer(defenderint);
             attacker.Attack(defender,turnNumber);
@@ -79,26 +79,24 @@ public class BattleManager : MonoBehaviour
             party.gameJudge();
         }
     }
-
-    public void addPlayertoParty(List<int> intlist){
-        foreach (int playerint in intlist)
+    
+    public void addPlayertoParty(List<SQLPlayer> sqlPlayerList){
+        foreach (SQLPlayer sqlplayer in sqlPlayerList)
         {
-            SQLPlayer sqlplayer = sqlDate.getSQLPlayer(playerint);
-            string playerjob = sqlplayer.JOB;
-            string playername = sqlplayer.PlayerName;
             Player player = null;
-            if(playerjob == "戦士"){
-                player = new Fighter(playername);
-            }else if(playerjob == "魔法使い"){
-                player = new Wizard(playername);
-            }else if(playerjob == "僧侶"){
-                player = new Priest(playername);
-            }else if(playerjob == "忍者"){
-                player = new Ninja(playername);
+            if(sqlplayer.JOB == SQLPlayer.JOBs.戦士){
+                player = new Fighter(sqlplayer);
+            }else if(sqlplayer.JOB ==SQLPlayer.JOBs.魔法使い){
+                player = new Wizard(sqlplayer);
+            }else if(sqlplayer.JOB == SQLPlayer.JOBs.僧侶){
+                player = new Priest(sqlplayer);
+            }else if(sqlplayer.JOB == SQLPlayer.JOBs.忍者){
+                player = new Ninja(sqlplayer);
             }
             party.addPlayer(player);
         }
     }
+
 
     public void setTeam(){
         int count = 0;

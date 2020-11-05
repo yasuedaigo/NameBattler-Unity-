@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SQLManager;
 
 namespace MakeCharaResult
 {
     
 public interface IFMakePlayer
 {
-    JobPlayer makePlayer(string name);
+    SQLPlayer makePlayer(string name);
 }
 
 }

@@ -205,8 +205,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 864663605}
-        m_TargetAssemblyTypeName: MakeParty.MakePartyBattleStart, Assembly-CSharp
+      - m_Target: {fileID: 864663603}
+        m_TargetAssemblyTypeName: MakeParty.ContentManager, Assembly-CSharp
         m_MethodName: pushBattleStart
         m_Mode: 1
         m_Arguments:
@@ -988,6 +988,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf09d5e4c4ef93a41abf2d22c673848e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  togglelist: []
+  messagetext: {fileID: 1479607132}
   objectlist: []
 --- !u!114 &864663605
 MonoBehaviour:
@@ -1001,8 +1003,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9137a5ffbf586ad489dce77d4ddabf5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  togglelist: []
-  messagetext: {fileID: 1479607132}
 --- !u!1 &1002449121
 GameObject:
   m_ObjectHideFlags: 0

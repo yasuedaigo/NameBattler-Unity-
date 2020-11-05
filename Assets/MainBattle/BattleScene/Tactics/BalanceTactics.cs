@@ -27,18 +27,13 @@ public class BalanceTactics : ITactics
         debugcount = 0;
         do{
             targetplayer = originallist[UnityEngine.Random.Range(0,originallist.Count)];
-            debugcount++;
-            if(debugcount > 50){
-                Debug.Log("getTargetofHeal");
-                break;
-            }
-        }while(targetplayer.isLive == false);
+        }while(!targetplayer.isLive());
     }
 
     public void getTargetofAttack(Party party,Player attacker){
         do{
             targetplayer = originallist[UnityEngine.Random.Range(0,originallist.Count)];
-        }while((targetplayer.isLive == false) || (targetplayer.Team == attacker.Team));
+        }while((!targetplayer.isLive()) || (targetplayer.Team == attacker.Team));
     }
 }
 

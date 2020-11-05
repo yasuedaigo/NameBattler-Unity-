@@ -60,7 +60,7 @@ public class Party
         int count1 = 0;
         int count2 = 0;
         foreach(Player listplayer in playerlist){
-            if(listplayer.isLive == true){
+            if(listplayer.isLive()){
                 if(listplayer.Team == 1){
                     count1++;
                 }else{
@@ -76,7 +76,7 @@ public class Party
 
     public void attackReset(){
         foreach(Player player in playerlist) {
-            if(player.isLive == true){
+            if(player.isLive()){
                 player.AttackFinished = false;
             }
         }
@@ -100,7 +100,7 @@ public class Party
     public bool isTurnFinish(){
         bool isturnfinish = true;
         foreach(Player player in playerlist) {
-            if((player.AttackFinished == false) && (player.isLive == true)){
+            if((player.AttackFinished == false) && (player.isLive())){
                 isturnfinish = false;
             }
         }
@@ -108,8 +108,8 @@ public class Party
     }
 
     public bool gameJudge(){
-        int livePlayerTeam = this.playerlist.Find(player => (player.isLive == true)).Team;
-        if(this.gameFinish() == true){
+        int livePlayerTeam = this.playerlist.Find(player => (player.isLive())).Team;
+        if(this.gameFinish()){
             textmanager.battleLog("ゲームセット！");
             if(livePlayerTeam == 1){
                 battlescenemanager.playerWin();

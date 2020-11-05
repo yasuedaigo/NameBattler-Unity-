@@ -10,9 +10,15 @@ namespace SQLManager
 
 public class SQLPlayer
 {
+    public enum Profiles {Name,JOB,HP,MP,STR,DEF,AGI,LUCK,CREATE_AT}
+
+    public enum JOBs {戦士,魔法使い,僧侶,忍者}
+
     public string PlayerName { get; set; }
 
-    public string JOB { get; set; }
+    public JOBs JOB { get; set; }
+
+    public int JOBInt { get; set; }
     
     public int HP { get; set; }
     
@@ -25,6 +31,8 @@ public class SQLPlayer
     public int AGI { get; set; }
 
     public int MP { get; set; }
+
+    public DateTime CreateDay { get; set; }
 
     string GetHash(string name){
         byte[] tmpSource;
