@@ -4,29 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using AllChara;
+using SQLManager;
 
 namespace CharaStatus
 {
 
 public class CharaStatusText : MonoBehaviour
 {
-    // Start is called before the first frame update
+    SQLPlayer sqlPlayer;
+    
     void Start()
     {
-        SqliteDatabase sqlDB = new SqliteDatabase("character.db");
-        string selectQuery = "select playername,job,hp,str,def,luck,agi,mp from status LIMIT 1 OFFSET "+ContentManager.charaNum.ToString()+"-1";
-        DataTable dataTable = sqlDB.ExecuteQuery(selectQuery);
 
-        string playername = (string)dataTable.Rows[0]["playername"];
-        string job = (string)dataTable.Rows[0]["job"];
-        int hp = (int)dataTable.Rows[0]["hp"];
-        int str = (int)dataTable.Rows[0]["str"];
-        int def = (int)dataTable.Rows[0]["def"];
-        int luck = (int)dataTable.Rows[0]["luck"];
-        int agi = (int)dataTable.Rows[0]["agi"];
-        int mp = (int)dataTable.Rows[0]["mp"];
+    }
 
-        string statustext = "playername    "+playername+"\r\n職業    "+job+"\r\nhp    "+hp+"\r\nstr    "+str+"\r\ndef    "+def+"\r\nluck    "+luck+"\r\nagi    "+agi+"\r\nmp    "+mp;
+    public void charastatustext(SQLPlayer sqlPlayer){
+        string statustext = 
+            $"名前： {sqlPlayer.PlayerName}\r\n職業： {sqlPlayer.JOB.ToString()} \r\nHP  ： {sqlPlayer.HP}\r\nSTR ： {sqlPlayer.STR}"+
+            $"\r\nDEF ： {sqlPlayer.DEF}\r\nLUCK： {sqlPlayer.LUCK}\r\nAGI ： {sqlPlayer.AGI}\r\nMP  ： {sqlPlayer.MP}\r\n作成日時{sqlPlayer.CreateDay.ToString()}";
         this.GetComponent<Text>().text = statustext;
     }
 

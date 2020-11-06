@@ -5,20 +5,26 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 using SQLManager;
+using UnityEngine.SceneManagement;
 
 namespace MakeParty{
 
 public class ContentManager : MonoBehaviour
 {
+    public static List<int> playerintlist = new List<int>();
+    public List<Toggle> togglelist = new List<Toggle>();
+    public Text messagetext;
     public List<GameObject> objectlist = new List<GameObject>();
     List<Text> nametextlist = new List<Text>();
     List<Text> statustextlist = new List<Text>();
     List<Text> jobtextlist = new List<Text>();
-    SQLDate sqlDate;
-    // Start is called before the first frame update
+    MakePartySQLController makePartySQLController;
+    SQLController sqlController;
+    
     void Start()
     {
-        sqlDate = new SQLDate();
+        sqlController = new SQLController();
+        makePartySQLController = GameObject.Find("Content").GetComponent<MakePartySQLController>();
         for(int i=0;i < this.transform.childCount; i++){
             objectlist.Add(this.transform.GetChild(i).gameObject);
             nametextlist.Add(objectlist[i].GetComponentsInChildren<Text>().First());
@@ -26,19 +32,40 @@ public class ContentManager : MonoBehaviour
             nametextlist[i].text = i.ToString();
         }
 
-        for(int i=0; i < sqlDate.Rowint; i++){
-            SQLPlayer sqlplayer = new SQLPlayer();
-            sqlplayer = sqlDate.SQLPlayerList[i];
-            nametextlist[i].text = sqlplayer.PlayerName;
-            statustextlist[i].text = $"{sqlplayer.JOB} HP:{sqlplayer.HP} STR:{sqlplayer.STR} DEF:{sqlplayer.DEF} AGI:{sqlplayer.AGI} LUCK:{sqlplayer.LUCK} MP:{sqlplayer.MP}";
+        foreach (var toggleobject in objectlist)
+        {
+            togglelist.Add(toggleobject.GetComponent<Toggle>());
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void contentText(List<SQLPlayer> sqlPlayerList){
+        for(int i=0; i < sqlPlayerList.Count; i++){
+            SQLPlayer sqlplayer = new SQLPlayer();
+            sqlplayer = sqlPlayerList[i];
+            nametextlist[i].text = sqlplayer.PlayerName;
+            statustextlist[i].text = 
+             $"{sqlplayer.JOB.ToString()} HP:{sqlplayer.HP} STR:{sqlplayer.STR} DEF:{sqlplayer.DEF}"+
+             $"AGI:{sqlplayer.AGI} LUCK:{sqlplayer.LUCK} MP:{sqlplayer.MP}";
+        }
     }
+
+    public void pushBattleStart(){
+        playerintlist.Clear();
+        int SQLCharaNum = sqlController.getRowint(SQLController.TableNames.CHARACTER);
+
+        foreach (var playertoggle in togglelist)
+        {
+            if(playertoggle.isOn && int.Parse(playertoggle.name) < SQLCharaNum){
+                playerintlist.Add(int.Parse(playertoggle.name));
+            }
+        }
+        if(playerintlist.Count != 3){
+            messagetext.text = "プレイヤーが"+playerintlist.Count+"人選ばれています。パーティ人数は３人です";
+        }else{
+            SceneManager.LoadScene("BattleStart");
+        }
+    }
+
 }
 
 }

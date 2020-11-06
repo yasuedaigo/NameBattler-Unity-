@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using BattleScene;
+using SQLManager;
 
 namespace BattleScene.Chara
 {
@@ -11,23 +12,24 @@ public class Ninja : Player
 {
     TextManager textmanager;
 
-    public Ninja(object usename) : base(usename){
+    public Ninja(SQLPlayer usename) : base(usename){
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
     }
+    
 
     public override void Attack(Player defender,int turnNumber){
         int damage = calcDamage(defender);
         if(turnNumber == 1){
-            damage = base.str;
-        }else if(defender.job == "戦士"){
-            int stockDEF = defender.def;
-            defender.def = stockDEF/2;
+            damage = base.STR;
+        }else if(defender.GetType() == typeof(Fighter)){
+            int stockDEF = defender.DEF;
+            defender.DEF = stockDEF/2;
             damage = calcDamage(defender);
-            defender.def = stockDEF;
+            defender.DEF = stockDEF;
         }
-        textmanager.battleLog(this.playername+"の攻撃 ➡ "+defender.playername+"に"+damage+"のダメージ");
+        textmanager.battleLog($"{this.PlayerName}の攻撃 ➡ {defender.PlayerName}に{damage}のダメージ");
         defender.damage(damage);
-        base.attackfinished = true;
+        base.AttackFinished = true;
     }
 }
 

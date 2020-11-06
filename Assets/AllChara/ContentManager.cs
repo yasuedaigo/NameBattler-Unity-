@@ -4,30 +4,42 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using SQLManager;
+using System.Linq;
 
 namespace AllChara{
 
 public class ContentManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public static int charaNum;
+    List<GameObject> Buttonlist;
+    SQLLiteRepository sqlliteRepository;
+    List<Text> nametextlist;
+    List<Text> statustextlist;
+
     void Start()
     {
-        List<GameObject> Buttonlist = new List<GameObject>();
-        SQLDate sqlDate = new SQLDate();
+        Buttonlist = new List<GameObject>();
+        sqlliteRepository = new SQLLiteRepository();
+        nametextlist =　new List<Text>();
+        statustextlist =　new List<Text>();
 
         for(int i=0;i < this.transform.childCount; i++){
             Buttonlist.Add(this.transform.GetChild(i).gameObject);
-            Buttonlist[i].GetComponentInChildren<Text>().text = i.ToString();
-        }
-
-        for(int i=0; i < sqlDate.Rowint; i++){
-            SQLPlayer sqlplayer = sqlDate.SQLPlayerList[i];
-            Buttonlist[i].GetComponentInChildren<Text>().text = sqlplayer.PlayerName +"  "+sqlplayer.JOB+" str "+ sqlplayer.STR +"  def "+sqlplayer.DEF;
-        }
-        
+            nametextlist.Add(Buttonlist[i].GetComponentsInChildren<Text>().First());
+            statustextlist.Add(Buttonlist[i].GetComponentsInChildren<Text>().Last());
+            nametextlist[i].text = i.ToString();
+            statustextlist[i].text = "プレイヤーが登録されていません";     
+            }
     }
 
+    public void viewContent(List<SQLPlayer> sqlPlayerList){
+        for(int i=0; i < sqlPlayerList.Count; i++){
+            SQLPlayer sqlplayer = sqlPlayerList[i];
+            nametextlist[i].text = $"{sqlplayer.PlayerName}    {sqlplayer.JOB}";
+            statustextlist[i].text 
+              = $"HP{sqlplayer.HP} STR{sqlplayer.STR} DEF{sqlplayer.DEF}"+
+                $" LUCK{sqlplayer.AGI} AGI{sqlplayer.AGI} MP{sqlplayer.MP}";
+        }
+    }
     
 }
 

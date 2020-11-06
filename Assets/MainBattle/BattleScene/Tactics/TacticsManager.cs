@@ -12,27 +12,31 @@ namespace BattleScene.Tactics
 public class TacticsManager : MonoBehaviour
 {
     public ITactics choiceTactics;
-    public GameObject ganganbutton;
-    public GameObject inotibutton;
-    public GameObject battiributton;
     public ToggleGroup toggleGroup;
+    public Toggle attacktactics;
+    public Toggle defensetactics;
+    public Toggle balancetactics;
     // Start is called before the first frame update
 
     void Start(){
-        choiceTactics = new Gangan();
+        choiceTactics = new AttackTactics();
     }
 
-    public void changeToggle(){
-        string selectedLabel = toggleGroup.ActiveToggles()
-            .First().GetComponentsInChildren<Text>()
-            .First(t => t.name == "Label").text;
-        
-        if(selectedLabel == "ガンガンいこうぜ"){
-            choiceTactics = new Gangan();
-        }else if(selectedLabel == "いのちだいじに"){
-            choiceTactics = new Inotidaizini();
-        }else{
-            choiceTactics = new Battiriganbare();
+    public void AttackTacticsToggle(){
+        if(attacktactics.isOn){
+            choiceTactics = new AttackTactics();
+        }
+    }
+
+    public void DefenseTacticsToggle(){
+        if(defensetactics.isOn){
+            choiceTactics = new DefenseTactics();
+        }
+    }
+
+    public void BalanceTacticsToggle(){
+        if(balancetactics.isOn){
+            choiceTactics = new BalanceTactics();
         }
     }
 }

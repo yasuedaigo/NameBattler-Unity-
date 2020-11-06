@@ -5,6 +5,7 @@ using MakeParty;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using SQLManager;
+using System.Linq;
 
 namespace BattleStart
 {
@@ -13,51 +14,42 @@ public class ContentManager : MonoBehaviour
 {
     public GameObject enemypanel;
     public GameObject myteampanel;
-    public List<Text> myteamtextlist = new List<Text>();
-    public List<Text> enemytextlist = new List<Text>();
-    SQLDate sqlDate;
+    public List<GameObject> myteampanellist = new List<GameObject>();
+    public List<GameObject> enemypanellist= new List<GameObject>();
+    SQLController sqlController;
     public static List<int> enemyintlist;
 
     void Start()
     {
-        sqlDate = new SQLDate();
+        sqlController = new SQLController();
         for(int i=0;i<3;i++){
-            myteamtextlist.Add(myteampanel.transform.FindChild(i.ToString()).gameObject.GetComponent<Text>());
-            enemytextlist.Add(enemypanel.transform.FindChild(i.ToString()).gameObject.GetComponent<Text>());
+            myteampanellist.Add(myteampanel.transform.FindChild(i.ToString()).gameObject);
+            enemypanellist.Add(enemypanel.transform.FindChild(i.ToString()).gameObject);
         }
-        myteamtext();
-        enemytext();
     }
 
-    void myteamtext(){
+    public void myteamtext(List<SQLPlayer> sqlplayerlist){
         int count=0;
-        foreach (var playerint in MakePartyBattleStart.playerintlist)
+        foreach (SQLPlayer sqlplayer in sqlplayerlist)
         {
-            SQLPlayer sqlplayer = new SQLPlayer();
-            sqlplayer = sqlDate.SQLPlayerList[playerint];
-            myteamtextlist[count].GetComponentInChildren<Text>().text = sqlplayer.PlayerName +"  "+sqlplayer.JOB+" str "+ sqlplayer.STR +"  def "+sqlplayer.DEF;
+            myteampanellist[count].GetComponentsInChildren<Text>().First().text
+               = $"{sqlplayer.PlayerName}   {sqlplayer.JOB.ToString()}";
+            myteampanellist[count].GetComponentsInChildren<Text>().Last().text
+               = $"HP:{sqlplayer.HP} STR:{sqlplayer.STR} DEF:{sqlplayer.DEF} LUCK:{sqlplayer.LUCK} "+
+                 $"AGI:{sqlplayer.AGI} MP:{sqlplayer.MP}";
             count++;
         }
     }
 
-    public void enemytext(){
-        List<int> databaseintlist = new List<int>();
-
-        int enemyint;
-        enemyintlist = new List<int>();
-        for(int i=0; i<3; i++){
-            do{
-                enemyint = UnityEngine.Random.Range(0,sqlDate.Rowint);
-            }while(MakePartyBattleStart.playerintlist.Contains(enemyint) == true || enemyintlist.Contains(enemyint) == true);
-            enemyintlist.Add(enemyint);
-        }
-
+    public void enemytext(List<SQLPlayer> sqlPlayerList){
         int count = 0;
-        foreach (var playerint in enemyintlist)
+        foreach (var sqlplayer in sqlPlayerList)
         {
-            SQLPlayer sqlplayer = new SQLPlayer();
-            sqlplayer = sqlDate.SQLPlayerList[playerint];
-            enemytextlist[count].GetComponentInChildren<Text>().text = sqlplayer.PlayerName +"  "+sqlplayer.JOB+" str "+ sqlplayer.STR +"  def "+sqlplayer.DEF;
+            enemypanellist[count].GetComponentsInChildren<Text>().First().text
+                =$"{sqlplayer.PlayerName}   {sqlplayer.JOB.ToString()}";
+            enemypanellist[count].GetComponentsInChildren<Text>().Last().text
+                =$"HP:{sqlplayer.HP} STR:{sqlplayer.STR} DEF:{sqlplayer.DEF} "+
+                $"LUCK:{sqlplayer.LUCK} AGI{sqlplayer.AGI} MP:{sqlplayer.MP}";
             count++;
         }
     }

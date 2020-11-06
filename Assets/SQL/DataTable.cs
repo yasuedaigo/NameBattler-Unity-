@@ -2,6 +2,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 
+namespace SQLManager{
+
+
 public class DataRow : Dictionary<string, object>
 {
     public new object this[string column]
@@ -65,3 +68,4 @@ public class DataTable
     }
 }
 
+}

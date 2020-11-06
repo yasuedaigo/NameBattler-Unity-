@@ -17,6 +17,10 @@ public void TitleMakeParty()
 {
     SceneManager.LoadScene("MakeParty");
 }
+
+public void test(){
+    SceneManager.LoadScene("AllChara");
+}
 }
 
 }

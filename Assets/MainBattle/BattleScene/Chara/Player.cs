@@ -6,150 +6,78 @@ using System.Security.Cryptography;
 using System.Text;
 using System;
 using BattleScene;
+using SQLManager;
+using System.Linq;
 
 namespace BattleScene.Chara
 {
     
 public class Player 
 {
+
+    public enum JOBs {戦士,僧侶,魔法使い,忍者}
+
+    public enum Abnormalitys {Invalid,毒,麻痺}
+
     TextManager textmanager;
 
-    protected string PlayerName;
+    public string PlayerName { get; set; }
+
+    public JOBs JOB { get; set; }
+
+    public int HP { get; set; }
+
+    public int FirstHP { get; set; }
+
+    public int STR { get; set; }
+
+    public int DEF { get; set; }
     
-    public string playername
-    {
-        set{PlayerName = value;}
-        get{return PlayerName;}
-    }
-
-    protected string Job;
+    public int LUCK { get; set; }
     
-    public string job
-    {
-        set{Job = value;}
-        get{return Job;}
-    }
+    public int AGI { get; set; }
+
+    public int FirstMP { get; set; }
     
-    protected int Hp;
+    public int MP { get; set; }
     
-    public int hp
-    {
-        set{Hp = value;}
-        get{return Hp;}
-    }
 
-    public readonly int FirstHp;
-
-    public int firsthp
-    {
-        get{return FirstHp;}
-    }
-
-    protected int STR;
+    public Abnormalitys Abnormality { get; set; }
     
-    public int str
-    {
-        set{STR = value;}
-        get{return STR;}
-    }
+    public int Team { get; set; }
 
-    protected int DEF;
-    
-    public int def
-    {
-        set{DEF = value;}
-        get{return DEF;}
-    }
+    public bool AttackFinished { get; set; }
 
-    protected int LUCK;
-    
-    public int luck
-    {
-        set{LUCK = value;}
-        get{return LUCK;}
-    }
-
-    protected int AGI;
-    
-    public int agi
-    {
-        set{AGI = value;}
-        get{return AGI;}
-    }
-
-    protected int MP;
-    
-    public int mp
-    {
-        set{MP = value;}
-        get{return MP;}
-    }
-
-    protected string ABNORMALITY;
-    
-    public string abnormality
-    {
-        set{ABNORMALITY = value;}
-        get{return ABNORMALITY;}
-    }
-
-    protected int TEAM;
-    
-    public int team
-    {
-        set{TEAM = value;}
-        get{return TEAM;}
-    }
-
-    protected bool Attackfinished;
-    
-    public bool attackfinished
-    {
-        set{Attackfinished = value;}
-        get{return Attackfinished;}
-    }
-
-    protected bool isLive;
-
-    public bool islive
-    {
-        set{isLive = value;}
-        get{return isLive;}
-    }
-
-    public  Player(object usename){
-        SqliteDatabase sqlDB = new SqliteDatabase("character.db");
-        string selectQuery = "select playername,job,hp,str,def,luck,agi,mp from status where playername='"+usename.ToString()+"'";
-        DataTable dataTable = sqlDB.ExecuteQuery(selectQuery);
-
-        playername = (string)dataTable.Rows[0]["playername"];
-        job = (string)dataTable.Rows[0]["job"];
-        hp = (int)dataTable.Rows[0]["hp"];
-        str = (int)dataTable.Rows[0]["str"];
-        def = (int)dataTable.Rows[0]["def"];
-        luck = (int)dataTable.Rows[0]["luck"];
-        agi = (int)dataTable.Rows[0]["agi"];
-        mp = (int)dataTable.Rows[0]["mp"];
-        attackfinished = false;
-        islive = true;
+    public  Player(SQLPlayer sqlplayer){
+        PlayerName = sqlplayer.PlayerName;
+        JOB = (Player.JOBs)Enum.Parse(typeof(Player.JOBs), sqlplayer.JOB.ToString());
+        HP = sqlplayer.HP;
+        STR = sqlplayer.STR;
+        DEF = sqlplayer.DEF;
+        LUCK = sqlplayer.LUCK;
+        AGI = sqlplayer.AGI;
+        MP = sqlplayer.MP;
+        FirstHP = sqlplayer.HP;
+        FirstMP = sqlplayer.MP;
+        AttackFinished = false;
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
     }
 
     public virtual void Attack(Player defender,int turnNumber){
         int damage = calcDamage(defender);
-        textmanager.battleLog(this.playername+"の攻撃 ➡ "+defender.playername+"に"+damage+"のダメージ");
+        textmanager.battleLog($"{this.PlayerName}の攻撃 ➡ {defender.PlayerName}に{damage}のダメージ");
         defender.damage(damage);
-        this.attackfinished = true;
+        this.AttackFinished = true;
     }
 
     public virtual int calcDamage(Player target)
     {
         int damage;
-    	if(this.luck <= UnityEngine.Random.Range(0f,100f)){
-    		damage = this.str;
+    	if(this.LUCK <= UnityEngine.Random.Range(0f,100f)){
+    		damage = this.STR;
     		return damage;
     	}
-        damage = this.str - target.def;
+        damage = this.STR - target.DEF;
         if (damage < 0)
         {
                damage = 0;
@@ -158,11 +86,12 @@ public class Player
     }
 
     public void damage(int damage){
-        this.hp = this.hp - damage;
+        this.HP = this.HP - damage;
+        this.downJudge();
     }
 
     public bool isParise(){
-        if(this.abnormality != "parise"){
+        if(this.Abnormality != Abnormalitys.麻痺){
             return false;
         }
         if(UnityEngine.Random.Range(0f,5f) == 0){
@@ -172,19 +101,51 @@ public class Player
         }
     }
 
-    public void playerstatusText(Text targettext){
-        targettext.text = this.playername+"    "+this.job+"\r\nHP : "+this.hp+"\r\nMp : "+this.mp;
-        if(this.abnormality=="parise"){
-            targettext.text = targettext.text.ToString()+"\r\n麻痺";
-        }else if(this.abnormality=="poison"){
-            targettext.text = targettext.text.ToString()+"\r\n毒";
+    public void playerstatusText(GameObject statuspanel){
+        Text nametext = statuspanel.GetComponentsInChildren<Text>().First();
+        Text statustext = statuspanel.GetComponentsInChildren<Text>().Last();
+        nametext.text = $"{this.PlayerName}\r\n{this.JOB}";
+        statustext.text = $"HP  {this.HP}/{this.FirstHP}\r\nMP  {this.MP}/{this.FirstMP}";
+
+        if(this.Abnormality == Abnormalitys.麻痺){
+            statustext.text = $"{statustext.text.ToString()}\r\n麻痺";
+        }else if(this.Abnormality == Abnormalitys.毒){
+            statustext.text = $"{statustext.text.ToString()}\r\n毒";
         }
         
-        if(this.hp <= 0){
-            targettext.color = new Color(1, 0, 0, 1);
+        if(this.HP <= 0){
+            nametext.color = new Color(1, 0, 0, 1);
+            statustext.color = new Color(1, 0, 0, 1);
         }
     }
 
+    public void poisonDamage(){
+        if(!this.isLive()){
+            return;
+        }
+        
+        if(this.Abnormality == Abnormalitys.毒){
+            this.damage(20);
+            textmanager.battleLog($"{this.PlayerName}は毒によるダメージを受けた");
+        }            
+        this.downJudge();
+    }
+
+    public void downJudge(){
+        if(!this.isLive()){
+            textmanager.battleLog(this.PlayerName+"は倒れた");
+            this.AttackFinished = true;
+        }
+    }
+
+    public bool isLive(){
+        if(this.HP <= 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
 }
 
 }
