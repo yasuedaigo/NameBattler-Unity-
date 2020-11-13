@@ -13,7 +13,7 @@ public class AllCharaCharaStatus : MonoBehaviour
     public void OnClickButton()
 {
     string charaNumstr = this.name;
-    ALLCharaSQLController.charaNum = int.Parse(charaNumstr);
+    ContentManager.charaNum = int.Parse(charaNumstr);
     
     SceneManager.LoadScene("CharaStatus");
 }

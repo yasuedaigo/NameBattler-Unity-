@@ -7,22 +7,22 @@ using SQLManager;
 namespace MakeCharaResult
 {
     
-public class Fighter : IFMakePlayer
+public class Fighter : BaseMakePlayer
 {
-    SQLPlayer player;
+    PlayerDTO playerDTO;
 
-    public SQLPlayer makePlayer(string usename){
-        player = new SQLPlayer();
-        player.PlayerName = usename;
-        player.HP = player.MakeStatusInt(0, 200,usename)+100;   
-		player.STR = player.MakeStatusInt(1, 70,usename)+30;      
-		player.DEF = player.MakeStatusInt(2, 70,usename)+30;         
-		player.LUCK = player.MakeStatusInt(3,99,usename)+1;      
-		player.AGI = player.MakeStatusInt(4,49,usename)+1;       
-        player.MP = 0;
-		player.JOB = SQLPlayer.JOBs.戦士;
-        player.CreateDay = DateTime.Now;
-        return player;
+    public override PlayerDTO makePlayer(string usename){
+        playerDTO = new PlayerDTO();
+        playerDTO.PlayerName = usename;
+        playerDTO.HP = base.MakeStatusInt(0, 200,usename)+100;   
+		playerDTO.STR = base.MakeStatusInt(1, 70,usename)+30;      
+		playerDTO.DEF = base.MakeStatusInt(2, 70,usename)+30;         
+		playerDTO.LUCK = base.MakeStatusInt(3,99,usename)+1;      
+		playerDTO.AGI = base.MakeStatusInt(4,49,usename)+1;       
+        playerDTO.MP = 0;
+		playerDTO.JOB = JOBs.Fighter;
+        playerDTO.CreateDay = DateTime.Now;
+        return playerDTO;
     }
 }
 

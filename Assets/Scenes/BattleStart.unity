@@ -480,6 +480,7 @@ MonoBehaviour:
   myteampanel: {fileID: 668834113}
   myteampanellist: []
   enemypanellist: []
+  battleStartRepositoryManager: {fileID: 0}
 --- !u!114 &259131386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1876,8 +1877,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 259131386}
-        m_TargetAssemblyTypeName: BattleStart.BattleStartSQLManager, Assembly-CSharp
+      - m_Target: {fileID: 259131385}
+        m_TargetAssemblyTypeName: BattleStart.ContentManager, Assembly-CSharp
         m_MethodName: clickRetake
         m_Mode: 1
         m_Arguments:

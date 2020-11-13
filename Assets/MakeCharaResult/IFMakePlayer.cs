@@ -8,7 +8,7 @@ namespace MakeCharaResult
     
 public interface IFMakePlayer
 {
-    SQLPlayer makePlayer(string name);
+    PlayerDTO makePlayer(string name);
 }
 
 }

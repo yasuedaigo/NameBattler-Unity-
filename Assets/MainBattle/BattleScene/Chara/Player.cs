@@ -14,11 +14,6 @@ namespace BattleScene.Chara
     
 public class Player 
 {
-
-    public enum JOBs {戦士,僧侶,魔法使い,忍者}
-
-    public enum Abnormalitys {Invalid,毒,麻痺}
-
     TextManager textmanager;
 
     public string PlayerName { get; set; }
@@ -48,17 +43,17 @@ public class Player
 
     public bool AttackFinished { get; set; }
 
-    public  Player(SQLPlayer sqlplayer){
-        PlayerName = sqlplayer.PlayerName;
-        JOB = (Player.JOBs)Enum.Parse(typeof(Player.JOBs), sqlplayer.JOB.ToString());
-        HP = sqlplayer.HP;
-        STR = sqlplayer.STR;
-        DEF = sqlplayer.DEF;
-        LUCK = sqlplayer.LUCK;
-        AGI = sqlplayer.AGI;
-        MP = sqlplayer.MP;
-        FirstHP = sqlplayer.HP;
-        FirstMP = sqlplayer.MP;
+    public  Player(PlayerDTO playerDTO){
+        PlayerName = playerDTO.PlayerName;
+        JOB = (JOBs)Enum.Parse(typeof(JOBs), playerDTO.JOB.ToString());
+        HP = playerDTO.HP;
+        STR = playerDTO.STR;
+        DEF = playerDTO.DEF;
+        LUCK = playerDTO.LUCK;
+        AGI = playerDTO.AGI;
+        MP = playerDTO.MP;
+        FirstHP = playerDTO.HP;
+        FirstMP = playerDTO.MP;
         AttackFinished = false;
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
     }
@@ -91,26 +86,25 @@ public class Player
     }
 
     public bool isParise(){
-        if(this.Abnormality != Abnormalitys.麻痺){
+        if(this.Abnormality != Abnormalitys.Parise){
             return false;
         }
         if(UnityEngine.Random.Range(0f,5f) == 0){
             return true;
-        }else{
-            return false;
         }
+        return false;
     }
 
     public void playerstatusText(GameObject statuspanel){
         Text nametext = statuspanel.GetComponentsInChildren<Text>().First();
         Text statustext = statuspanel.GetComponentsInChildren<Text>().Last();
-        nametext.text = $"{this.PlayerName}\r\n{this.JOB}";
+        nametext.text = $"{this.PlayerName}\r\n{this.JOB.GetStringValue()}";
         statustext.text = $"HP  {this.HP}/{this.FirstHP}\r\nMP  {this.MP}/{this.FirstMP}";
 
-        if(this.Abnormality == Abnormalitys.麻痺){
-            statustext.text = $"{statustext.text.ToString()}\r\n麻痺";
-        }else if(this.Abnormality == Abnormalitys.毒){
-            statustext.text = $"{statustext.text.ToString()}\r\n毒";
+        if(this.Abnormality == Abnormalitys.Parise){
+            statustext.text = $"{statustext.text.ToString()}\r\n{this.Abnormality.GetStringValue()}";
+        }else if(this.Abnormality == Abnormalitys.Poison){
+            statustext.text = $"{statustext.text.ToString()}\r\n{this.Abnormality.GetStringValue()}";
         }
         
         if(this.HP <= 0){
@@ -124,7 +118,7 @@ public class Player
             return;
         }
         
-        if(this.Abnormality == Abnormalitys.毒){
+        if(this.Abnormality == Abnormalitys.Poison){
             this.damage(20);
             textmanager.battleLog($"{this.PlayerName}は毒によるダメージを受けた");
         }            
@@ -141,9 +135,8 @@ public class Player
     public bool isLive(){
         if(this.HP <= 0){
             return false;
-        }else{
-            return true;
         }
+        return true;
     }
     
 }

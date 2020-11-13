@@ -16,7 +16,7 @@ public class TacticsManager : MonoBehaviour
     public Toggle attacktactics;
     public Toggle defensetactics;
     public Toggle balancetactics;
-    // Start is called before the first frame update
+   
 
     void Start(){
         choiceTactics = new AttackTactics();
@@ -28,9 +28,9 @@ public class TacticsManager : MonoBehaviour
         }
     }
 
-    public void DefenseTacticsToggle(){
+    public void DefenceTacticsToggle(){
         if(defensetactics.isOn){
-            choiceTactics = new DefenseTactics();
+            choiceTactics = new DefenceTactics();
         }
     }
 

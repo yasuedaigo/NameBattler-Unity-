@@ -38,8 +38,8 @@ public class BattleManager : MonoBehaviour
             statuspanellist.Add(childTransform.gameObject);
         }
         party = new Party();
-        addPlayertoParty(BattleStartSQLManager.myteamPlayerList);
-        addPlayertoParty(BattleStartSQLManager.enemyPlayerList);
+        addPlayertoParty(BattleStartRepositoryManager.myteamPlayerDTOList);
+        addPlayertoParty(BattleStartRepositoryManager.enemyPlayerDTOList);
         setTeam();
         party.makeSortlist();
         statusText();
@@ -53,9 +53,8 @@ public class BattleManager : MonoBehaviour
         party.attackReset();
 
         while((party.isTurnFinish() == false) && (party.gameJudge() == false)){
-            attacker = party.getAGIDescendinglist().Find(player => ((player.AttackFinished == false) && (player.isLive() == true)));
-            defenderint = tacticsmanager.choiceTactics.target(party,attacker);
-            defender = party.getPlayer(defenderint);
+            attacker = party.getAttacker();
+            defender = tacticsmanager.choiceTactics.target(party,attacker);
             attacker.Attack(defender,turnNumber);
             statusText();
         }
@@ -64,7 +63,6 @@ public class BattleManager : MonoBehaviour
         textmanager.battleLog("---------------------------------------");
         turnNumber++;
     }
-
 
     public void statusText(){
         for(int i=0;i<6;i++){
@@ -80,19 +78,12 @@ public class BattleManager : MonoBehaviour
         }
     }
     
-    public void addPlayertoParty(List<SQLPlayer> sqlPlayerList){
-        foreach (SQLPlayer sqlplayer in sqlPlayerList)
+    public void addPlayertoParty(List<PlayerDTO> playerDTOList){
+        foreach (PlayerDTO playerDTO in playerDTOList)
         {
             Player player = null;
-            if(sqlplayer.JOB == SQLPlayer.JOBs.戦士){
-                player = new Fighter(sqlplayer);
-            }else if(sqlplayer.JOB ==SQLPlayer.JOBs.魔法使い){
-                player = new Wizard(sqlplayer);
-            }else if(sqlplayer.JOB == SQLPlayer.JOBs.僧侶){
-                player = new Priest(sqlplayer);
-            }else if(sqlplayer.JOB == SQLPlayer.JOBs.忍者){
-                player = new Ninja(sqlplayer);
-            }
+            Type type = Type.GetType("BattleScene.Chara." + playerDTO.JOB.ToString());
+            player = (Player)Activator.CreateInstance(type,playerDTO);
             party.addPlayer(player);
         }
     }

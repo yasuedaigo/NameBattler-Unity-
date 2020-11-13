@@ -402,7 +402,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u3053\u306E\u30AD\u30E3\u30E9\u3092\u4F5C\u6210\u3059\u308B"
+  m_Text: "\u7D9A\u3051\u3066\u4F5C\u6210\u3059\u308B"
 --- !u!222 &422800619
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -423,6 +423,7 @@ GameObject:
   - component: {fileID: 558465367}
   - component: {fileID: 558465366}
   - component: {fileID: 558465365}
+  - component: {fileID: 558465368}
   m_Layer: 5
   m_Name: MakeButton
   m_TagString: Untagged
@@ -493,9 +494,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 419142025}
-        m_TargetAssemblyTypeName: MakeCharaResult.MakeCharaResultSQLController, Assembly-CSharp
-        m_MethodName: OnClickAddButton
+      - m_Target: {fileID: 558465368}
+        m_TargetAssemblyTypeName: MakeCharaResult.SceneManagerScript, Assembly-CSharp
+        m_MethodName: onClickBackMakeChara
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -543,6 +544,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 558465363}
   m_CullTransparentMesh: 0
+--- !u!114 &558465368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558465363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c161655a3dd17e94c8a5350e9966c972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &682581813
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,7 +707,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 843075361}
         m_TargetAssemblyTypeName: MakeCharaResult.SceneManagerScript, Assembly-CSharp
-        m_MethodName: onClickBackTitle
+        m_MethodName: onClickBackAllChara
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -824,7 +837,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30BF\u30A4\u30C8\u30EB\u306B\u623B\u308B"
+  m_Text: "\u4F5C\u6210\u3092\u7D42\u4E86\u3059\u308B"
 --- !u!222 &985913724
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1255,7 +1268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6528715456519670515, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: onClickBackButton
+      value: onClickBackMakeChara
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}

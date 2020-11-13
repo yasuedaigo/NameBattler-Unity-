@@ -69,7 +69,7 @@ public class Party
             }
         }
         if(count1 == 0 || count2 == 0){
-             return true;
+            return true;
         }
         return false;
     }
@@ -118,9 +118,45 @@ public class Party
             }
         }
         return this.gameFinish();
-
     }
-     
+
+    public Player getTargetinAttackTactics (Player attacker){
+        getHPDescendinglist();
+        Player targetplayer = HPdescendinglist.Find(n => ((n.Team != attacker.Team) && (n.isLive())));
+        return targetplayer;
+    }
+
+    public Player getTargetofHealinBalanceTactics(Player attacker){
+        Player targetplayer;
+        do{
+            targetplayer = playerlist[UnityEngine.Random.Range(0,playerlist.Count)];
+        }while(!targetplayer.isLive());
+        return targetplayer;
+    }
+
+    public Player getTargetofAttackinBalanceTactics(Player attacker){
+        Player targetplayer;
+        do{
+            targetplayer = playerlist[UnityEngine.Random.Range(0,playerlist.Count)];
+        }while((!targetplayer.isLive()) || (targetplayer.Team == attacker.Team));
+        return targetplayer;
+    }
+
+    public Player getTargetinDefenceTactics(Player attacker){
+        getHPAscendinglist();
+        Player targetplayer = HPascendinglist.Find(n => (n.Team != attacker.Team) && (n.isLive()));
+        if((attacker.GetType() == typeof(Priest)) && attacker.MP >= 20){
+            targetplayer = HPascendinglist.Find(n => ((n.Team == attacker.Team) && (n.isLive())));
+        }
+        return targetplayer;
+    }
+
+    public Player getAttacker(){
+        Player attacker = 
+           getAGIDescendinglist().Find(player => ((player.AttackFinished == false) && (player.isLive() == true)));
+        return attacker;
+    }
 }
 
+     
 }

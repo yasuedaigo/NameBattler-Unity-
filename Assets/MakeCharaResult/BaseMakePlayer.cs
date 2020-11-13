@@ -4,37 +4,16 @@ using UnityEngine;
 using System.Security.Cryptography;
 using System.Text;
 using System;
+using SQLManager;
 
-namespace SQLManager
+namespace MakeCharaResult
 {
 
-public class SQLPlayer
+public abstract class BaseMakePlayer : IFMakePlayer
 {
-    public enum Profiles {Name,JOB,HP,MP,STR,DEF,AGI,LUCK,CREATE_AT}
+    public abstract PlayerDTO makePlayer(string usename);
 
-    public enum JOBs {戦士,魔法使い,僧侶,忍者}
-
-    public string PlayerName { get; set; }
-
-    public JOBs JOB { get; set; }
-
-    public int JOBInt { get; set; }
-    
-    public int HP { get; set; }
-    
-    public int STR { get; set; }
-    
-    public int DEF { get; set; }
-    
-    public int LUCK { get; set; }
-
-    public int AGI { get; set; }
-
-    public int MP { get; set; }
-
-    public DateTime CreateDay { get; set; }
-
-    string GetHash(string name){
+    public string GetHash(string name){
         byte[] tmpSource;
         byte[] tmpHash;
         tmpSource = ASCIIEncoding.ASCII.GetBytes(name);
