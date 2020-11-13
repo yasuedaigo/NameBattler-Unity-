@@ -12,7 +12,7 @@ public class Ninja : Player
 {
     TextManager textmanager;
 
-    public Ninja(SQLPlayer usename) : base(usename){
+    public Ninja(PlayerDTO usename) : base(usename){
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
     }
     

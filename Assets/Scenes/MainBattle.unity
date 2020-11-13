@@ -1491,6 +1491,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 191460822}
     m_Modifications:
+    - target: {fileID: 6528715455345054300, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
+      propertyPath: m_Text
+      value: "\u6C7A\u5B9A"
+      objectReference: {fileID: 0}
     - target: {fileID: 6528715456519670513, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_Name
       value: BackButton

@@ -10,11 +10,8 @@ namespace BattleScene.Tactics
 public class AttackTactics : ITactics
 {
     //HPの多い敵を優先して攻撃
-    public int target(Party party,Player attacker){
-        List<Player> HPdescendinglist = party.getHPDescendinglist();
-        Player targetplayer = HPdescendinglist.Find(n => ((n.Team != attacker.Team) && (n.isLive())));
-        int result = party.playerlist.FindIndex(n => n.PlayerName == targetplayer.PlayerName);
-        return result;
+    public Player target(Party party,Player attacker){
+        return party.getTargetinAttackTactics(attacker);
     }
 }
 

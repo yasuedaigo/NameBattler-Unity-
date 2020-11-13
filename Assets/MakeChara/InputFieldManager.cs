@@ -10,24 +10,29 @@ public class InputFieldManager:MonoBehaviour
 {
     InputField inputField;
     public static string charaname;
-    public bool nameOk;
+    public bool isNameOk;
+    public Button addButton;
+    public Text messagetext;
 
     
     void Start()
     {
         inputField = GameObject.Find("InputField").GetComponent<InputField>();
-        nameOk = false;
-        
     }
 
     public void NameEnter()
     {
-        nameOk = false;
+        isNameOk = false;
         charaname = inputField.text;
-        if(charaname == null || charaname == "" || (charaname.Length > 20)){
-            nameOk = false;
+        if(charaname == null || charaname == ""){
+            isNameOk = false;
+            addButton.interactable = false;
+        }else if(charaname.Length > 20){
+            messagetext.text = "プレイヤー名は20字以内にしてください";
+            addButton.interactable = false; 
         }else{
-            nameOk = true;
+            isNameOk = true;
+            addButton.interactable = true;
         }
     }
 
@@ -35,14 +40,6 @@ public class InputFieldManager:MonoBehaviour
         return charaname;
     }
 
-    public bool NameCheck(){
-        if(nameOk == true){
-           return true;
-        }else{
-            return false;
-        }
-    }
-    
 }
 
 }

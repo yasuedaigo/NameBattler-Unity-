@@ -24,14 +24,7 @@ public class SceneManagerScript : MonoBehaviour
 }
 
     public void makeChara(){
-        if(InputFieldManager.charaname.Length > 20){
-            messagetext.text = "プレイヤー名は20字以内にしてください";
-            return;
-        }
-
-        if(inputfieldmanager.NameCheck()){
-            SceneManager.LoadScene("MakeCharaResult");
-        }
+        SceneManager.LoadScene("MakeCharaResult");
     }
 
 }

@@ -6,22 +6,28 @@ using System;
 using AllChara;
 using SQLManager;
 
+
 namespace CharaStatus
 {
 
 public class CharaStatusText : MonoBehaviour
 {
-    SQLPlayer sqlPlayer;
+    CharaStatusRepositoryController charaStatusRepositoryController;
+    PlayerDTO textchara;
     
     void Start()
     {
-
+        charaStatusRepositoryController = GameObject.Find("CharaStatusText").GetComponent<CharaStatusRepositoryController>();
+        if(AllChara.ContentManager.charaNum <= charaStatusRepositoryController.getmyTeamRowint()-1){
+            textchara = charaStatusRepositoryController.getmyTeamPlayerDTO(AllChara.ContentManager.charaNum);
+            charastatustext(textchara);
+        }
     }
 
-    public void charastatustext(SQLPlayer sqlPlayer){
+    public void charastatustext(PlayerDTO playerDTO){
         string statustext = 
-            $"名前： {sqlPlayer.PlayerName}\r\n職業： {sqlPlayer.JOB.ToString()} \r\nHP  ： {sqlPlayer.HP}\r\nSTR ： {sqlPlayer.STR}"+
-            $"\r\nDEF ： {sqlPlayer.DEF}\r\nLUCK： {sqlPlayer.LUCK}\r\nAGI ： {sqlPlayer.AGI}\r\nMP  ： {sqlPlayer.MP}\r\n作成日時{sqlPlayer.CreateDay.ToString()}";
+            $"名前： {playerDTO.PlayerName}\r\n職業： {playerDTO.JOB.GetStringValue()} \r\nHP  ： {playerDTO.HP}\r\nSTR ： {playerDTO.STR}"+
+            $"\r\nDEF ： {playerDTO.DEF}\r\nLUCK： {playerDTO.LUCK}\r\nAGI ： {playerDTO.AGI}\r\nMP  ： {playerDTO.MP}\r\n作成日時{playerDTO.CreateDay.ToString()}";
         this.GetComponent<Text>().text = statustext;
     }
 

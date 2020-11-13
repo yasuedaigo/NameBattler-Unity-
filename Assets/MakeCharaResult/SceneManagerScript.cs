@@ -8,12 +8,12 @@ namespace MakeCharaResult
     
 public class SceneManagerScript : MonoBehaviour
 {
-    public void onClickBackTitle()
+    public void onClickBackAllChara()
     {
-        SceneManager.LoadScene("Title");
+        SceneManager.LoadScene("AllChara");
     }
 
-    public void onClickBackButton(){
+    public void onClickBackMakeChara(){
         SceneManager.LoadScene("MakeChara");
     }
 

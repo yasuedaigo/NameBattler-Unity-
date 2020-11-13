@@ -10,7 +10,7 @@ namespace BattleScene.Tactics
 
 public interface ITactics
 {
-    int target(Party party,Player player);
+    Player target(Party party,Player player);
 }
 
 }

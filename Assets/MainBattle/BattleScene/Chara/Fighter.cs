@@ -13,7 +13,7 @@ public class Fighter : Player
 {
     TextManager textmanager;
 
-    public Fighter(SQLPlayer sqlplayer) : base(sqlplayer){
+    public Fighter(PlayerDTO sqlplayer) : base(sqlplayer){
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
     }
     

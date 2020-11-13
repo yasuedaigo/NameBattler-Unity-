@@ -4,17 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using BattleScene;
 using SQLManager;
+using BattleScene.Magic;
 
 namespace BattleScene.Chara
 {
-    public enum WizardMagic {Fire,Thunder,Attack}
-
 
 public class Wizard : Player
 {
     TextManager textmanager;
 
-    public Wizard(SQLPlayer usename) : base(usename){
+    public Wizard(PlayerDTO playerDTO) : base(playerDTO){
         textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
     }
     
@@ -29,47 +28,37 @@ public class Wizard : Player
     }
 
     public void wizardAttack(Player defender,int turnNumber){
-        WizardMagic choiceMagic = this.choiceMagic();
+        IMagic iMagic = this.choiceMagic();
+        if(iMagic == null){
+            base.Attack(defender,turnNumber);
+        }else{
+            iMagic.Use(this,defender);
+        }
+        /*WizardMagic choiceMagic = this.choiceMagic();
         switch(choiceMagic)
         {
-            case WizardMagic.Fire    : this.fire(defender);
+            case Magics.Fire    : this.fire(defender);
                                        break;
-            case WizardMagic.Thunder : this.thunder(defender);
+            case Magics.Thunder : this.thunder(defender);
                                        break;
-            case WizardMagic.Attack  : base.Attack(defender,turnNumber);
+            case Magics.Invalid  : base.Attack(defender,turnNumber);
                                        break;
-        }
+        }*/
     }
 
-    public WizardMagic choiceMagic(){
+    public IMagic choiceMagic(){
         if(base.MP >= 20){
             if(UnityEngine.Random.Range(0,2) == 1){
-                return WizardMagic.Fire;
+                return new Fire();
             }else{
-                return WizardMagic.Thunder;
+                return new Thunder();
             }
         }else if (base.MP < 20 && base.MP >= 10){
-            return WizardMagic.Fire;
+            return new Fire();
         }else{
-            return WizardMagic.Attack;
+            return null;
         }
     }
-
-    public void thunder(Player defender){
-        int damage = UnityEngine.Random.Range(10,31);
-        textmanager.battleLog($"{base.PlayerName}のサンダー！   {defender.PlayerName}に{damage}のダメージ");
-        base.MP = base.MP-20;          //mp消費-20
-        defender.damage(damage);
-        base.AttackFinished = true;
-	}
-
-    public void fire(Player defender){
-        int damage = UnityEngine.Random.Range(10,31);
-        textmanager.battleLog($"{base.PlayerName}のファイア！   {defender.PlayerName}に{damage}のダメージ");
-        base.MP = base.MP-10;          //mp消費-20
-        defender.damage(damage);
-        base.AttackFinished = true;
-	}
 }
 
 }

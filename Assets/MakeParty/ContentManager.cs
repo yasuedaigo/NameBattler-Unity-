@@ -13,18 +13,27 @@ public class ContentManager : MonoBehaviour
 {
     public static List<int> playerintlist = new List<int>();
     public List<Toggle> togglelist = new List<Toggle>();
-    public Text messagetext;
     public List<GameObject> objectlist = new List<GameObject>();
     List<Text> nametextlist = new List<Text>();
     List<Text> statustextlist = new List<Text>();
     List<Text> jobtextlist = new List<Text>();
-    MakePartySQLController makePartySQLController;
-    SQLController sqlController;
+    MakePartyRepositoryController makePartyRepositoryController;
+    List<PlayerDTO> playerDTOList;
+    public GameObject contentobject;
+    public Button startButton;
+    public Text startButtonText;
     
     void Start()
     {
-        sqlController = new SQLController();
-        makePartySQLController = GameObject.Find("Content").GetComponent<MakePartySQLController>();
+        startButton.interactable = false;
+        makePartyRepositoryController = GameObject.Find("Content").GetComponent<MakePartyRepositoryController>();
+
+        for(int i=0 ;i<makePartyRepositoryController.getmyTeamRowint(); i++){
+            GameObject Obj = (GameObject)Instantiate (contentobject, this.transform.position, Quaternion.identity);
+		    Obj.transform.parent = this.transform;
+            Obj.name = i.ToString();
+        }
+
         for(int i=0;i < this.transform.childCount; i++){
             objectlist.Add(this.transform.GetChild(i).gameObject);
             nametextlist.Add(objectlist[i].GetComponentsInChildren<Text>().First());
@@ -36,36 +45,48 @@ public class ContentManager : MonoBehaviour
         {
             togglelist.Add(toggleobject.GetComponent<Toggle>());
         }
+
+        playerDTOList = makePartyRepositoryController.getmyTeamAllCharaList();
+        contentText();
     }
 
-    public void contentText(List<SQLPlayer> sqlPlayerList){
-        for(int i=0; i < sqlPlayerList.Count; i++){
-            SQLPlayer sqlplayer = new SQLPlayer();
-            sqlplayer = sqlPlayerList[i];
-            nametextlist[i].text = sqlplayer.PlayerName;
+    public void contentText(){
+        for(int i=0; i < playerDTOList.Count; i++){
+            PlayerDTO playerDTO = new PlayerDTO();
+            playerDTO = playerDTOList[i];
+            nametextlist[i].text = playerDTO.PlayerName;
             statustextlist[i].text = 
-             $"{sqlplayer.JOB.ToString()} HP:{sqlplayer.HP} STR:{sqlplayer.STR} DEF:{sqlplayer.DEF}"+
-             $"AGI:{sqlplayer.AGI} LUCK:{sqlplayer.LUCK} MP:{sqlplayer.MP}";
+             $"{playerDTO.JOB.GetStringValue()} HP:{playerDTO.HP} STR:{playerDTO.STR} DEF:{playerDTO.DEF}"+
+             $"AGI:{playerDTO.AGI} LUCK:{playerDTO.LUCK} MP:{playerDTO.MP}";
         }
     }
 
     public void pushBattleStart(){
         playerintlist.Clear();
-        int SQLCharaNum = sqlController.getRowint(SQLController.TableNames.CHARACTER);
-
         foreach (var playertoggle in togglelist)
         {
-            if(playertoggle.isOn && int.Parse(playertoggle.name) < SQLCharaNum){
+            if(playertoggle.isOn){
                 playerintlist.Add(int.Parse(playertoggle.name));
             }
         }
-        if(playerintlist.Count != 3){
-            messagetext.text = "プレイヤーが"+playerintlist.Count+"人選ばれています。パーティ人数は３人です";
-        }else{
-            SceneManager.LoadScene("BattleStart");
-        }
+        SceneManager.LoadScene("BattleStart");
     }
 
+    public void makeButtonText(){
+        int number = 0;
+        foreach (var playertoggle in togglelist)
+        {
+            if(playertoggle.isOn){
+                number++;
+            }
+        }
+        startButtonText.text = $"このパーティーで開始({number}/3";
+        if(number == 3){
+            startButton.interactable = true;
+        }else{
+            startButton.interactable = false;
+        }
+    }
 }
 
 }
