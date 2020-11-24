@@ -2,7 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Magics : MonoBehaviour
+namespace BattleScene.Magic
 {
-    public enum WizardMagic {Invalid,Fire,Thunder,Heal,Poison,Parise}
+    public enum Magics : int
+    {
+        Fire = 20,
+        Thunder = 25,
+        Heal = 25,
+        Parise = 15,
+        Poison = 15
+    }
 }

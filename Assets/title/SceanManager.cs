@@ -5,22 +5,21 @@ using UnityEngine.SceneManagement;
 
 namespace Title
 {
+    public class SceanManager : MonoBehaviour
+    {
+        public void TitleAllChara()
+        {
+            SceneManager.LoadScene("AllChara");
+        }
 
-public class SceanManager : MonoBehaviour
-{
-    public void TitleAllChara()
-{
-    SceneManager.LoadScene("AllChara");
-}
+        public void TitleMakeParty()
+        {
+            SceneManager.LoadScene("MakeParty");
+        }
 
-public void TitleMakeParty()
-{
-    SceneManager.LoadScene("MakeParty");
-}
-
-public void test(){
-    SceneManager.LoadScene("AllChara");
-}
-}
-
+        public void test()
+        {
+            SceneManager.LoadScene("AllChara");
+        }
+    }
 }

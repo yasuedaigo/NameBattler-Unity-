@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace BattleStart
+namespace Makeparty
 {
     public class SceneManagerScript : MonoBehaviour
     {
-        public void clickBackButton()
+        public void onLoadTitle()
         {
-            SceneManager.LoadScene("MakeParty");
+            SceneManager.LoadScene("Title");
         }
     }
 }

@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using SQLManager;
+using UnityEngine;
 
 namespace MakeCharaResult
 {
-    
-public interface IFMakePlayer
-{
-    PlayerDTO makePlayer(string name);
-}
-
+    public interface IPlayerMaker
+    {
+        PlayerDTO makePlayer(string name);
+    }
 }

@@ -1777,8 +1777,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2011221734}
-        m_TargetAssemblyTypeName: InputFieldManager.InputFieldManager, Assembly-CSharp
-        m_MethodName: NameEnter
+        m_TargetAssemblyTypeName: MakeChara.InputFieldManager, Assembly-CSharp
+        m_MethodName: onNameEnter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1848,7 +1848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198bedf40261cdf4bbae4da1f5ccd455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNameOk: 0
+  inputField: {fileID: 2011221729}
   addButton: {fileID: 1829132814}
   messagetext: {fileID: 710096687}
 --- !u!1 &2066686494

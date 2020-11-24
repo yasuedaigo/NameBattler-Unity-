@@ -5,18 +5,16 @@ using UnityEngine.SceneManagement;
 
 namespace MakeCharaResult
 {
-    
-public class SceneManagerScript : MonoBehaviour
-{
-    public void onClickBackAllChara()
+    public class SceneManagerScript : MonoBehaviour
     {
-        SceneManager.LoadScene("AllChara");
+        public void onLoadAllChara()
+        {
+            SceneManager.LoadScene("AllChara");
+        }
+
+        public void onLoadMakeChara()
+        {
+            SceneManager.LoadScene("MakeChara");
+        }
     }
-
-    public void onClickBackMakeChara(){
-        SceneManager.LoadScene("MakeChara");
-    }
-
-}
-
 }

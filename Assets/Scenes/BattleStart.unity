@@ -476,11 +476,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a79694281f53ba48b2a95ac51ed69bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleStartRepoCtrl: {fileID: 0}
   enemypanel: {fileID: 1597204533}
   myteampanel: {fileID: 668834113}
-  myteampanellist: []
-  enemypanellist: []
-  battleStartRepositoryManager: {fileID: 0}
 --- !u!114 &259131386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,7 +575,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 259131385}
         m_TargetAssemblyTypeName: BattleStart.ContentManager, Assembly-CSharp
-        m_MethodName: clickBattleStart
+        m_MethodName: pushStartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1879,7 +1877,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 259131385}
         m_TargetAssemblyTypeName: BattleStart.ContentManager, Assembly-CSharp
-        m_MethodName: clickRetake
+        m_MethodName: pushRetakeButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

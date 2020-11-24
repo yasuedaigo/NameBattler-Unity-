@@ -5,13 +5,11 @@ using UnityEngine.SceneManagement;
 
 namespace CharaStatus
 {
-    
-
-public class SceneManagerScript : MonoBehaviour
-{
-    public void backSceneAllChara(){
-        SceneManager.LoadScene("AllChara");
+    public class SceneManagerScript : MonoBehaviour
+    {
+        public void onLoadAllChara()
+        {
+            SceneManager.LoadScene("AllChara");
+        }
     }
-}
-
 }
