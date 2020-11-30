@@ -1,60 +1,67 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using MakeChara;
-using AllChara;
-using SQLManager;
 using System.Linq;
+using AllChara;
+using MakeChara;
+using SQLManager;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-namespace MakeCharaResult{
-  
-
-public class MakePlayerManager : MonoBehaviour
+namespace MakeCharaResult
 {
-    string usename;
-    PlayerDTO playerDTO;
-    MakeCharaResultRepositoryController makeCharaReusultRepositoryController;
-    
-    void Start()
+    public class MakePlayerManager : MonoBehaviour
     {
-        makeCharaReusultRepositoryController = this.GetComponent<MakeCharaResultRepositoryController>();
-        usename = InputFieldManager.GetName();
-        playerDTO = ToggleManager.ifMakePlayer.makePlayer(usename);
+        string usename;
 
-        bool numberOK = makeCharaReusultRepositoryController.canAddCharaNumber();
-        bool nameOk = makeCharaReusultRepositoryController.canAddCharaName(usename);
-        if(!numberOK){
-            cannotAddNumbertext();
-        }else if(!nameOk){
-            cannotAddNametext();
-        }else{
-            makeCharaReusultRepositoryController.addmyTeamData(playerDTO);
+        PlayerDTO playerDTO;
+
+        MakeCharaResult_Repo_Ctrl makeCharaResult_Repo_Ctrl;
+
+        void Start()
+        {
+            makeCharaResult_Repo_Ctrl = this.GetComponent<MakeCharaResult_Repo_Ctrl>();
+            usename = InputFieldManager.GetName();
+            playerDTO = ToggleManager.PlayerMaker.makePlayer(usename);
+
+            bool numberOK = makeCharaResult_Repo_Ctrl.canAddCharaNumber();
+            bool nameOk = makeCharaResult_Repo_Ctrl.canAddCharaName(usename);
+            if (!numberOK)
+            {
+                cannotAddNumbertext();
+            }
+            else if (!nameOk)
+            {
+                cannotAddNametext();
+            }
+            else
+            {
+                makeCharaResult_Repo_Ctrl.addmyTeamData (playerDTO);
+            }
+
+            var message = this.GetComponent<Text>();
+            message.text =
+                $"名前： {playerDTO.PlayerName}\r\n職業： {playerDTO.JOB.GetStringValue()} \r\nHP  ： {playerDTO.HP}\r\nSTR ： {playerDTO.STR}" +
+                $"\r\nDEF ： {playerDTO.DEF}\r\nLUCK： {playerDTO.LUCK}\r\nAGI ： {playerDTO.AGI}" +
+                $"\r\nMP  ： {playerDTO.MP}\r\n作成日時  :  {playerDTO.CreateDay}";
         }
 
+        public PlayerDTO getMakePlayer()
+        {
+            return playerDTO;
+        }
 
-        var message = this.GetComponent<Text>();
-        message.text
-           = $"名前： {playerDTO.PlayerName}\r\n職業： {playerDTO.JOB.GetStringValue()} \r\nHP  ： {playerDTO.HP}\r\nSTR ： {playerDTO.STR}"+
-             $"\r\nDEF ： {playerDTO.DEF}\r\nLUCK： {playerDTO.LUCK}\r\nAGI ： {playerDTO.AGI}"+
-             $"\r\nMP  ： {playerDTO.MP}\r\n作成日時  :  {playerDTO.CreateDay}";
-    }
+        public void cannotAddNametext()
+        {
+            GameObject.Find("message").GetComponent<Text>().text =
+                "！同名キャラクターは作成できません";
+        }
 
-    public PlayerDTO getMakePlayer(){
-        return playerDTO;
+        public void cannotAddNumbertext()
+        {
+            GameObject.Find("message").GetComponent<Text>().text =
+                "！作成できるキャラクターは20人までです";
+        }
     }
-    
-    public void cannotAddNametext(){
-        GameObject.Find("message").GetComponent<Text>().text
-              = "！同名キャラクターは作成できません";
-    }
-
-    public void cannotAddNumbertext(){
-        GameObject.Find("message").GetComponent<Text>().text
-              = "！作成できるキャラクターは20人までです";
-    }
-}
-
 }

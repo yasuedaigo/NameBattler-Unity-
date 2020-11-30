@@ -1,16 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using BattleScene.Chara;
 using BattleScene;
-
+using BattleScene.Chara;
+using UnityEngine;
 
 namespace BattleScene.Tactics
 {
-
-public interface ITactics
-{
-    Player target(Party party,Player player);
-}
-
+    public interface ITactics
+    {
+        Player target(Party party, Player player);
+    }
 }

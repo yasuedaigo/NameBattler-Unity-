@@ -1,33 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using BattleScene;
 using SQLManager;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace BattleScene.Chara
 {
-    
+    public class Fighter : Player
+    {
+        TextManager textmanager;
 
-public class Fighter : Player
-{
-    TextManager textmanager;
-
-    public Fighter(PlayerDTO sqlplayer) : base(sqlplayer){
-        textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
-    }
-    
-
-    public override void Attack(Player defender,int turnNumber){
-        int damage = calcDamage(defender);
-        if(base.isParise()){
-            textmanager.battleLog($"{base.PlayerName}は麻痺した");
-        }else{
-            textmanager.battleLog($"{this.PlayerName}の攻撃 ➡ {defender.PlayerName}に{damage}のダメージ");
-            defender.damage(damage);
+        public Fighter(PlayerDTO sqlplayer) :
+            base(sqlplayer)
+        {
+            textmanager =
+                GameObject.Find("battletext").GetComponent<TextManager>();
         }
-        base.AttackFinished = true;
-    }
-}
 
+        public override void Attack(Player defender, int turnNumber)
+        {
+            int damage = calcDamage(defender);
+            if (base.PariseCheck())
+            {
+                textmanager.battleLog($"{base.PlayerName}は麻痺した");
+            }
+            else
+            {
+                textmanager
+                    .battleLog($"{this.PlayerName}の攻撃 ➡ {defender.PlayerName}に{damage}のダメージ");
+                defender.damage (damage);
+            }
+            base.AttackFinished = true;
+        }
+    }
 }

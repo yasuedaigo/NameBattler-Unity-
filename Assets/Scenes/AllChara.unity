@@ -371,7 +371,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 539483062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 082a3e8d51993b74e89665040f635f0d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c3ee6e4305db4c45861219d0ac7963c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &641605181
@@ -1100,8 +1100,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2038572167}
-        m_TargetAssemblyTypeName: AllCharaMakeChara, Assembly-CSharp
-        m_MethodName: OnClickStartButton
+        m_TargetAssemblyTypeName: AllChara.SceneManagerScript, Assembly-CSharp
+        m_MethodName: onLoadMakeChara
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1158,7 +1158,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2038572162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a23a617f662765340b0953e84e1a507b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c3ee6e4305db4c45861219d0ac7963c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2069936706
@@ -1262,11 +1262,11 @@ PrefabInstance:
       objectReference: {fileID: 539483064}
     - target: {fileID: 6528715456519670515, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: clickBackButton
+      value: onLoadTitle
       objectReference: {fileID: 0}
     - target: {fileID: 6528715456519670515, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Makeparty.SceanManager, Assembly-CSharp
+      value: AllChara.SceneManagerScript, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}

@@ -11,5 +11,5 @@ public enum JOBs
     [StringValue("魔法使い")]
     Wizard,
     [StringValue("忍者")]
-    Ninja,
+    Ninja
 }

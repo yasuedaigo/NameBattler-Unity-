@@ -1,22 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using BattleScene;
 using BattleScene.Chara;
+using UnityEngine;
 
-namespace BattleScene.Magic{
-
-public class Fire : IMagic
+namespace BattleScene.Magic
 {
-    TextManager textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
+    public class Fire : BaseMagic
+    {
+        Magics magic = Magics.Fire;
 
-    public void Use(Player attacker,Player defender){
-        int damage = UnityEngine.Random.Range(10,31);
-        textmanager.battleLog($"{attacker.PlayerName}のファイア！   {defender.PlayerName}に{damage}のダメージ");
-        attacker.MP = attacker.MP-10;          //mp消費-20
-        defender.damage(damage);
-        attacker.AttackFinished = true;
-	}
-}
+        int maxDamage;
 
+        int minDamage;
+
+        public Fire()
+        {
+            maxDamage = 30;
+            minDamage = 10;
+            base.DownMP = (int) magic;
+        }
+
+        public override void Use(Player attacker, Player defender)
+        {
+            int calcedDamage =
+                UnityEngine.Random.Range(this.minDamage, this.maxDamage + 1);
+            textmanager
+                .battleLog($"{attacker.PlayerName}のファイア！   {defender.PlayerName}に{calcedDamage}のダメージ");
+            attacker.MP = attacker.MP - base.DownMP; //mp消費-20
+            defender.damage (calcedDamage);
+            attacker.AttackFinished = true;
+        }
+    }
 }

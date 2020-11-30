@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MakeParty{
-
-public class ToggleScript : MonoBehaviour
+namespace MakeParty
 {
-    ContentManager contentmanager;
-
-    void Start()
+    public class ToggleScript : MonoBehaviour
     {
-        contentmanager = GameObject.Find("Content").GetComponent<ContentManager>();
-    }
+        ContentManager contentmanager;
 
-    public void makeButtonText(){
-        contentmanager.makeButtonText();
-    }
-}
+        void Start()
+        {
+            contentmanager =
+                GameObject.Find("Content").GetComponent<ContentManager>();
+        }
 
+        public void makeButtonText()
+        {
+            contentmanager.makeButtonText();
+        }
+    }
 }

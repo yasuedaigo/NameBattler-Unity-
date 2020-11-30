@@ -91,9 +91,9 @@ GameObject:
   - component: {fileID: 6793441849853896351}
   - component: {fileID: 6793441849853896344}
   - component: {fileID: 6793441849853896345}
-  - component: {fileID: 6793441849853896350}
+  - component: {fileID: -7646512291690769091}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AllCharaButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,9 +201,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6793441849853896350}
-        m_TargetAssemblyTypeName: AllCharaCharaStatus, Assembly-CSharp
-        m_MethodName: OnClickButton
+      - m_Target: {fileID: -7646512291690769091}
+        m_TargetAssemblyTypeName: AllChara.SceneManagerScript, Assembly-CSharp
+        m_MethodName: OnLoadCharaStatus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -213,7 +213,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6793441849853896350
+--- !u!114 &-7646512291690769091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6793441849853896347}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c34ca8c767d31046b417907f521c411, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c3ee6e4305db4c45861219d0ac7963c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6793441850080971114

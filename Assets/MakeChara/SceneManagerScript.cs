@@ -1,32 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-namespace MakeChara{
-
-
-public class SceneManagerScript : MonoBehaviour
+namespace MakeChara
 {
-    public InputFieldManager inputfieldmanager;
-    public Text messagetext;
-    
-    void Start()
+    public class SceneManagerScript : MonoBehaviour
     {
-        inputfieldmanager = GameObject.Find("InputField").GetComponent<InputFieldManager>();
+        public InputFieldManager inputfieldmanager;
+
+        public Text messagetext;
+
+        void Start()
+        {
+            inputfieldmanager =
+                GameObject.Find("InputField").GetComponent<InputFieldManager>();
+        }
+
+        public void loadAllChara()
+        {
+            SceneManager.LoadScene("AllChara");
+        }
+
+        public void makeChara()
+        {
+            SceneManager.LoadScene("MakeCharaResult");
+        }
     }
-
-    
-    public void loadAllChara()
-{
-    SceneManager.LoadScene("AllChara");
-}
-
-    public void makeChara(){
-        SceneManager.LoadScene("MakeCharaResult");
-    }
-
-}
-
 }

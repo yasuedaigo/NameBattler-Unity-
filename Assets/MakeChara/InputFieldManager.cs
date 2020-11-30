@@ -5,41 +5,48 @@ using UnityEngine.UI;
 
 namespace MakeChara
 {
-
-public class InputFieldManager:MonoBehaviour
-{
-    InputField inputField;
-    public static string charaname;
-    public bool isNameOk;
-    public Button addButton;
-    public Text messagetext;
-
-    
-    void Start()
+    public class InputFieldManager : MonoBehaviour
     {
-        inputField = GameObject.Find("InputField").GetComponent<InputField>();
-    }
+        public static string charaname;
 
-    public void NameEnter()
-    {
-        isNameOk = false;
-        charaname = inputField.text;
-        if(charaname == null || charaname == ""){
+        bool isNameOk;
+
+        public InputField inputField;
+
+        public Button addButton;
+
+        public Text messagetext;
+
+        void Start()
+        {
+            inputField =
+                GameObject.Find("InputField").GetComponent<InputField>();
+        }
+
+        public void onNameEnter()
+        {
             isNameOk = false;
-            addButton.interactable = false;
-        }else if(charaname.Length > 20){
-            messagetext.text = "プレイヤー名は20字以内にしてください";
-            addButton.interactable = false; 
-        }else{
-            isNameOk = true;
-            addButton.interactable = true;
+            charaname = inputField.text;
+            if (charaname == null || charaname == "")
+            {
+                isNameOk = false;
+                addButton.interactable = false;
+            }
+            else if (charaname.Length > 20)
+            {
+                messagetext.text = "プレイヤー名は20字以内にしてください";
+                addButton.interactable = false;
+            }
+            else
+            {
+                isNameOk = true;
+                addButton.interactable = true;
+            }
+        }
+
+        public static string GetName()
+        {
+            return charaname;
         }
     }
-
-    public static string GetName(){
-        return charaname;
-    }
-
-}
-
 }

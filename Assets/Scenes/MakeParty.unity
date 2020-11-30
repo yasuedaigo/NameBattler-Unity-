@@ -758,9 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf09d5e4c4ef93a41abf2d22c673848e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  togglelist: []
-  objectlist: []
-  contentobject: {fileID: 4638496980673795709, guid: f4a810ee26139f74baad00c7b8dcfc79, type: 3}
+  playertoggle: {fileID: 4638496980673795709, guid: f4a810ee26139f74baad00c7b8dcfc79, type: 3}
   startButton: {fileID: 78222381}
   startButtonText: {fileID: 1663223766}
 --- !u!114 &864663605
@@ -1329,7 +1327,11 @@ PrefabInstance:
       objectReference: {fileID: 555015175}
     - target: {fileID: 6528715456519670515, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: clickBackButton
+      value: onLoadTitle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528715456519670515, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Makeparty.SceneManagerScript, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}

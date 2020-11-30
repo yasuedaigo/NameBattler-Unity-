@@ -1,54 +1,78 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BattleScene;
+using BattleScene.Magic;
+using SQLManager;
 using UnityEngine;
 using UnityEngine.UI;
-using BattleScene;
-using SQLManager;
-using BattleScene.Magic;
 
 namespace BattleScene.Chara
 {
-    
-public enum PriestMagic {Heal,Parise,Poison,Attack}
+    public class Priest : Player
+    {
+        TextManager textmanager;
 
-public class Priest : Player
-{
-    TextManager textmanager;
-
-    public Priest(PlayerDTO playerDTO) : base(playerDTO){
-        textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
-    }
-    
-
-    public override void Attack(Player defender,int turnNumber){
-        if(base.isParise()){
-            textmanager.battleLog($"{base.PlayerName}は麻痺した");
-        }else{
-            this.priestAttack(defender,turnNumber);
+        public Priest(PlayerDTO playerDTO) :
+            base(playerDTO)
+        {
+            textmanager =
+                GameObject.Find("battletext").GetComponent<TextManager>();
         }
-        base.AttackFinished = true;
-    }
 
-    public void priestAttack(Player defender,int turnNumber){
-        if(turnNumber == 1){
-            this.firstTurnAttack(defender);
-        }else if(defender.Team == base.Team){
-            IMagic iMagic = new Heal();
-            iMagic.Use(this,defender);
-        }else{
-            base.Attack(defender,turnNumber);
+        public override void Attack(Player defender, int turnNumber)
+        {
+            if (base.PariseCheck())
+            {
+                textmanager.battleLog($"{base.PlayerName}は麻痺した");
+            }
+            else
+            {
+                this.priestAttack(defender, turnNumber);
+            }
+            base.AttackFinished = true;
+        }
+
+        public void priestAttack(Player defender, int turnNumber)
+        {
+            if (turnNumber == 1)
+            {
+                this.firstTurnAttack(defender, turnNumber);
+            }
+            else if (defender.Team == base.Team)
+            {
+                IMagic magic = new Heal();
+                this.useMagic(magic, defender, turnNumber);
+            }
+            else
+            {
+                base.Attack(defender, turnNumber);
+            }
+        }
+
+        public void firstTurnAttack(Player defender, int turnNumber)
+        {
+            IMagic magic;
+            if (UnityEngine.Random.Range(0, 2) == 1)
+            {
+                magic = new Parise();
+            }
+            else
+            {
+                magic = new Poison();
+            }
+            this.useMagic(magic, defender, turnNumber);
+        }
+
+        public void useMagic(IMagic magic, Player defender, int turnNumber)
+        {
+            if (magic.canUse(this))
+            {
+                magic.Use(this, defender);
+            }
+            else
+            {
+                this.Attack(defender, turnNumber);
+            }
         }
     }
-
-    public void firstTurnAttack(Player defender){
-        IMagic iMagic;
-        if(UnityEngine.Random.Range(0,2) == 1){
-                iMagic = new Parise();
-            }else{
-                iMagic = new Poison();
-        }
-        iMagic.Use(this,defender);
-    }
-}
-
 }

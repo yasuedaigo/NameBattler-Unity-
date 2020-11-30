@@ -1,81 +1,93 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BattleScene;
+using BattleScene.Chara;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using BattleScene.Chara;
-using BattleScene;
 
 namespace BattleScene.Tactics
 {
+    public class BattleSceneManager : MonoBehaviour
+    {
+        public GameObject parentobject;
 
-public class BattleSceneManager : MonoBehaviour
-{
-   public GameObject parentobject;
-   public GameObject battleobject;
-   public GameObject tacticsobject;
-   public GameObject nextturnbutton;
-   public GameObject logpanel;
-   public GameObject wintext;
-   public GameObject losetext;
-   public GameObject tacticsbutton;
-   public GameObject resultobject;
-   public GameObject nextbuttlebutton;
-   public GameObject rechallengebutton;
-   public GameObject scenefinishbutton;
+        public GameObject battleobject;
 
-   public ITactics choicetactics;
+        public GameObject tacticsobject;
 
-   void Start(){
-      
-   }
+        public GameObject nextturnbutton;
 
-   public void MainBattleTactics()
-{
-   battleobject.SetActive(false);
-   tacticsobject.SetActive(true);
-}
-    
-   public void TacticsMainBattle()
-{
-   battleobject.SetActive(true);
-   tacticsobject.SetActive(false);
-}
+        public GameObject logpanel;
 
-   public void playerWin()
-{
-   wintext.SetActive(true);
-   logpanel.SetActive(false);
-   nextturnbutton.SetActive(false);
-   tacticsbutton.SetActive(false);
-   resultobject.SetActive(true);
+        public GameObject wintext;
 
-}
+        public GameObject losetext;
 
-   public void playerLose()
-{
-   losetext.SetActive(true);
-   logpanel.SetActive(false);
-   nextturnbutton.SetActive(false);
-   tacticsbutton.SetActive(false);
-   resultobject.SetActive(true);
-}
+        public GameObject tacticsbutton;
 
-   public void pushrechallenge(){
-      SceneManager.LoadScene (SceneManager.GetActiveScene().name);
-   }
+        public GameObject resultobject;
 
-   public void pushfinish(){
-      SceneManager.LoadScene ("Title");
-   }
+        public GameObject nextbuttlebutton;
 
-   public void pushnextbattle(){
-      SceneManager.LoadScene ("MakeParty");
-   }
-   
-   public void sceneBack(){
-      SceneManager.LoadScene("BattleStart");
-   }
-}
+        public GameObject rechallengebutton;
 
+        public GameObject scenefinishbutton;
+
+        public ITactics choicetactics;
+
+        void Start()
+        {
+        }
+
+        public void MainBattleTactics()
+        {
+            battleobject.SetActive(false);
+            tacticsobject.SetActive(true);
+        }
+
+        public void TacticsMainBattle()
+        {
+            battleobject.SetActive(true);
+            tacticsobject.SetActive(false);
+        }
+
+        public void playerWin()
+        {
+            wintext.SetActive(true);
+            logpanel.SetActive(false);
+            nextturnbutton.SetActive(false);
+            tacticsbutton.SetActive(false);
+            resultobject.SetActive(true);
+        }
+
+        public void playerLose()
+        {
+            losetext.SetActive(true);
+            logpanel.SetActive(false);
+            nextturnbutton.SetActive(false);
+            tacticsbutton.SetActive(false);
+            resultobject.SetActive(true);
+        }
+
+        public void pushrechallenge()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void pushfinish()
+        {
+            SceneManager.LoadScene("Title");
+        }
+
+        public void pushnextbattle()
+        {
+            SceneManager.LoadScene("MakeParty");
+        }
+
+        public void sceneBack()
+        {
+            SceneManager.LoadScene("BattleStart");
+        }
+    }
 }

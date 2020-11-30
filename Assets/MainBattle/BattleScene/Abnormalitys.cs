@@ -9,5 +9,5 @@ public enum Abnormalitys
     [StringValue("毒")]
     Poison,
     [StringValue("麻痺")]
-    Parise,
+    Parise
 }
