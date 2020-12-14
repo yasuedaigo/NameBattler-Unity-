@@ -14,92 +14,96 @@ namespace BattleScene
 {
     public class BattleManager : MonoBehaviour
     {
-        TextManager textmanager = null;
+        TextManager textManager = null;
 
-        BattleSceneManager battlescenemanager;
+        BattleSceneManager battleSceneManager;
 
-        public TacticsManager tacticsmanager;
+        public TacticsManager tacticsManager;
 
         public ITactics itactics;
 
-        public GameObject statuspanel;
+        public GameObject statusPanel;
 
-        public List<GameObject> statuspanellist;
+        public List<GameObject> statusPanelList;
 
         public Party party;
 
         int turnNumber;
 
-        public List<int> playerintlist;
+        public List<int> playerIdList;
 
-        public List<int> enemyintlist;
+        public List<int> enemyIdList;
+
+        public const int allPlayerNumber = 6;
 
         void Start()
         {
             turnNumber = 1;
-            textmanager =
+            textManager =
                 GameObject.Find("battletext").GetComponent<TextManager>();
-            tacticsmanager =
+            tacticsManager =
                 GameObject.Find("Main Camera").GetComponent<TacticsManager>();
-            battlescenemanager =
+            battleSceneManager =
                 GameObject
                     .Find("Main Camera")
                     .GetComponent<BattleSceneManager>();
-            statuspanel = GameObject.Find("StatusPanel");
-            foreach (Transform childTransform in statuspanel.transform)
+            statusPanel = GameObject.Find("StatusPanel");
+            foreach (Transform childTransform in statusPanel.transform)
             {
-                statuspanellist.Add(childTransform.gameObject);
+                statusPanelList.Add(childTransform.gameObject);
             }
             party = new Party();
-            addPlayertoParty(BattleStart_Repo_Ctrl.myteamPlayerDTOList);
-            addPlayertoParty(BattleStart_Repo_Ctrl.enemyPlayerDTOList);
-            setTeam();
-            party.makeSortlist();
-            statusText();
+            addPlayertoParty(BattleStartController.myTeamPlayerDTOList,Teams.Player);
+            addPlayertoParty(BattleStartController.enemyPlayerDTOList,Teams.Enemy);
+            party.makeSortList();
+            drowStatus();
         }
 
-        public void nextTurn()
+        public void oneTurnProcedure()
         {
-            textmanager.battleLog($"{turnNumber}ターン目");
+            textManager.battleLog($"{turnNumber}ターン目");
             Player attacker;
             Player defender;
-            int defenderint;
-            party.attackReset();
+            int defenderId;
+            party.resetAttackFinished();
 
-            while ((party.isTurnFinish() == false) &&
-                (party.gameJudge() == false)
-            )
+            while (party.isNotTurnFinished())
             {
                 attacker = party.getAttacker();
-                defender = tacticsmanager.choiceTactics.target(party, attacker);
+                defender = tacticsManager.choiceTactics.target(party, attacker);
                 attacker.Attack (defender, turnNumber);
-                statusText();
+                drowStatus();
             }
-
+            
+            if(party.isGameFinish()){
+                gameFinish();
+            }
             this.poisonDamage();
-            textmanager.battleLog("---------------------------------------");
+            textManager.battleLog("---------------------------------------");
             turnNumber++;
         }
 
-        public void statusText()
+        public void drowStatus()
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < allPlayerNumber; i++)
             {
-                party.playerlist[i].playerstatusText(statuspanellist[i]);
+                party.playerList[i].drowStatusText(statusPanelList[i]);
             }
         }
 
         public void poisonDamage()
         {
-            foreach (Player poisonplayer in party.playerlist)
+            foreach (Player player in party.playerList)
             {
-                poisonplayer.poisonDamage();
-                statusText();
-                party.gameJudge();
+                player.poisonDamage();
+                drowStatus();
+                if(party.isGameFinish()){
+                    this.gameFinish();
+                }
             }
         }
 
-        public void addPlayertoParty(List<PlayerDTO> playerDTOList)
+        public void addPlayertoParty(List<PlayerDTO> playerDTOList,Teams team)
         {
             foreach (PlayerDTO playerDTO in playerDTOList)
             {
@@ -109,21 +113,19 @@ namespace BattleScene
                         .GetType("BattleScene.Chara." +
                         playerDTO.JOB.ToString());
                 player = (Player) Activator.CreateInstance(type, playerDTO);
+                player.Team = team;
                 party.addPlayer (player);
             }
         }
 
-        public void setTeam()
+        public void gameFinish()
         {
-            int count = 0;
-            foreach (Player player in party.playerlist)
-            {
-                if (count < 3)
-                    player.Team = 1;
-                else
-                    player.Team = 2;
-                count++;
-            }
+            Teams winTeam = party.getWinTeam();
+            textManager.battleLog("ゲームセット！");
+            if (winTeam == Teams.Player)
+                battleSceneManager.LoadWinScene();
+            else
+                battleSceneManager.LoadLoseScene();
         }
     }
 }

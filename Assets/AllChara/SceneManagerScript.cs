@@ -16,10 +16,10 @@ public class SceneManagerScript : MonoBehaviour
         SceneManager.LoadScene("MakeChara");
     }
     
-    public void OnLoadCharaStatus()
+    public void onLoadCharaStatus()
     {
-        string charaNumStr = this.name;
-        ContentManager.charaNum = int.Parse(charaNumStr);
+        string selectedCharaNumStr = this.name;
+        AllCharaViewManager.selectedCharaNum = int.Parse(selectedCharaNumStr);
         SceneManager.LoadScene("CharaStatus");
     }
 

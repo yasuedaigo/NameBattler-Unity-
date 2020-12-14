@@ -9,194 +9,190 @@ namespace BattleScene.Chara
 {
     public class Party
     {
-        public TextManager textmanager;
+        public TextManager textManager;
 
-        public List<Player> playerlist;
+        public List<Player> playerList;
 
-        public List<Player> HPascendinglist;
+        public List<Player> HPascendingList;
 
-        public List<Player> HPdescendinglist;
+        public List<Player> HPdescendingList;
 
-        public List<Player> AGIdescendinglist;
+        public List<Player> AGIdescendingList;
 
-        BattleSceneManager battlescenemanager;
+        BattleSceneManager battleSceneManager;
 
         public Party()
         {
-            textmanager =
+            textManager =
                 GameObject.Find("battletext").GetComponent<TextManager>();
-            battlescenemanager =
+            battleSceneManager =
                 GameObject
                     .Find("Main Camera")
                     .GetComponent<BattleSceneManager>();
-            playerlist = new List<Player>();
+            playerList = new List<Player>();
         }
 
-        public void makeSortlist()
+        public void makeSortList()
         {
-            HPascendinglist = new List<Player>();
-            HPdescendinglist = new List<Player>();
-            AGIdescendinglist = new List<Player>();
-            foreach (Player player in this.playerlist)
+            HPascendingList = new List<Player>();
+            HPdescendingList = new List<Player>();
+            AGIdescendingList = new List<Player>();
+            foreach (Player player in this.playerList)
             {
-                HPascendinglist.Add (player);
-                HPdescendinglist.Add (player);
-                AGIdescendinglist.Add (player);
+                HPascendingList.Add (player);
+                HPdescendingList.Add (player);
+                AGIdescendingList.Add (player);
             }
-            HPascendinglist = getHPAscendinglist();
-            HPdescendinglist = getHPDescendinglist();
-            AGIdescendinglist = getAGIDescendinglist();
+            HPascendingList = getHPAscendingList();
+            HPdescendingList = getHPDescendingList();
+            AGIdescendingList = getAGIDescendingList();
         }
 
         public void addPlayer(Player player)
         {
-            playerlist.Add (player);
+            playerList.Add (player);
         }
 
         public Player getPlayer(int i)
         {
-            return playerlist[i];
+            return playerList[i];
         }
 
         public void removePlayer(Player player)
         {
-            playerlist.Remove (player);
+            playerList.Remove (player);
         }
 
-        public List<Player> getPlayerlist()
+        public List<Player> getPlayerList()
         {
-            return playerlist;
+            return playerList;
         }
 
-        public bool gameFinish()
+        public bool isGameFinish()
         {
-            int count1 = 0;
-            int count2 = 0;
-            foreach (Player listplayer in playerlist)
-            {
-                if (listplayer.isLive())
-                {
-                    if (listplayer.Team == 1)
-                        count1++;
-                    else
-                        count2++;
-                }
+            int liveNumberOnMyTeam = countLivePlayer(Teams.Player);
+            int liveNumberOnEnemy = countLivePlayer(Teams.Enemy);
+            if((liveNumberOnMyTeam == 0) || (liveNumberOnEnemy == 0)){
+                return true;
             }
-            if (count1 == 0 || count2 == 0) return true;
             return false;
         }
 
-        public void attackReset()
+        public int countLivePlayer(Teams team){
+            int livePlayerNumber = 0;
+            
+            foreach (Player listPlayer in playerList)
+            {
+                bool isSameTeam = listPlayer.isSameTeam(team);
+                bool isLive = listPlayer.isLive();
+                if (isSameTeam && isLive){
+                    livePlayerNumber++;
+                }
+            }
+            return livePlayerNumber;
+        }
+
+        public void resetAttackFinished()
         {
-            foreach (Player player in playerlist)
+            foreach (Player player in playerList)
             {
                 if (player.isLive()) player.AttackFinished = false;
             }
         }
 
-        public List<Player> getHPAscendinglist()
+        public List<Player> getHPAscendingList()
         {
-            HPascendinglist.Sort((a, b) => b.HP - a.HP);
-            return HPascendinglist;
+            HPascendingList.Sort((a, b) => b.HP - a.HP);
+            return HPascendingList;
         }
 
-        public List<Player> getHPDescendinglist()
+        public List<Player> getHPDescendingList()
         {
-            HPdescendinglist.Sort((a, b) => a.HP - b.HP);
-            return HPdescendinglist;
+            HPdescendingList.Sort((a, b) => a.HP - b.HP);
+            return HPdescendingList;
         }
 
-        public List<Player> getAGIDescendinglist()
+        public List<Player> getAGIDescendingList()
         {
-            AGIdescendinglist.Sort((a, b) => a.HP - b.HP);
-            return AGIdescendinglist;
+            AGIdescendingList.Sort((a, b) => a.HP - b.HP);
+            return AGIdescendingList;
         }
 
-        public bool isTurnFinish()
+        public bool isNotTurnFinished()
         {
-            bool isturnfinish = true;
-            foreach (Player player in playerlist)
-            {
-                if ((player.AttackFinished == false) && (player.isLive()))
-                    isturnfinish = false;
+            if(isGameFinish()){
+                return false;
             }
-            return isturnfinish;
-        }
-
-        public bool gameJudge()
-        {
-            int livePlayerTeam =
-                this.playerlist.Find(player => (player.isLive())).Team;
-            if (this.gameFinish())
+            bool isTurnFinished = false; 
+            foreach (Player player in playerList)
             {
-                textmanager.battleLog("ゲームセット！");
-                if (livePlayerTeam == 1)
-                    battlescenemanager.playerWin();
-                else
-                    battlescenemanager.playerLose();
+                if (player.canAttack())
+                    isTurnFinished = true;
             }
-            return this.gameFinish();
+            return isTurnFinished;
         }
 
-        public Player getTargetinAttackTactics(Player attacker)
-        {
-            getHPDescendinglist();
-            Player targetplayer =
-                HPdescendinglist
-                    .Find(n => ((n.Team != attacker.Team) && (n.isLive())));
-            return targetplayer;
+        public Teams getWinTeam(){
+            int liveNumberOnMyTeam = countLivePlayer(Teams.Player);
+            if(liveNumberOnMyTeam == 0){
+                return Teams.Enemy;
+            }
+            return Teams.Player;
         }
 
-        public Player getTargetofHealinBalanceTactics(Player attacker)
+        public Player getTargetInAttackTactics(Player attacker)
         {
-            Player targetplayer;
+            getHPDescendingList();
+            Player targetPlayer =
+                HPdescendingList
+                    .Find(n => ((n.canReceiveAttack(attacker))));
+            return targetPlayer;
+        }
+
+        public Player getTargetOfHealInBalanceTactics(Player attacker)
+        {
+            Player targetPlayer;
             do
             {
-                targetplayer =
-                    playerlist[UnityEngine.Random.Range(0, playerlist.Count)];
+                targetPlayer =
+                    playerList[UnityEngine.Random.Range(0, playerList.Count)];
             }
-            while (!targetplayer.isLive());
-            return targetplayer;
+            while (targetPlayer.isDown());
+            return targetPlayer;
         }
 
-        public Player getTargetofAttackinBalanceTactics(Player attacker)
+        public Player getTargetOfAttackInBalanceTactics(Player attacker)
         {
-            Player targetplayer;
+            Player targetPlayer;
             do
             {
-                targetplayer =
-                    playerlist[UnityEngine.Random.Range(0, playerlist.Count)];
+                targetPlayer =
+                    playerList[UnityEngine.Random.Range(0, playerList.Count)];
             }
-            while ((!targetplayer.isLive()) ||
-                (targetplayer.Team == attacker.Team)
-            );
-            return targetplayer;
+            while (targetPlayer.canNotReceiveAttack(attacker));
+            return targetPlayer;
         }
 
-        public Player getTargetinDefenceTactics(Player attacker)
+        public Player getTargetInDefenceTactics(Player attacker)
         {
-            getHPAscendinglist();
-            Player targetplayer =
-                HPascendinglist
-                    .Find(n => (n.Team != attacker.Team) && (n.isLive()));
+            getHPAscendingList();
+            Player targetPlayer =
+                HPascendingList
+                    .Find(n => (n.canReceiveAttack(attacker)));
             if (attacker.canUseHeal())
             {
-                targetplayer =
-                    HPascendinglist
-                        .Find(n => ((n.Team == attacker.Team) && (n.isLive())));
+                targetPlayer =
+                HPascendingList
+                    .Find(n => (n.canReceiveHeal(attacker)));
             }
-            return targetplayer;
+            return targetPlayer;
         }
 
         public Player getAttacker()
         {
             Player attacker =
-                getAGIDescendinglist()
-                    .Find(player =>
-                        (
-                        (player.AttackFinished == false) &&
-                        (player.isLive() == true)
-                        ));
+                getAGIDescendingList()
+                    .Find(player =>((player.canAttack())));
             return attacker;
         }
     }

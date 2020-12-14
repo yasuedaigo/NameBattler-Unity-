@@ -8,36 +8,33 @@ using UnityEngine.UI;
 
 namespace CharaStatus
 {
-    public class StatusView : MonoBehaviour
+    public class CharaStatusViewManager : MonoBehaviour
     {
-        CharaStatus_Repo_Ctrl charaStatus_Repo_Ctrl;
+        CharaStatusController charaStatusController;
 
-        PlayerDTO textchara;
+        PlayerDTO selectedCharaDTO;
 
         void Start()
         {
-            charaStatus_Repo_Ctrl =
+            charaStatusController =
                 GameObject
                     .Find("CharaStatusText")
-                    .GetComponent<CharaStatus_Repo_Ctrl>();
-            if (
-                AllChara.ContentManager.charaNum <=
-                charaStatus_Repo_Ctrl.getmyTeamRowint() - 1
-            )
-            {
-                textchara =
-                    charaStatus_Repo_Ctrl
-                        .getmyTeamPlayerDTO(AllChara.ContentManager.charaNum);
-                statusView(textchara);
-            }
+                    .GetComponent<CharaStatusController>();
+            
+            selectedCharaDTO =
+                charaStatusController
+                    .getmyTeamPlayerDTO(AllChara.AllCharaViewManager.selectedCharaNum);
+                drowStatus(selectedCharaDTO);
+            
         }
 
-        public void statusView(PlayerDTO playerDTO)
+        public void drowStatus(PlayerDTO playerDTO)
         {
             string statustext =
                 $"名前： {playerDTO.PlayerName}\r\n職業： {playerDTO.JOB.GetStringValue()} \r\nHP  ： {playerDTO.HP}\r\nSTR ： {playerDTO.STR}" +
                 $"\r\nDEF ： {playerDTO.DEF}\r\nLUCK： {playerDTO.LUCK}\r\nAGI ： {playerDTO.AGI}\r\nMP  ： {playerDTO.MP}\r\n作成日時{playerDTO.CreateDay.ToString()}";
             this.GetComponent<Text>().text = statustext;
         }
+
     }
 }

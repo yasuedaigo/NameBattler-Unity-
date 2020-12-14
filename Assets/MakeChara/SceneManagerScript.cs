@@ -18,12 +18,12 @@ namespace MakeChara
                 GameObject.Find("InputField").GetComponent<InputFieldManager>();
         }
 
-        public void loadAllChara()
+        public void onLoadAllChara()
         {
             SceneManager.LoadScene("AllChara");
         }
 
-        public void makeChara()
+        public void onLoadMakeCharaResult()
         {
             SceneManager.LoadScene("MakeCharaResult");
         }

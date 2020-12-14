@@ -25,17 +25,17 @@ namespace BattleScene.Tactics
             choiceTactics = new AttackTactics();
         }
 
-        public void AttackTacticsToggle()
+        public void selectAttackTactics()
         {
             if (attacktactics.isOn) choiceTactics = new AttackTactics();
         }
 
-        public void DefenceTacticsToggle()
+        public void selectDefenceTactics()
         {
             if (defensetactics.isOn) choiceTactics = new DefenceTactics();
         }
 
-        public void BalanceTacticsToggle()
+        public void selectBalanceTactics()
         {
             if (balancetactics.isOn) choiceTactics = new BalanceTactics();
         }

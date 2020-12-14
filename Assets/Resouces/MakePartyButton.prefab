@@ -163,7 +163,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6621575669629980930}
         m_TargetAssemblyTypeName: MakeParty.ToggleScript, Assembly-CSharp
-        m_MethodName: makeButtonText
+        m_MethodName: controllStartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -7,19 +7,14 @@ namespace Title
 {
     public class SceanManager : MonoBehaviour
     {
-        public void TitleAllChara()
+        public void onLoadAllChara()
         {
             SceneManager.LoadScene("AllChara");
         }
 
-        public void TitleMakeParty()
+        public void onLoadMakeParty()
         {
             SceneManager.LoadScene("MakeParty");
-        }
-
-        public void test()
-        {
-            SceneManager.LoadScene("AllChara");
         }
     }
 }

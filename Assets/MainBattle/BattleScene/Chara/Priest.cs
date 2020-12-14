@@ -5,11 +5,14 @@ using BattleScene.Magic;
 using SQLManager;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 namespace BattleScene.Chara
 {
     public class Priest : Player
     {
+        List<Magics> useAbleMagics = new List<Magics>(){Magics.Heal,Magics.Parise,Magics.Poison};
+
         TextManager textmanager;
 
         public Priest(PlayerDTO playerDTO) :
@@ -21,14 +24,13 @@ namespace BattleScene.Chara
 
         public override void Attack(Player defender, int turnNumber)
         {
-            if (base.PariseCheck())
+            if (base.isFreez())
             {
                 textmanager.battleLog($"{base.PlayerName}は麻痺した");
+                base.AttackFinished = true;
+                return;
             }
-            else
-            {
-                this.priestAttack(defender, turnNumber);
-            }
+            this.priestAttack(defender, turnNumber);
             base.AttackFinished = true;
         }
 
@@ -38,7 +40,7 @@ namespace BattleScene.Chara
             {
                 this.firstTurnAttack(defender, turnNumber);
             }
-            else if (defender.Team == base.Team)
+            else if (defender.canReceiveHeal(this))
             {
                 IMagic magic = new Heal();
                 this.useMagic(magic, defender, turnNumber);
@@ -51,15 +53,7 @@ namespace BattleScene.Chara
 
         public void firstTurnAttack(Player defender, int turnNumber)
         {
-            IMagic magic;
-            if (UnityEngine.Random.Range(0, 2) == 1)
-            {
-                magic = new Parise();
-            }
-            else
-            {
-                magic = new Poison();
-            }
+            IMagic magic = choiceMagic();
             this.useMagic(magic, defender, turnNumber);
         }
 
@@ -71,8 +65,21 @@ namespace BattleScene.Chara
             }
             else
             {
-                this.Attack(defender, turnNumber);
+                base.Attack(defender, turnNumber);
             }
+        }
+
+        public IMagic choiceMagic()
+        {
+            int magicsNumber = useAbleMagics.Count;
+            string selectMagicName;
+            do{
+                int selectMagicInt = UnityEngine.Random.Range(0,magicsNumber);
+                selectMagicName = useAbleMagics[selectMagicInt].ToString();
+            }while(selectMagicName == "Heal");
+            Type selectMagicType = Type.GetType("BattleScene.Magic."+selectMagicName);
+            IMagic selectMagic = (IMagic)Activator.CreateInstance(selectMagicType);
+            return selectMagic;
         }
     }
 }

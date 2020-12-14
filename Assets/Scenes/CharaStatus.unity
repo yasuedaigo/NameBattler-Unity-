@@ -672,8 +672,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1504837114}
-        m_TargetAssemblyTypeName: CharaStatus.CharaStatusSQLController, Assembly-CSharp
-        m_MethodName: onClickDeleteButton
+        m_TargetAssemblyTypeName: CharaStatus.CharaStatusController, Assembly-CSharp
+        m_MethodName: deleteChara
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

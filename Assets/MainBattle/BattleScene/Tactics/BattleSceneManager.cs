@@ -52,7 +52,7 @@ namespace BattleScene.Tactics
             tacticsobject.SetActive(false);
         }
 
-        public void playerWin()
+        public void LoadWinScene()
         {
             wintext.SetActive(true);
             logpanel.SetActive(false);
@@ -61,7 +61,7 @@ namespace BattleScene.Tactics
             resultobject.SetActive(true);
         }
 
-        public void playerLose()
+        public void LoadLoseScene()
         {
             losetext.SetActive(true);
             logpanel.SetActive(false);

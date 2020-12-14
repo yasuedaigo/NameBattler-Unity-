@@ -10,7 +10,7 @@ namespace MakeCharaResult
 {
     public abstract class BasePlayerMaker : IPlayerMaker
     {
-        public abstract PlayerDTO makePlayer(string usename);
+        public abstract PlayerDTO makePlayerDTO(string useName);
 
         public string GetHash(string name)
         {

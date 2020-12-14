@@ -7,23 +7,23 @@ using UnityEngine.UI;
 
 namespace MakeParty
 {
-    public class MakeParty_Repo_Ctrl : MonoBehaviour
+    public class MakePartyController : MonoBehaviour
     {
-        IRepository Repo;
+        IRepository repo;
 
         void Start()
         {
-            Repo = new CharacterRepository();
+            repo = new CharacterRepository();
         }
 
         public List<PlayerDTO> getmyTeamAllCharaList()
         {
-            return Repo.getmyTeamAllCharaList();
+            return repo.getmyTeamAllCharaList();
         }
 
-        public int getmyTeamRowint()
+        public int countmyTeamTableRows()
         {
-            return Repo.getmyTeamRowint();
+            return repo.countmyTeamTableRows();
         }
     }
 }

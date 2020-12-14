@@ -7,15 +7,11 @@ namespace MakeChara
 {
     public class InputFieldManager : MonoBehaviour
     {
-        public static string charaname;
-
-        bool isNameOk;
-
-        public InputField inputField;
-
+        public static string charaName; 
         public Button addButton;
-
-        public Text messagetext;
+        public Text messageText;
+        const int LIMITOFNAME = 20;
+        InputField inputField;
 
         void Start()
         {
@@ -23,30 +19,35 @@ namespace MakeChara
                 GameObject.Find("InputField").GetComponent<InputField>();
         }
 
-        public void onNameEnter()
+        public void nameValidation()
         {
-            isNameOk = false;
-            charaname = inputField.text;
-            if (charaname == null || charaname == "")
-            {
-                isNameOk = false;
+            addButton.interactable = false;
+            charaName = inputField.text;
+            if(NameIsEmpty() || NameIsOutOfLenght()){
                 addButton.interactable = false;
-            }
-            else if (charaname.Length > 20)
-            {
-                messagetext.text = "プレイヤー名は20字以内にしてください";
-                addButton.interactable = false;
-            }
-            else
-            {
-                isNameOk = true;
+            }else{
                 addButton.interactable = true;
             }
         }
 
+        bool NameIsEmpty(){
+            if(charaName == null || charaName == ""){
+                return true;
+            }
+            return false;
+        }
+
+        bool NameIsOutOfLenght(){
+            if(charaName.Length > LIMITOFNAME){
+                messageText.text = $"プレイヤー名は{LIMITOFNAME}字以内にしてください";
+                return true;
+            }
+            return false;
+        }
+
         public static string GetName()
         {
-            return charaname;
+            return charaName;
         }
     }
 }

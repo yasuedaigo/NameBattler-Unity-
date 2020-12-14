@@ -206,8 +206,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 864663603}
-        m_TargetAssemblyTypeName: MakeParty.ContentManager, Assembly-CSharp
-        m_MethodName: pushBattleStart
+        m_TargetAssemblyTypeName: MakeParty.MakePartyViewManager, Assembly-CSharp
+        m_MethodName: onLoadBattleStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -595,6 +595,7 @@ GameObject:
   - component: {fileID: 859046553}
   - component: {fileID: 859046552}
   - component: {fileID: 859046551}
+  - component: {fileID: 859046554}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -667,6 +668,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &859046554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859046550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e43c3105c2fc4c14ca4778d40574e692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &864663599
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,9 +771,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf09d5e4c4ef93a41abf2d22c673848e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playertoggle: {fileID: 4638496980673795709, guid: f4a810ee26139f74baad00c7b8dcfc79, type: 3}
+  playerTogglePrefab: {fileID: 4638496980673795709, guid: f4a810ee26139f74baad00c7b8dcfc79, type: 3}
   startButton: {fileID: 78222381}
   startButtonText: {fileID: 1663223766}
+  baseObject: {fileID: 864663599}
 --- !u!114 &864663605
 MonoBehaviour:
   m_ObjectHideFlags: 0

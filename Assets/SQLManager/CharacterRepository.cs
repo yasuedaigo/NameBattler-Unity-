@@ -8,6 +8,8 @@ namespace SQLManager
 {
     public class CharacterRepository : IRepository
     {
+        public const int MAXCHARANUMBER = 20;
+
         public SqliteDatabase sqlDB;
 
         public DataTable dataTable;
@@ -24,11 +26,11 @@ namespace SQLManager
             return dataTable;
         }
 
-        public int getRowint(TableNames table)
+        public int countTableRows(TableNames table)
         {
             dataTable = this.getAllData(table);
-            int Rowint = dataTable.Rows.Count;
-            return Rowint;
+            int RowNumber = dataTable.Rows.Count;
+            return RowNumber;
         }
 
         public List<PlayerDTO> getPlayerDTOList(TableNames table)
@@ -39,8 +41,8 @@ namespace SQLManager
             {
                 PlayerDTO playerDTO = new PlayerDTO();
                 playerDTO.PlayerName = (string) dr["NAME"];
-                int jobint = (int) dr["JOB"];
-                playerDTO.JOB = (JOBs) Enum.ToObject(typeof (JOBs), jobint);
+                int jobInt = (int) dr["JOB"];
+                playerDTO.JOB = (JOBs) Enum.ToObject(typeof (JOBs), jobInt);
                 playerDTO.HP = (int) dr["HP"];
                 playerDTO.MP = (int) dr["MP"];
                 playerDTO.STR = (int) dr["STR"];
@@ -65,47 +67,45 @@ namespace SQLManager
             sqlDB.ExecuteNonQuery (query);
         }
 
-        public PlayerDTO getPlayerDTO(string playername, TableNames table)
+        public PlayerDTO getPlayerDTO(string playerName, TableNames table)
         {
             return this
                 .getPlayerDTOList(table)
-                .Find(n => n.PlayerName == playername);
+                .Find(n => n.PlayerName == playerName);
         }
 
-        public PlayerDTO getPlayerDTO(int playerint, TableNames table)
+        public PlayerDTO getPlayerDTO(int playerId, TableNames table)
         {
-            return this.getPlayerDTOList(table)[playerint];
+            return this.getPlayerDTOList(table)[playerId];
         }
 
-        public void deletePlayer(int rowid, TableNames table)
+        public void deletePlayer(int playerId, TableNames table)
         {
             string query =
                 $"delete from {table.ToString()} where NAME = (select NAME from " +
-                $"{table.ToString()} limit 1 offset {rowid.ToString()})";
+                $"{table.ToString()} limit 1 offset {playerId.ToString()})";
             sqlDB.ExecuteNonQuery (query);
         }
 
-        public bool canAddCharaName(string name)
+        public bool canNotAddName(string name)
         {
-            bool nameOK = true;
             foreach (var player in getPlayerDTOList(TableNames.CHARACTER))
             {
                 if (player.PlayerName == name)
                 {
-                    nameOK = false;
+                    return true;
                 }
             }
-            return nameOK;
+            return false;
         }
 
-        public bool canAddCharaNumber()
+        public bool charaNumberIsFull()
         {
-            bool numberOK = true;
-            if (this.getRowint(TableNames.CHARACTER) >= 20)
+            if (this.countTableRows(TableNames.CHARACTER) >= MAXCHARANUMBER)
             {
-                numberOK = false;
+                return true;
             }
-            return numberOK;
+            return false;
         }
 
         public List<PlayerDTO> getmyTeamAllCharaList()
@@ -118,34 +118,38 @@ namespace SQLManager
             return this.getPlayerDTOList(TableNames.ENEMY);
         }
 
-        public PlayerDTO getENEMYPlayerDTO(int playerint)
+        public PlayerDTO getEnemyPlayerDTO(int playerId)
         {
-            return this.getPlayerDTO(playerint, TableNames.ENEMY);
+            return this.getPlayerDTO(playerId, TableNames.ENEMY);
         }
 
-        public PlayerDTO getmyTeamPlayerDTO(int playerint)
+        public PlayerDTO getmyTeamPlayerDTO(int playerId)
         {
-            return this.getPlayerDTO(playerint, TableNames.CHARACTER);
+            return this.getPlayerDTO(playerId, TableNames.CHARACTER);
         }
 
-        public int getEnemyRowint()
+        public int countEnemyTableRows()
         {
-            return this.getRowint(TableNames.ENEMY);
+            return this.countTableRows(TableNames.ENEMY);
         }
 
-        public int getmyTeamRowint()
+        public int countmyTeamTableRows()
         {
-            return this.getRowint(TableNames.CHARACTER);
+            return this.countTableRows(TableNames.CHARACTER);
         }
 
-        public void deletemyTeamPlayer(int playerint)
+        public void deletemyTeamPlayer(int playerId)
         {
-            this.deletePlayer(playerint, TableNames.CHARACTER);
+            this.deletePlayer(playerId, TableNames.CHARACTER);
         }
 
-        public void addmyTeamData(PlayerDTO playerDTO)
+        public void addmyTeamChara(PlayerDTO playerDTO)
         {
             this.addData(playerDTO, TableNames.CHARACTER);
+        }
+
+        public int getMaxCharaNumber(){
+            return MAXCHARANUMBER;
         }
     }
 }

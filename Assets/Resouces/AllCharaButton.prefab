@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 6793441849853896344}
   - component: {fileID: 6793441849853896345}
   - component: {fileID: -7646512291690769091}
+  - component: {fileID: -9005450155978425783}
   m_Layer: 5
   m_Name: AllCharaButton
   m_TagString: Untagged
@@ -117,7 +118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.7700043, y: -13.02}
+  m_AnchoredPosition: {x: 0.7700043, y: -13.019989}
   m_SizeDelta: {x: 219.70099, y: 49.041748}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6793441849853896351
@@ -182,8 +183,8 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
+    m_ColorMultiplier: 5
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -203,7 +204,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -7646512291690769091}
         m_TargetAssemblyTypeName: AllChara.SceneManagerScript, Assembly-CSharp
-        m_MethodName: OnLoadCharaStatus
+        m_MethodName: onLoadCharaStatus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -225,6 +226,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3ee6e4305db4c45861219d0ac7963c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-9005450155978425783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793441849853896347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &6793441850080971114
 GameObject:
   m_ObjectHideFlags: 0
