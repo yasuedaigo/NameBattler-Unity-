@@ -9,9 +9,7 @@ namespace BattleScene.Magic
     public class Thunder : BaseMagic
     {
         Magics magic = Magics.Thunder;
-
         int maxDamage;
-
         int minDamage;
 
         public Thunder()

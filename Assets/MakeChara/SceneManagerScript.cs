@@ -14,8 +14,7 @@ namespace MakeChara
 
         void Start()
         {
-            inputfieldmanager =
-                GameObject.Find("InputField").GetComponent<InputFieldManager>();
+            inputfieldmanager = GameObject.Find("InputField").GetComponent<InputFieldManager>();
         }
 
         public void onLoadAllChara()

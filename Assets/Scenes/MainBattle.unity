@@ -513,7 +513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5724810917267300092, guid: 1891e20535cabda44ba3f656790ba663, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: pushnextbattle
+      value: onLoadMakeParty
       objectReference: {fileID: 0}
     - target: {fileID: 5724810917267300092, guid: 1891e20535cabda44ba3f656790ba663, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1250,7 +1250,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2117352429}
         m_TargetAssemblyTypeName: BattleScene.Tactics.BattleSceneManager, Assembly-CSharp
-        m_MethodName: MainBattleTactics
+        m_MethodName: loadTacticsScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1593,7 +1593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6528715456519670515, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TacticsMainBattle
+      value: loadMainBattleScene
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
@@ -2077,7 +2077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5724810917267300092, guid: 1891e20535cabda44ba3f656790ba663, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: pushfinish
+      value: onLoadTitle
       objectReference: {fileID: 0}
     - target: {fileID: 5724810917267300092, guid: 1891e20535cabda44ba3f656790ba663, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2707,7 +2707,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2117352429}
         m_TargetAssemblyTypeName: BattleScene.Tactics.BattleSceneManager, Assembly-CSharp
-        m_MethodName: sceneBack
+        m_MethodName: onLoadBattleStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4299,7 +4299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5724810917267300092, guid: 1891e20535cabda44ba3f656790ba663, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: pushrechallenge
+      value: reLoadActiveScene
       objectReference: {fileID: 0}
     - target: {fileID: 5724810917267300092, guid: 1891e20535cabda44ba3f656790ba663, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

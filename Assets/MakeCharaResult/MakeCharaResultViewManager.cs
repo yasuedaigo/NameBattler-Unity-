@@ -8,6 +8,7 @@ using SQLManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using ViewManager;
 
 namespace MakeCharaResult
 {
@@ -23,11 +24,12 @@ namespace MakeCharaResult
             makeCharaResultController = this.GetComponent<MakeCharaResultController>();
             acquireUseName();
             makeplayerDTO();
-            if(CanAddChara())
+            if (CanAddChara())
             {
                 makeCharaResultController.addmyTeamChara (playerDTO);
             }
-            drowStatusText();
+            var playerText = this.GetComponent<Text>();
+            PlayerTextManager.drowNameAndStatus(playerText,playerDTO);
         }
 
         void acquireUseName()
@@ -42,22 +44,18 @@ namespace MakeCharaResult
 
         bool CanAddChara()
         {
-            if(makeCharaResultController.charaNumberIsFull()){
-                messageText.text = $"！作成できるキャラクターは{makeCharaResultController.getMaxCharaNumber()}人までです";
+            if (makeCharaResultController.charaNumberIsFull())
+            {
+                messageText.text =
+                    $"！作成できるキャラクターは{makeCharaResultController.getMaxCharaNumber()}人までです";
                 return false;
-            }else if(makeCharaResultController.canNotAddName(useName)){
+            }
+            else if (makeCharaResultController.canNotAddName(useName))
+            {
                 messageText.text = "！同名キャラクターは作成できません";
                 return false;
             }
             return true;
-        }
-
-        void drowStatusText(){
-            var message = this.GetComponent<Text>();
-            message.text =
-                $"名前： {playerDTO.PlayerName}\r\n職業： {playerDTO.JOB.GetStringValue()} \r\nHP  ： {playerDTO.HP}\r\nSTR ： {playerDTO.STR}" +
-                $"\r\nDEF ： {playerDTO.DEF}\r\nLUCK： {playerDTO.LUCK}\r\nAGI ： {playerDTO.AGI}" +
-                $"\r\nMP  ： {playerDTO.MP}\r\n作成日時  :  {playerDTO.CreateDay}";
         }
     }
 }

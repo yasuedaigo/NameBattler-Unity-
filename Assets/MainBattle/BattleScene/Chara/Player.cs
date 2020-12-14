@@ -6,20 +6,18 @@ using System.Security.Cryptography;
 using System.Text;
 using BattleScene;
 using BattleScene.Magic;
+using BattleScene.Magic;
 using SQLManager;
 using UnityEngine;
 using UnityEngine.UI;
-using BattleScene.Magic;
 
 namespace BattleScene.Chara
 {
     public class Player
     {
         TextManager textmanager;
-
-        public const int POISONDAMAGE = 20;
-
-        public const int PARISEPROBABILITY = 5;
+        public const int POISON_DAMAGE = 20;
+        public const int PARISE_PROBABILITY = 5;
 
         public string PlayerName { get; set; }
 
@@ -79,7 +77,9 @@ namespace BattleScene.Chara
             if (this.criticalHit())
             {
                 damage = this.STR;
-            }else{
+            }
+            else
+            {
                 damage = this.STR - target.DEF;
             }
             if (damage < 0) damage = 0;
@@ -92,17 +92,21 @@ namespace BattleScene.Chara
             this.downJudge();
         }
 
-        public bool criticalHit(){
-            if(this.LUCK <= UnityEngine.Random.Range(0f, 100f)){
+        public bool criticalHit()
+        {
+            if (this.LUCK <= UnityEngine.Random.Range(0f, 100f))
+            {
                 return true;
             }
             return false;
         }
 
-        public bool isFreez(){
+        public bool isFreez()
+        {
             bool isParise = this.isParise();
             bool pariseJudge = this.pariseJudge();
-            if(isParise && pariseJudge){
+            if (isParise && pariseJudge)
+            {
                 return true;
             }
             return false;
@@ -111,8 +115,7 @@ namespace BattleScene.Chara
         public void drowStatusText(GameObject statuspanel)
         {
             Text nametext = statuspanel.GetComponentsInChildren<Text>().First();
-            Text statustext =
-                statuspanel.GetComponentsInChildren<Text>().Last();
+            Text statustext = statuspanel.GetComponentsInChildren<Text>().Last();
             nametext.text = $"{this.PlayerName}\r\n{this.JOB.GetStringValue()}";
             statustext.text =
                 $"HP  {this.HP}/{this.FirstHP}\r\nMP  {this.MP}/{this.FirstMP}";
@@ -137,22 +140,23 @@ namespace BattleScene.Chara
 
         public void poisonDamage()
         {
-            if(this.isDown()){
+            if (this.isDown())
+            {
                 return;
             }
 
             if (this.isPoison())
             {
-                this.damage(POISONDAMAGE);
-                textmanager
-                    .battleLog($"{this.PlayerName}は毒によるダメージを受けた");
+                this.damage(POISON_DAMAGE);
+                textmanager.battleLog($"{this.PlayerName}は毒によるダメージを受けた");
             }
             this.downJudge();
         }
 
         public void downJudge()
         {
-            if (this.isDown()){
+            if (this.isDown())
+            {
                 textmanager.battleLog(this.PlayerName + "は倒れた");
                 this.AttackFinished = true;
             }
@@ -164,7 +168,8 @@ namespace BattleScene.Chara
             return true;
         }
 
-        public bool isDown(){
+        public bool isDown()
+        {
             return !this.isLive();
         }
 
@@ -180,12 +185,15 @@ namespace BattleScene.Chara
             return false;
         }
 
-        public bool isNotParise(){
+        public bool isNotParise()
+        {
             return !isParise();
         }
 
-        bool pariseJudge(){
-            if(UnityEngine.Random.Range(0, PARISEPROBABILITY) == 0){
+        bool pariseJudge()
+        {
+            if (UnityEngine.Random.Range(0, PARISE_PROBABILITY) == 0)
+            {
                 return true;
             }
             return false;
@@ -193,80 +201,97 @@ namespace BattleScene.Chara
 
         public bool canUseHeal()
         {
-            if ((this.isPriest()) &&(this.enoughMP(Magics.Heal))){
-             return true;
+            if ((this.isPriest()) && (this.enoughMP(Magics.Heal)))
+            {
+                return true;
             }
             return false;
         }
-        public bool canAttack(){
-            if(this.AttackFinished){
+
+        public bool canAttack()
+        {
+            if (this.AttackFinished)
+            {
                 return false;
             }
-            if(this.isLive()){
+            if (this.isLive())
+            {
                 return true;
             }
             return false;
         }
 
-        public bool canReceiveAttack(Player attacker){
-            if(this.isElseTeam(attacker) && this.isLive()){
+        public bool canReceiveAttack(Player attacker)
+        {
+            if (this.isElseTeam(attacker) && this.isLive())
+            {
                 return true;
             }
             return false;
         }
 
-        public bool canNotReceiveAttack(Player attacker){
+        public bool canNotReceiveAttack(Player attacker)
+        {
             return !this.canReceiveAttack(attacker);
         }
 
-        public bool canReceiveHeal(Player attacker){
-            if(this.isSameTeam(attacker) && this.isLive()){
+        public bool canReceiveHeal(Player attacker)
+        {
+            if (this.isSameTeam(attacker) && this.isLive())
+            {
                 return true;
             }
             return false;
         }
 
-        public bool isFighter(){
-            if(this.GetType() == typeof (Fighter)){
+        public bool isFighter()
+        {
+            if (this.GetType() == typeof (Fighter))
+            {
                 return true;
             }
             return false;
         }
 
-        public bool isPriest(){
-            if(this.GetType() == typeof (Priest)){
+        public bool isPriest()
+        {
+            if (this.GetType() == typeof (Priest))
+            {
                 return true;
             }
             return false;
         }
 
-        public bool isSameTeam(Player player){
-            if(this.Team == player.Team){
+        public bool isSameTeam(Player player)
+        {
+            if (this.Team == player.Team)
+            {
                 return true;
             }
             return false;
         }
 
-        public bool isSameTeam(Teams team){
-            if(this.Team == team){
+        public bool isSameTeam(Teams team)
+        {
+            if (this.Team == team)
+            {
                 return true;
             }
             return false;
         }
 
-        public bool isElseTeam(Player player){
+        public bool isElseTeam(Player player)
+        {
             return !this.isSameTeam(player);
         }
 
-        public bool enoughMP(Magics magic){
-            if(this.MP >= (int) magic){
+        public bool enoughMP(Magics magic)
+        {
+            if (this.MP >= (int) magic)
+            {
                 return true;
             }
             return false;
         }
-
-        
-
-
     }
 }

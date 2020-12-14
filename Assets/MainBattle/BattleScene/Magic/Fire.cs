@@ -9,9 +9,7 @@ namespace BattleScene.Magic
     public class Fire : BaseMagic
     {
         Magics magic = Magics.Fire;
-
         int maxDamage;
-
         int minDamage;
 
         public Fire()

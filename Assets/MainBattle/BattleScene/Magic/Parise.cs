@@ -9,7 +9,6 @@ namespace BattleScene.Magic
     public class Parise : BaseMagic
     {
         Magics magic = Magics.Parise;
-
         Abnormalitys Effect;
 
         public Parise()

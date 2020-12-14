@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using BattleScene;
 using BattleScene.Magic;
 using SQLManager;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 namespace BattleScene.Chara
 {
@@ -13,13 +13,11 @@ namespace BattleScene.Chara
     {
         TextManager textmanager;
 
-        List<Magics> useAbleMagic = new List<Magics>(){Magics.Fire,Magics.Thunder}; 
+        List<Magics> useAbleMagic = new List<Magics>() { Magics.Fire, Magics.Thunder };
 
-        public Wizard(PlayerDTO playerDTO) :
-            base(playerDTO)
+        public Wizard(PlayerDTO playerDTO) : base(playerDTO)
         {
-            textmanager =
-                GameObject.Find("battletext").GetComponent<TextManager>();
+            textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
         }
 
         public override void Attack(Player defender, int turnNumber)
@@ -51,12 +49,13 @@ namespace BattleScene.Chara
         public IMagic choiceMagic()
         {
             int magicsNumber = useAbleMagic.Count;
-            int selectMagicInt = UnityEngine.Random.Range(0,magicsNumber);
+            int selectMagicInt = UnityEngine.Random.Range(0, magicsNumber);
             string selectMagicName = useAbleMagic[selectMagicInt].ToString();
-            Type selectMagicType = Type.GetType("BattleScene.Magic."+selectMagicName);
-            IMagic selectMagic = (IMagic)Activator.CreateInstance(selectMagicType);
+            Type selectMagicType =
+                Type.GetType("BattleScene.Magic." + selectMagicName);
+            IMagic selectMagic =
+                (IMagic) Activator.CreateInstance(selectMagicType);
             return selectMagic;
-            
         }
     }
 }

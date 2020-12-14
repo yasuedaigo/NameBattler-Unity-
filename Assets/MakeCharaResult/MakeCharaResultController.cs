@@ -14,7 +14,6 @@ namespace MakeCharaResult
     public class MakeCharaResultController : MonoBehaviour
     {
         MakeCharaResultViewManager makeCharaResultViewManager;
-
         IRepository repo;
 
         void Start()
@@ -35,10 +34,11 @@ namespace MakeCharaResult
 
         public void addmyTeamChara(PlayerDTO playerDTO)
         {
-            repo.addmyTeamChara(playerDTO);
+            repo.addmyTeamChara (playerDTO);
         }
 
-        public int getMaxCharaNumber(){
+        public int getMaxCharaNumber()
+        {
             return repo.getMaxCharaNumber();
         }
     }

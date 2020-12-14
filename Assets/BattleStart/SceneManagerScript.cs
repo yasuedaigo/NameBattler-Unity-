@@ -13,7 +13,8 @@ namespace BattleStart
             SceneManager.LoadScene("MakeParty");
         }
 
-        public void onLoadMainBattle(){
+        public void onLoadMainBattle()
+        {
             SceneManager.LoadScene("MainBattle");
         }
     }

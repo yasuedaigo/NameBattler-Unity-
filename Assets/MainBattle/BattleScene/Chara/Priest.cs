@@ -1,25 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using BattleScene;
 using BattleScene.Magic;
 using SQLManager;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 namespace BattleScene.Chara
 {
     public class Priest : Player
     {
-        List<Magics> useAbleMagics = new List<Magics>(){Magics.Heal,Magics.Parise,Magics.Poison};
-
+        List<Magics> useAbleMagics = new List<Magics>(){ Magics.Heal, Magics.Parise, Magics.Poison };
         TextManager textmanager;
 
-        public Priest(PlayerDTO playerDTO) :
-            base(playerDTO)
+        public Priest(PlayerDTO playerDTO) : base(playerDTO)
         {
-            textmanager =
-                GameObject.Find("battletext").GetComponent<TextManager>();
+            textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
         }
 
         public override void Attack(Player defender, int turnNumber)
@@ -73,12 +70,16 @@ namespace BattleScene.Chara
         {
             int magicsNumber = useAbleMagics.Count;
             string selectMagicName;
-            do{
-                int selectMagicInt = UnityEngine.Random.Range(0,magicsNumber);
+            do
+            {
+                int selectMagicInt = UnityEngine.Random.Range(0, magicsNumber);
                 selectMagicName = useAbleMagics[selectMagicInt].ToString();
-            }while(selectMagicName == "Heal");
-            Type selectMagicType = Type.GetType("BattleScene.Magic."+selectMagicName);
-            IMagic selectMagic = (IMagic)Activator.CreateInstance(selectMagicType);
+            }
+            while (selectMagicName == "Heal");
+            Type selectMagicType =
+                Type.GetType("BattleScene.Magic." + selectMagicName);
+            IMagic selectMagic =
+                (IMagic) Activator.CreateInstance(selectMagicType);
             return selectMagic;
         }
     }

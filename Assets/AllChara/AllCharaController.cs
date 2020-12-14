@@ -13,12 +13,12 @@ namespace AllChara
         {
             repo = new CharacterRepository();
         }
-        
+
         public List<PlayerDTO> getmyTeamAllCharaList()
         {
             return repo.getmyTeamAllCharaList();
         }
-        
+
         public int countmyTeamTableRows()
         {
             return repo.countmyTeamTableRows();

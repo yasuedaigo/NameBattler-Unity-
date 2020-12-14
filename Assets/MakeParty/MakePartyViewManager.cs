@@ -13,37 +13,38 @@ namespace MakeParty
     public class MakePartyViewManager : MonoBehaviour
     {
         public static List<int> myTeamPlayerIdList = new List<int>();
+        public const int CHARA_NUMBER_OF_PARTY = 3;
         public GameObject playerTogglePrefab;
         public Button startButton;
         public Text startButtonText;
+        public GameObject baseObject;
         List<Toggle> playerToggleList = new List<Toggle>();
         List<GameObject> playerObjectList = new List<GameObject>();
         List<Text> nameTextList = new List<Text>();
         List<Text> statusTextList = new List<Text>();
-        /*List<Text> jobTextList = new List<Text>();*/  
         MakePartyController makePartyController;
         List<PlayerDTO> allPlayerDTOList;
-        public const int CHARANUMBEROFPARTY = 3;
         int selectedNumber;
-
         PlayerButtonManager playerButtonManager;
-        public GameObject baseObject;
-
+        
         void Start()
         {
-           playerButtonManager = GameObject.Find("Main Camera").GetComponent<PlayerButtonManager>();
-           startButton.interactable = false;
-           makePartyController =GameObject.Find("Content").GetComponent<MakePartyController>();
-           playerButtonManager.createPlayerButton(playerTogglePrefab,makePartyController.countmyTeamTableRows(),baseObject);
-           makeAllList();
-           TextManager.drowNameAndJob(nameTextList,allPlayerDTOList);
-           TextManager.drowStatus(statusTextList,allPlayerDTOList);
-           /*makePlayerToggle();
-           makeAllList();
-           drowPlayerToggleText();*/
+            playerButtonManager =
+                GameObject.Find("Main Camera").GetComponent<PlayerButtonManager>();
+            startButton.interactable = false;
+            makePartyController =
+                GameObject.Find("Content").GetComponent<MakePartyController>();
+            playerButtonManager
+                .createPlayerButton(playerTogglePrefab,
+                makePartyController.countmyTeamTableRows(),
+                baseObject);
+            makeAllList();
+            PlayerTextManager.drowNameAndJob (nameTextList, allPlayerDTOList);
+            PlayerTextManager.drowStatus (statusTextList, allPlayerDTOList);
         }
 
-        public void onLoadBattleStart(){
+        public void onLoadBattleStart()
+        {
             makemyTeamPlayerIdList();
             SceneManager.LoadScene("BattleStart");
         }
@@ -60,19 +61,19 @@ namespace MakeParty
             }
         }
 
-
         public void changeStartButtonText()
         {
             selectedNumber = 0;
             foreach (var playerToggle in playerToggleList)
             {
-                if (playerToggle.isOn)  selectedNumber++;
+                if (playerToggle.isOn) selectedNumber++;
             }
-            startButtonText.text = $"このパーティーで開始({selectedNumber}/{CHARANUMBEROFPARTY}";
+            startButtonText.text = $"このパーティーで開始({selectedNumber}/{CHARA_NUMBER_OF_PARTY}";
         }
 
-        public void controllStartButtonActive(){
-            if (selectedNumber == CHARANUMBEROFPARTY)
+        public void controllStartButtonActive()
+        {
+            if (selectedNumber == CHARA_NUMBER_OF_PARTY)
             {
                 startButton.interactable = true;
             }
@@ -82,41 +83,19 @@ namespace MakeParty
             }
         }
 
-        /*void drowPlayerToggleText()
-        {
-            for (int i = 0; i < allPlayerDTOList.Count; i++)
-            {
-                PlayerDTO playerDTO = new PlayerDTO();
-                playerDTO = allPlayerDTOList[i];
-                nameTextList[i].text = playerDTO.PlayerName;
-                statusTextList[i].text =
-                    $"{playerDTO.JOB.GetStringValue()} HP:{playerDTO.HP} STR:{playerDTO.STR} DEF:{playerDTO.DEF}" +
-                    $"AGI:{playerDTO.AGI} LUCK:{playerDTO.LUCK} MP:{playerDTO.MP}";
-            }
-        }
-
-        void makePlayerToggle()
-        {
-            for (int i = 0; i < makePartyController.countmyTeamTableRows(); i++)
-            {
-                GameObject playerToggle =
-                    (GameObject)
-                    Instantiate(playerTogglePrefab,
-                    this.transform.position,
-                    Quaternion.identity);
-                playerToggle.transform.parent = this.transform;
-                playerToggle.name = i.ToString();
-            }
-        }*/
-
         void makeAllList()
         {
             for (int i = 0; i < this.transform.childCount; i++)
             {
                 playerObjectList.Add(this.transform.GetChild(i).gameObject);
-                nameTextList.Add(playerObjectList[i].GetComponentsInChildren<Text>().First());
-                statusTextList.Add(playerObjectList[i].GetComponentsInChildren<Text>().Last());
-                playerToggleList.Add(playerObjectList[i].GetComponent<Toggle>());
+                nameTextList
+                    .Add(playerObjectList[i]
+                        .GetComponentsInChildren<Text>().First());
+                statusTextList
+                    .Add(playerObjectList[i]
+                        .GetComponentsInChildren<Text>().Last());
+                playerToggleList
+                    .Add(playerObjectList[i].GetComponent<Toggle>());
             }
             allPlayerDTOList = makePartyController.getmyTeamAllCharaList();
         }

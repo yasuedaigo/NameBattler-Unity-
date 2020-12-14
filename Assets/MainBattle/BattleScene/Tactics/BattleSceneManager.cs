@@ -40,19 +40,19 @@ namespace BattleScene.Tactics
         {
         }
 
-        public void MainBattleTactics()
+        public void loadTacticsScene()
         {
             battleobject.SetActive(false);
             tacticsobject.SetActive(true);
         }
 
-        public void TacticsMainBattle()
+        public void loadMainBattleScene()
         {
             battleobject.SetActive(true);
             tacticsobject.SetActive(false);
         }
 
-        public void LoadWinScene()
+        public void loadWinScene()
         {
             wintext.SetActive(true);
             logpanel.SetActive(false);
@@ -61,7 +61,7 @@ namespace BattleScene.Tactics
             resultobject.SetActive(true);
         }
 
-        public void LoadLoseScene()
+        public void loadLoseScene()
         {
             losetext.SetActive(true);
             logpanel.SetActive(false);
@@ -70,22 +70,22 @@ namespace BattleScene.Tactics
             resultobject.SetActive(true);
         }
 
-        public void pushrechallenge()
+        public void reLoadActiveScene()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        public void pushfinish()
+        public void onLoadTitle()
         {
             SceneManager.LoadScene("Title");
         }
 
-        public void pushnextbattle()
+        public void onLoadMakeParty()
         {
             SceneManager.LoadScene("MakeParty");
         }
 
-        public void sceneBack()
+        public void onLoadBattleStart()
         {
             SceneManager.LoadScene("BattleStart");
         }

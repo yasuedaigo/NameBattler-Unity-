@@ -9,7 +9,6 @@ namespace BattleScene.Magic
     public class Heal : BaseMagic
     {
         Magics magic = Magics.Fire;
-
         int RecoveryPoint;
 
         public Heal()

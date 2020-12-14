@@ -8,7 +8,7 @@ namespace SQLManager
 {
     public class CharacterRepository : IRepository
     {
-        public const int MAXCHARANUMBER = 20;
+        public const int MAX_CHARA_NUMBER = 20;
 
         public SqliteDatabase sqlDB;
 
@@ -101,7 +101,7 @@ namespace SQLManager
 
         public bool charaNumberIsFull()
         {
-            if (this.countTableRows(TableNames.CHARACTER) >= MAXCHARANUMBER)
+            if (this.countTableRows(TableNames.CHARACTER) >= MAX_CHARA_NUMBER)
             {
                 return true;
             }
@@ -149,7 +149,7 @@ namespace SQLManager
         }
 
         public int getMaxCharaNumber(){
-            return MAXCHARANUMBER;
+            return MAX_CHARA_NUMBER;
         }
     }
 }

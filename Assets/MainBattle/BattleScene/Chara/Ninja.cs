@@ -11,11 +11,9 @@ namespace BattleScene.Chara
     {
         TextManager textmanager;
 
-        public Ninja(PlayerDTO playerDTO) :
-            base(playerDTO)
+        public Ninja(PlayerDTO playerDTO) : base(playerDTO)
         {
-            textmanager =
-                GameObject.Find("battletext").GetComponent<TextManager>();
+            textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
         }
 
         public override void Attack(Player defender, int turnNumber)

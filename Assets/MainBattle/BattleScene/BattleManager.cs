@@ -15,38 +15,23 @@ namespace BattleScene
     public class BattleManager : MonoBehaviour
     {
         TextManager textManager = null;
-
         BattleSceneManager battleSceneManager;
-
         public TacticsManager tacticsManager;
-
         public ITactics itactics;
-
         public GameObject statusPanel;
-
         public List<GameObject> statusPanelList;
-
         public Party party;
-
         int turnNumber;
-
         public List<int> playerIdList;
-
         public List<int> enemyIdList;
-
-        public const int allPlayerNumber = 6;
 
         void Start()
         {
             turnNumber = 1;
-            textManager =
-                GameObject.Find("battletext").GetComponent<TextManager>();
-            tacticsManager =
-                GameObject.Find("Main Camera").GetComponent<TacticsManager>();
+            textManager = GameObject.Find("battletext").GetComponent<TextManager>();
+            tacticsManager = GameObject.Find("Main Camera").GetComponent<TacticsManager>();
             battleSceneManager =
-                GameObject
-                    .Find("Main Camera")
-                    .GetComponent<BattleSceneManager>();
+                GameObject.Find("Main Camera").GetComponent<BattleSceneManager>();
             statusPanel = GameObject.Find("StatusPanel");
             foreach (Transform childTransform in statusPanel.transform)
             {
@@ -74,8 +59,9 @@ namespace BattleScene
                 attacker.Attack (defender, turnNumber);
                 drowStatus();
             }
-            
-            if(party.isGameFinish()){
+
+            if (party.isGameFinish())
+            {
                 gameFinish();
             }
             this.poisonDamage();
@@ -85,7 +71,7 @@ namespace BattleScene
 
         public void drowStatus()
         {
-            for (int i = 0; i < allPlayerNumber; i++)
+            for (int i = 0; i < party.playerList.Count; i++)
             {
                 party.playerList[i].drowStatusText(statusPanelList[i]);
             }
@@ -97,21 +83,19 @@ namespace BattleScene
             {
                 player.poisonDamage();
                 drowStatus();
-                if(party.isGameFinish()){
+                if (party.isGameFinish())
+                {
                     this.gameFinish();
                 }
             }
         }
 
-        public void addPlayertoParty(List<PlayerDTO> playerDTOList,Teams team)
+        public void addPlayertoParty(List<PlayerDTO> playerDTOList, Teams team)
         {
             foreach (PlayerDTO playerDTO in playerDTOList)
             {
                 Player player = null;
-                Type type =
-                    Type
-                        .GetType("BattleScene.Chara." +
-                        playerDTO.JOB.ToString());
+                Type type = Type.GetType("BattleScene.Chara." +playerDTO.JOB.ToString());
                 player = (Player) Activator.CreateInstance(type, playerDTO);
                 player.Team = team;
                 party.addPlayer (player);
@@ -123,9 +107,9 @@ namespace BattleScene
             Teams winTeam = party.getWinTeam();
             textManager.battleLog("ゲームセット！");
             if (winTeam == Teams.Player)
-                battleSceneManager.LoadWinScene();
+                battleSceneManager.loadWinScene();
             else
-                battleSceneManager.LoadLoseScene();
+                battleSceneManager.loadLoseScene();
         }
     }
 }

@@ -30,7 +30,9 @@ namespace MakeChara
             {
                 GameObject jobToggle;
                 Text toggleText;
-                jobToggle =(GameObject)Instantiate(jobTogglePrefab,this.transform.position,Quaternion.identity);
+                jobToggle = (GameObject)Instantiate(jobTogglePrefab,
+                    this.transform.position,
+                    Quaternion.identity);
                 jobToggle.transform.parent = this.transform;
                 jobToggle.name = job.ToString();
                 toggleText = jobToggle.transform.Find("Text").gameObject.GetComponent<Text>();
@@ -39,7 +41,8 @@ namespace MakeChara
             }
         }
 
-        void selectFirstJob(){
+        void selectFirstJob()
+        {
             Toggle firstToggle = transform.GetChild(0).gameObject.GetComponent<Toggle>();
             firstToggle.isOn = true;
         }
@@ -50,7 +53,5 @@ namespace MakeChara
             Type type = Type.GetType("MakeCharaResult." + activeToggle.name);
             PlayerMaker = (IPlayerMaker) Activator.CreateInstance(type);
         }
-
-        
     }
 }

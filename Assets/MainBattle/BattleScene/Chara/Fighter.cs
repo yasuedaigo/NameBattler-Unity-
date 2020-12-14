@@ -11,11 +11,9 @@ namespace BattleScene.Chara
     {
         TextManager textmanager;
 
-        public Fighter(PlayerDTO playerDTO) :
-            base(playerDTO)
+        public Fighter(PlayerDTO playerDTO) : base(playerDTO)
         {
-            textmanager =
-                GameObject.Find("battletext").GetComponent<TextManager>();
+            textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
         }
 
         public override void Attack(Player defender, int turnNumber)
@@ -26,13 +24,14 @@ namespace BattleScene.Chara
                 base.AttackFinished = true;
                 return;
             }
-            fighterAttack(defender,turnNumber);
+            fighterAttack (defender, turnNumber);
         }
-        
-        public void fighterAttack(Player defender, int turnNumber){
+
+        public void fighterAttack(Player defender, int turnNumber)
+        {
             int damage = calcDamage(defender);
             textmanager
-                    .battleLog($"{this.PlayerName}の攻撃 ➡ {defender.PlayerName}に{damage}のダメージ");
+                .battleLog($"{this.PlayerName}の攻撃 ➡ {defender.PlayerName}に{damage}のダメージ");
             defender.damage (damage);
             base.AttackFinished = true;
         }

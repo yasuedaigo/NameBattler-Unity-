@@ -9,7 +9,6 @@ namespace BattleScene.Magic
     public class Poison : BaseMagic
     {
         Magics magic = Magics.Poison;
-
         Abnormalitys Effect;
 
         public Poison()

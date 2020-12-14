@@ -10,25 +10,17 @@ namespace BattleScene.Chara
     public class Party
     {
         public TextManager textManager;
-
         public List<Player> playerList;
-
         public List<Player> HPascendingList;
-
         public List<Player> HPdescendingList;
-
         public List<Player> AGIdescendingList;
-
         BattleSceneManager battleSceneManager;
 
         public Party()
         {
-            textManager =
-                GameObject.Find("battletext").GetComponent<TextManager>();
+            textManager = GameObject.Find("battletext").GetComponent<TextManager>();
             battleSceneManager =
-                GameObject
-                    .Find("Main Camera")
-                    .GetComponent<BattleSceneManager>();
+                GameObject.Find("Main Camera").GetComponent<BattleSceneManager>();
             playerList = new List<Player>();
         }
 
@@ -72,20 +64,23 @@ namespace BattleScene.Chara
         {
             int liveNumberOnMyTeam = countLivePlayer(Teams.Player);
             int liveNumberOnEnemy = countLivePlayer(Teams.Enemy);
-            if((liveNumberOnMyTeam == 0) || (liveNumberOnEnemy == 0)){
+            if ((liveNumberOnMyTeam == 0) || (liveNumberOnEnemy == 0))
+            {
                 return true;
             }
             return false;
         }
 
-        public int countLivePlayer(Teams team){
+        public int countLivePlayer(Teams team)
+        {
             int livePlayerNumber = 0;
-            
+
             foreach (Player listPlayer in playerList)
             {
                 bool isSameTeam = listPlayer.isSameTeam(team);
                 bool isLive = listPlayer.isLive();
-                if (isSameTeam && isLive){
+                if (isSameTeam && isLive)
+                {
                     livePlayerNumber++;
                 }
             }
@@ -120,21 +115,23 @@ namespace BattleScene.Chara
 
         public bool isNotTurnFinished()
         {
-            if(isGameFinish()){
+            if (isGameFinish())
+            {
                 return false;
             }
-            bool isTurnFinished = false; 
+            bool isTurnFinished = false;
             foreach (Player player in playerList)
             {
-                if (player.canAttack())
-                    isTurnFinished = true;
+                if (player.canAttack()) isTurnFinished = true;
             }
             return isTurnFinished;
         }
 
-        public Teams getWinTeam(){
+        public Teams getWinTeam()
+        {
             int liveNumberOnMyTeam = countLivePlayer(Teams.Player);
-            if(liveNumberOnMyTeam == 0){
+            if (liveNumberOnMyTeam == 0)
+            {
                 return Teams.Enemy;
             }
             return Teams.Player;
@@ -143,9 +140,7 @@ namespace BattleScene.Chara
         public Player getTargetInAttackTactics(Player attacker)
         {
             getHPDescendingList();
-            Player targetPlayer =
-                HPdescendingList
-                    .Find(n => ((n.canReceiveAttack(attacker))));
+            Player targetPlayer = HPdescendingList.Find(n => ((n.canReceiveAttack(attacker))));
             return targetPlayer;
         }
 
@@ -154,8 +149,7 @@ namespace BattleScene.Chara
             Player targetPlayer;
             do
             {
-                targetPlayer =
-                    playerList[UnityEngine.Random.Range(0, playerList.Count)];
+                targetPlayer = playerList[UnityEngine.Random.Range(0, playerList.Count)];
             }
             while (targetPlayer.isDown());
             return targetPlayer;
@@ -166,8 +160,7 @@ namespace BattleScene.Chara
             Player targetPlayer;
             do
             {
-                targetPlayer =
-                    playerList[UnityEngine.Random.Range(0, playerList.Count)];
+                targetPlayer = playerList[UnityEngine.Random.Range(0, playerList.Count)];
             }
             while (targetPlayer.canNotReceiveAttack(attacker));
             return targetPlayer;
@@ -176,23 +169,17 @@ namespace BattleScene.Chara
         public Player getTargetInDefenceTactics(Player attacker)
         {
             getHPAscendingList();
-            Player targetPlayer =
-                HPascendingList
-                    .Find(n => (n.canReceiveAttack(attacker)));
+            Player targetPlayer = HPascendingList.Find(n => (n.canReceiveAttack(attacker)));
             if (attacker.canUseHeal())
             {
-                targetPlayer =
-                HPascendingList
-                    .Find(n => (n.canReceiveHeal(attacker)));
+                targetPlayer = HPascendingList.Find(n => (n.canReceiveHeal(attacker)));
             }
             return targetPlayer;
         }
 
         public Player getAttacker()
         {
-            Player attacker =
-                getAGIDescendingList()
-                    .Find(player =>((player.canAttack())));
+            Player attacker = getAGIDescendingList().Find(player => ((player.canAttack())));
             return attacker;
         }
     }

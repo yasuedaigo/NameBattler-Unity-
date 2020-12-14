@@ -13,9 +13,7 @@ namespace BattleStart
     public class BattleStartController : MonoBehaviour
     {
         public static List<PlayerDTO> enemyPlayerDTOList;
-
         public static List<PlayerDTO> myTeamPlayerDTOList;
-
         IRepository repo;
 
         void Start()
@@ -30,12 +28,11 @@ namespace BattleStart
             enemyPlayerDTOList.Clear();
             int enemyId;
             List<int> enemyIdList = new List<int>();
-            for (int i = 0; i < MakePartyViewManager.CHARANUMBEROFPARTY; i++)
+            for (int i = 0; i < MakePartyViewManager.CHARA_NUMBER_OF_PARTY; i++)
             {
                 do
                 {
-                    enemyId =
-                        UnityEngine.Random.Range(0, repo.countEnemyTableRows());
+                    enemyId = UnityEngine.Random.Range(0, repo.countEnemyTableRows());
                 }
                 while (enemyIdList.Contains(enemyId));
                 enemyIdList.Add (enemyId);
