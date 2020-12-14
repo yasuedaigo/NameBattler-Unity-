@@ -43,14 +43,8 @@ namespace BattleStart
             PlayerTextManager.drowStatus (myTeamStatusTextList, myTeamPlayerDTOList);
             PlayerTextManager.drowNameAndJob (enemyNameTextList, enemyPlayerDTOList);
             PlayerTextManager.drowStatus (enemyStatusTextList, enemyPlayerDTOList);
-            for (int i = 0; i < MakePartyViewManager.CHARA_NUMBER_OF_PARTY; i++)
-            {
-                myTeamButtonList[i].GetComponent<Button>().interactable = false;
-            }
-            for (int i = 0; i < MakePartyViewManager.CHARA_NUMBER_OF_PARTY; i++)
-            {
-                enemyButtonList[i].GetComponent<Button>().interactable = false;
-            }
+            this.buttonInteractable(myTeamButtonList);
+            this.buttonInteractable(enemyButtonList);
         }
 
         public void reselectEnemy()
@@ -58,10 +52,7 @@ namespace BattleStart
             List<PlayerDTO> enemyPlayerDTOList = battleStartController.makeEnemyDTOList();
             PlayerTextManager.drowNameAndJob (enemyNameTextList, enemyPlayerDTOList);
             PlayerTextManager.drowStatus (enemyStatusTextList, enemyPlayerDTOList);
-            for (int i = 0; i < MakePartyViewManager.CHARA_NUMBER_OF_PARTY; i++)
-            {
-                enemyButtonList[i].GetComponent<Button>().interactable = false;
-            }
+            this.buttonInteractable(enemyButtonList);
         }
 
         void makeList()
@@ -81,6 +72,14 @@ namespace BattleStart
                     .Add(enemyButtonList[i].GetComponentsInChildren<Text>().First());
                 enemyStatusTextList
                     .Add(enemyButtonList[i].GetComponentsInChildren<Text>().Last());
+            }
+        }
+
+        void buttonInteractable(List<GameObject> objectList)
+        {
+            for (int i = 0; i < objectList.Count; i++)
+            {
+                objectList[i].GetComponent<Button>().interactable = false;
             }
         }
     }
