@@ -49,11 +49,12 @@ namespace SQLManager
                 playerDTO.DEF = (int) dr["DEF"];
                 playerDTO.AGI = (int) dr["AGI"];
                 playerDTO.LUCK = (int) dr["LUCK"];
-                if (dr["CREATE_AT"] != null)
+                playerDTO.CreateDay = (string) dr["CREATE_AT"];
+                /*if (dr["CREATE_AT"] != null)
                 {
                     playerDTO.CreateDay =
                         DateTime.Parse((string) dr["CREATE_AT"]);
-                }
+                }*/
                 playerDTOList.Add (playerDTO);
             }
             return playerDTOList;
@@ -148,7 +149,8 @@ namespace SQLManager
             this.addData(playerDTO, TableNames.CHARACTER);
         }
 
-        public int getMaxCharaNumber(){
+        public int getMaxCharaNumber()
+        {
             return MAX_CHARA_NUMBER;
         }
     }

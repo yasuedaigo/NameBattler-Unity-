@@ -3,7 +3,9 @@ guid: dd3318ff8f32d1e4cbfe42bf6635f87a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - jobTogglePrefab: {fileID: 3786137816191602559, guid: d75786f670eb1ee4a999e4f63aa12783, type: 3}
+  - jobToggleGroup: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

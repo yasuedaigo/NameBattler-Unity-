@@ -10,12 +10,13 @@ using BattleScene.Magic;
 using SQLManager;
 using UnityEngine;
 using UnityEngine.UI;
+using BattleScene.Chara;
 
 namespace BattleScene.Chara
 {
     public class Player
     {
-        TextManager textmanager;
+        public TextManager textmanager;
         public const int POISON_DAMAGE = 20;
         public const int PARISE_PROBABILITY = 5;
 
@@ -94,7 +95,7 @@ namespace BattleScene.Chara
 
         public bool criticalHit()
         {
-            if (this.LUCK <= UnityEngine.Random.Range(0f, 100f))
+            if (this.LUCK >= UnityEngine.Random.Range(0f, 100f))
             {
                 return true;
             }

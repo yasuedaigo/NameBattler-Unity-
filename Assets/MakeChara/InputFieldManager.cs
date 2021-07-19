@@ -13,7 +13,7 @@ namespace MakeChara
         const int LIMIT_OF_NAME = 20;
         InputField inputField;
 
-        void Start()
+        public void Start()
         {
             inputField = GameObject.Find("InputField").GetComponent<InputField>();
         }

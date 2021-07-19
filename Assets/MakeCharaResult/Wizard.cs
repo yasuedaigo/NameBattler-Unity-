@@ -21,7 +21,8 @@ namespace MakeCharaResult
             playerDTO.AGI = base.MakeStatusInt(4, 40, useName) + 1;
             playerDTO.MP = base.MakeStatusInt(4, 50, useName) + 30;
             playerDTO.JOB = JOBs.Wizard;
-            playerDTO.CreateDay = DateTime.Now;
+            DateTime dt =  DateTime.Now;
+            playerDTO.CreateDay = dt.ToString("yyyy-MM-dd HH:mm:ss");
             return playerDTO;
         }
     }

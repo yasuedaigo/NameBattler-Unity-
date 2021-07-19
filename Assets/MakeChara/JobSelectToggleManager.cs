@@ -17,11 +17,10 @@ namespace MakeChara
         public GameObject jobTogglePrefab;
         public ToggleGroup jobToggleGroup;
 
-        void Start()
+        public void Start()
         {
             makeJobToggle();
             selectFirstJob();
-            selectJob();
         }
 
         public void makeJobToggle()
@@ -53,5 +52,6 @@ namespace MakeChara
             Type type = Type.GetType("MakeCharaResult." + activeToggle.name);
             PlayerMaker = (IPlayerMaker) Activator.CreateInstance(type);
         }
+        
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using BattleScene;
 using BattleScene.Chara;
@@ -8,7 +8,7 @@ namespace BattleScene.Magic
 {
     public class Heal : BaseMagic
     {
-        Magics magic = Magics.Fire;
+        Magics magic = Magics.Heal;
         int RecoveryPoint;
 
         public Heal()

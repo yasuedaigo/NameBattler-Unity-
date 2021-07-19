@@ -13,7 +13,7 @@ namespace BattleScene
 
         public ScrollRect scrollrect;
 
-        void Start()
+        public void Start()
         {
             targettext = GameObject.Find("battletext").GetComponent<Text>();
             scrollrect =
