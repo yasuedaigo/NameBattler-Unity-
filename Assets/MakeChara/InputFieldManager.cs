@@ -7,46 +7,53 @@ namespace MakeChara
 {
     public class InputFieldManager : MonoBehaviour
     {
-        public static string charaname;
-
-        bool isNameOk;
-
-        public InputField inputField;
-
+        public static string charaName;
         public Button addButton;
+        public Text messageText;
+        const int LIMIT_OF_NAME = 20;
+        InputField inputField;
 
-        public Text messagetext;
-
-        void Start()
+        public void Start()
         {
-            inputField =
-                GameObject.Find("InputField").GetComponent<InputField>();
+            inputField = GameObject.Find("InputField").GetComponent<InputField>();
         }
 
-        public void onNameEnter()
+        public void nameValidation()
         {
-            isNameOk = false;
-            charaname = inputField.text;
-            if (charaname == null || charaname == "")
+            addButton.interactable = false;
+            charaName = inputField.text;
+            if (NameIsEmpty() || NameIsOutOfLenght())
             {
-                isNameOk = false;
-                addButton.interactable = false;
-            }
-            else if (charaname.Length > 20)
-            {
-                messagetext.text = "プレイヤー名は20字以内にしてください";
                 addButton.interactable = false;
             }
             else
             {
-                isNameOk = true;
                 addButton.interactable = true;
             }
         }
 
+        bool NameIsEmpty()
+        {
+            if (charaName == null || charaName == "")
+            {
+                return true;
+            }
+            return false;
+        }
+
+        bool NameIsOutOfLenght()
+        {
+            if (charaName.Length > LIMIT_OF_NAME)
+            {
+                messageText.text = $"プレイヤー名は{LIMIT_OF_NAME}字以内にしてください";
+                return true;
+            }
+            return false;
+        }
+
         public static string GetName()
         {
-            return charaname;
+            return charaName;
         }
     }
 }

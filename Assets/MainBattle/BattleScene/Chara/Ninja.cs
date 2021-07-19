@@ -11,11 +11,9 @@ namespace BattleScene.Chara
     {
         TextManager textmanager;
 
-        public Ninja(PlayerDTO usename) :
-            base(usename)
+        public Ninja(PlayerDTO playerDTO) : base(playerDTO)
         {
-            textmanager =
-                GameObject.Find("battletext").GetComponent<TextManager>();
+            textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
         }
 
         public override void Attack(Player defender, int turnNumber)
@@ -25,7 +23,7 @@ namespace BattleScene.Chara
             {
                 damage = base.STR;
             }
-            else if (defender.GetType() == typeof (Fighter))
+            else if (defender.isFighter())
             {
                 int stockDEF = defender.DEF;
                 defender.DEF = stockDEF / 2;

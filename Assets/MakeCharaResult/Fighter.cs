@@ -10,18 +10,19 @@ namespace MakeCharaResult
     {
         PlayerDTO playerDTO;
 
-        public override PlayerDTO makePlayer(string usename)
+        public override PlayerDTO makePlayerDTO(string useName)
         {
             playerDTO = new PlayerDTO();
-            playerDTO.PlayerName = usename;
-            playerDTO.HP = base.MakeStatusInt(0, 200, usename) + 100;
-            playerDTO.STR = base.MakeStatusInt(1, 70, usename) + 30;
-            playerDTO.DEF = base.MakeStatusInt(2, 70, usename) + 30;
-            playerDTO.LUCK = base.MakeStatusInt(3, 99, usename) + 1;
-            playerDTO.AGI = base.MakeStatusInt(4, 49, usename) + 1;
+            playerDTO.PlayerName = useName;
+            playerDTO.HP = base.MakeStatusInt(0, 200, useName) + 100;
+            playerDTO.STR = base.MakeStatusInt(1, 70, useName) + 30;
+            playerDTO.DEF = base.MakeStatusInt(2, 70, useName) + 30;
+            playerDTO.LUCK = base.MakeStatusInt(3, 99, useName) + 1;
+            playerDTO.AGI = base.MakeStatusInt(4, 49, useName) + 1;
             playerDTO.MP = 0;
             playerDTO.JOB = JOBs.Fighter;
-            playerDTO.CreateDay = DateTime.Now;
+            DateTime dt =  DateTime.Now;
+            playerDTO.CreateDay = dt.ToString("yyyy-MM-dd HH:mm:ss");
             return playerDTO;
         }
     }

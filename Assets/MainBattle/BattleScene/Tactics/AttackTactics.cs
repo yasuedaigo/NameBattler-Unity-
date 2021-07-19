@@ -11,7 +11,7 @@ namespace BattleScene.Tactics
         //HPの多い敵を優先して攻撃
         public Player target(Party party, Player attacker)
         {
-            return party.getTargetinAttackTactics(attacker);
+            return party.getTargetInAttackTactics(attacker);
         }
     }
 }

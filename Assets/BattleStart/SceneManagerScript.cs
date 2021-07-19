@@ -8,9 +8,14 @@ namespace BattleStart
 {
     public class SceneManagerScript : MonoBehaviour
     {
-        public void clickBackButton()
+        public void onLoadMakeParty()
         {
             SceneManager.LoadScene("MakeParty");
+        }
+
+        public void onLoadMainBattle()
+        {
+            SceneManager.LoadScene("MainBattle");
         }
     }
 }

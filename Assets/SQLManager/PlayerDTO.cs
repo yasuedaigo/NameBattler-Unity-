@@ -27,6 +27,6 @@ namespace SQLManager
 
         public int MP { get; set; }
 
-        public DateTime CreateDay { get; set; }
+        public string CreateDay { get; set; }
     }
 }

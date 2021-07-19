@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using BattleScene;
 using BattleScene.Magic;
@@ -12,24 +13,23 @@ namespace BattleScene.Chara
     {
         TextManager textmanager;
 
-        public Wizard(PlayerDTO playerDTO) :
-            base(playerDTO)
+        List<Magics> useAbleMagic = new List<Magics>() { Magics.Fire, Magics.Thunder };
+
+        public Wizard(PlayerDTO playerDTO) : base(playerDTO)
         {
-            textmanager =
-                GameObject.Find("battletext").GetComponent<TextManager>();
+            textmanager = GameObject.Find("battletext").GetComponent<TextManager>();
         }
 
         public override void Attack(Player defender, int turnNumber)
         {
             int damage = calcDamage(defender);
-            if (base.PariseCheck())
+            if (base.isFreez())
             {
                 textmanager.battleLog($"{base.PlayerName}は麻痺した");
+                base.AttackFinished = true;
+                return;
             }
-            else
-            {
-                this.wizardAttack(defender, turnNumber);
-            }
+            this.wizardAttack(defender, turnNumber);
             base.AttackFinished = true;
         }
 
@@ -48,11 +48,14 @@ namespace BattleScene.Chara
 
         public IMagic choiceMagic()
         {
-            if (UnityEngine.Random.Range(0, 2) == 1)
-            {
-                return new Fire();
-            }
-            return new Thunder();
+            int magicsNumber = useAbleMagic.Count;
+            int selectMagicInt = UnityEngine.Random.Range(0, magicsNumber);
+            string selectMagicName = useAbleMagic[selectMagicInt].ToString();
+            Type selectMagicType =
+                Type.GetType("BattleScene.Magic." + selectMagicName);
+            IMagic selectMagic =
+                (IMagic) Activator.CreateInstance(selectMagicType);
+            return selectMagic;
         }
     }
 }

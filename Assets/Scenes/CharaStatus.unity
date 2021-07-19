@@ -672,8 +672,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1504837114}
-        m_TargetAssemblyTypeName: CharaStatus.CharaStatusSQLController, Assembly-CSharp
-        m_MethodName: onClickDeleteButton
+        m_TargetAssemblyTypeName: CharaStatus.CharaStatusController, Assembly-CSharp
+        m_MethodName: deleteChara
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -768,8 +768,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.5, y: 12.3}
-  m_SizeDelta: {x: -31.650223, y: -269.7015}
+  m_AnchoredPosition: {x: -0.5, y: 13.7}
+  m_SizeDelta: {x: -31.650223, y: -175.70166}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1786387458
 MonoBehaviour:

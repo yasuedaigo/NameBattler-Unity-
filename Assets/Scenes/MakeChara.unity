@@ -338,8 +338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3318ff8f32d1e4cbfe42bf6635f87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobtoggle: {fileID: 3786137816191602559, guid: d75786f670eb1ee4a999e4f63aa12783, type: 3}
-  togglegroup: {fileID: 306571042}
+  jobTogglePrefab: {fileID: 3786137816191602559, guid: d75786f670eb1ee4a999e4f63aa12783, type: 3}
+  jobToggleGroup: {fileID: 306571042}
 --- !u!114 &306571041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,7 +928,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 924369931}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -944,7 +945,7 @@ GameObject:
   - component: {fileID: 710096688}
   - component: {fileID: 710096687}
   m_Layer: 5
-  m_Name: Text
+  m_Name: messageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1116,7 +1117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6528715456519670515, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: loadAllChara
+      value: onLoadAllChara
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d65cc6fd59613547a46bb732a9b597f, type: 3}
@@ -1142,8 +1143,106 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca660c9b875bf64a9d060c1c9e5c6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputfieldmanager: {fileID: 0}
+  inputfieldmanager: {fileID: 2011221734}
   messagetext: {fileID: 0}
+--- !u!1 &924369930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 924369931}
+  - component: {fileID: 924369934}
+  - component: {fileID: 924369933}
+  - component: {fileID: 924369932}
+  m_Layer: 5
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &924369931
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924369930}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 681358582}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &924369932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924369930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &924369933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924369930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+--- !u!223 &924369934
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924369930}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &1024805954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,7 +1402,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1708206602}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
@@ -1329,7 +1428,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: 
 --- !u!222 &1708206605
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1352,7 +1451,7 @@ GameObject:
   - component: {fileID: 1829132814}
   - component: {fileID: 1829132813}
   m_Layer: 5
-  m_Name: Button
+  m_Name: addButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1449,7 +1548,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1829132813}
         m_TargetAssemblyTypeName: MakeChara.SceneManagerScript, Assembly-CSharp
-        m_MethodName: makeChara
+        m_MethodName: onLoadMakeCharaResult
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1778,7 +1877,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2011221734}
         m_TargetAssemblyTypeName: MakeChara.InputFieldManager, Assembly-CSharp
-        m_MethodName: onNameEnter
+        m_MethodName: nameValidation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1848,9 +1947,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198bedf40261cdf4bbae4da1f5ccd455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputField: {fileID: 2011221729}
   addButton: {fileID: 1829132814}
-  messagetext: {fileID: 710096687}
+  messageText: {fileID: 710096687}
 --- !u!1 &2066686494
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,6 @@ namespace MakeCharaResult
 {
     public interface IPlayerMaker
     {
-        PlayerDTO makePlayer(string name);
+        PlayerDTO makePlayerDTO(string usename);
     }
 }

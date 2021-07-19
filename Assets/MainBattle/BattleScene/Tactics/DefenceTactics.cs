@@ -11,7 +11,7 @@ namespace BattleScene.Tactics
         //僧侶は味方の中から選ぶ 他はHpの少ない敵を優先して攻撃
         public Player target(Party party, Player attacker)
         {
-            return party.getTargetinDefenceTactics(attacker);
+            return party.getTargetInDefenceTactics(attacker);
         }
     }
 }

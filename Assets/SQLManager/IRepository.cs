@@ -10,36 +10,38 @@ namespace SQLManager
     {
         DataTable getAllData(TableNames table);
 
-        int getRowint(TableNames table);
+        int countTableRows(TableNames table);
 
         List<PlayerDTO> getPlayerDTOList(TableNames table);
 
         void addData(PlayerDTO playerDTO, TableNames table);
 
-        PlayerDTO getPlayerDTO(string playername, TableNames table);
+        PlayerDTO getPlayerDTO(string playerName, TableNames table);
 
-        PlayerDTO getPlayerDTO(int playerint, TableNames table);
+        PlayerDTO getPlayerDTO(int playerId, TableNames table);
 
-        void deletePlayer(int rowid, TableNames table);
+        void deletePlayer(int rowId, TableNames table);
 
-        bool canAddCharaName(string name);
+        bool canNotAddName(string name);
 
-        bool canAddCharaNumber();
+        bool charaNumberIsFull();
 
         List<PlayerDTO> getmyTeamAllCharaList();
 
         List<PlayerDTO> getEnemyTeamAllCharaList();
 
-        PlayerDTO getENEMYPlayerDTO(int playerint);
+        PlayerDTO getEnemyPlayerDTO(int playerId);
 
-        PlayerDTO getmyTeamPlayerDTO(int playerint);
+        PlayerDTO getmyTeamPlayerDTO(int playerId);
 
-        int getEnemyRowint();
+        int countmyTeamTableRows();
 
-        int getmyTeamRowint();
+        int countEnemyTableRows();
 
-        void deletemyTeamPlayer(int playerint);
+        void deletemyTeamPlayer(int playerId);
 
-        void addmyTeamData(PlayerDTO playerDTO);
+        void addmyTeamChara(PlayerDTO playerDTO);
+
+        int getMaxCharaNumber();
     }
 }

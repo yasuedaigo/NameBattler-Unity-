@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 472e9dee8df4213489db4c8d470513ad
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - charaButtonPrefab: {fileID: 6793441849853896347, guid: 46eb619267225694f8fb320cb5b2ffc2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

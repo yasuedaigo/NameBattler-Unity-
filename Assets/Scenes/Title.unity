@@ -457,7 +457,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 485089776}
         m_TargetAssemblyTypeName: Title.SceanManager, Assembly-CSharp
-        m_MethodName: TitleMakeParty
+        m_MethodName: onLoadMakeParty
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -774,7 +774,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1573344601}
         m_TargetAssemblyTypeName: Title.SceanManager, Assembly-CSharp
-        m_MethodName: TitleAllChara
+        m_MethodName: onLoadAllChara
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

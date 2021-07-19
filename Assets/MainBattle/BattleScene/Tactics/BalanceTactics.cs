@@ -14,11 +14,11 @@ namespace BattleScene.Tactics
         {
             if (attacker.canUseHeal())
             {
-                return party.getTargetofHealinBalanceTactics(attacker);
+                return party.getTargetOfHealInBalanceTactics(attacker);
             }
             else
             {
-                return party.getTargetofAttackinBalanceTactics(attacker);
+                return party.getTargetOfAttackInBalanceTactics(attacker);
             }
         }
     }
