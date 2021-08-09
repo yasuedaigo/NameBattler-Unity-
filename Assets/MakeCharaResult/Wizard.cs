@@ -17,12 +17,12 @@ namespace MakeCharaResult
             playerDTO.HP = base.MakeStatusInt(0, 100, useName) + 50;
             playerDTO.STR = base.MakeStatusInt(1, 50, useName) + 30;
             playerDTO.DEF = base.MakeStatusInt(2, 50, useName) + 30;
-            playerDTO.LUCK = base.MakeStatusInt(3, 100, useName) + 1;
-            playerDTO.AGI = base.MakeStatusInt(4, 40, useName) + 1;
+            playerDTO.LUCK = base.MakeStatusInt(3, 99, useName) + 1;
+            playerDTO.AGI = base.MakeStatusInt(4, 39, useName) + 1;
             playerDTO.MP = base.MakeStatusInt(4, 50, useName) + 30;
             playerDTO.JOB = JOBs.Wizard;
             DateTime dt =  DateTime.Now;
-            playerDTO.CreateDay = dt.ToString("yyyy-MM-dd HH:mm:ss");
+            playerDTO.CreateDay = dt.ToString("yyyy-MM-dd");
             return playerDTO;
         }
     }
