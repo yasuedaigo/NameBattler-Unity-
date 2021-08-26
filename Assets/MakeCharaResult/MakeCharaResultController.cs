@@ -16,7 +16,7 @@ namespace MakeCharaResult
         MakeCharaResultViewManager makeCharaResultViewManager;
         IRepository repo;
 
-        void Start()
+        public void Start()
         {
             makeCharaResultViewManager = this.GetComponent<MakeCharaResultViewManager>();
             repo = new CharacterRepository();

@@ -22,7 +22,8 @@ namespace MakeCharaResult
             playerDTO.MP = 0;
             playerDTO.JOB = JOBs.Fighter;
             DateTime dt =  DateTime.Now;
-            playerDTO.CreateDay = dt.ToString("yyyy-MM-dd HH:mm:ss");
+            playerDTO.CreateDay = dt.ToString("yyyy-MM-dd");
+            //playerDTO.CreateDay = dt.ToString("yyyy-MM-dd HH:mm:ss");
             return playerDTO;
         }
     }

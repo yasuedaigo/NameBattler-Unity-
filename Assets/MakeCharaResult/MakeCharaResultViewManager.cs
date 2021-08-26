@@ -19,7 +19,7 @@ namespace MakeCharaResult
         PlayerDTO playerDTO;
         MakeCharaResultController makeCharaResultController;
 
-        void Start()
+        public void Start()
         {
             makeCharaResultController = this.GetComponent<MakeCharaResultController>();
             acquireUseName();
@@ -56,6 +56,11 @@ namespace MakeCharaResult
                 return false;
             }
             return true;
+        }
+
+        public PlayerDTO getplayerDTO()
+        {
+            return playerDTO;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace BattleScene
         public List<int> playerIdList;
         public List<int> enemyIdList;
 
-        void Start()
+        public void Start()
         {
             turnNumber = 1;
             textManager = GameObject.Find("battletext").GetComponent<TextManager>();
@@ -63,6 +63,7 @@ namespace BattleScene
             if (party.isGameFinish())
             {
                 gameFinish();
+                return;
             }
             this.poisonDamage();
             textManager.battleLog("---------------------------------------");
@@ -105,7 +106,6 @@ namespace BattleScene
         public void gameFinish()
         {
             Teams winTeam = party.getWinTeam();
-            textManager.battleLog("ゲームセット！");
             if (winTeam == Teams.Player)
                 battleSceneManager.loadWinScene();
             else

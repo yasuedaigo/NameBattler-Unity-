@@ -11,7 +11,7 @@ namespace BattleScene.Chara
 {
     public class Priest : Player
     {
-        List<Magics> useAbleMagics = new List<Magics>(){ Magics.Heal, Magics.Parise, Magics.Poison };
+        List<Magics> priestuseAbleMagics = new List<Magics>(){ Magics.Heal, Magics.Parise, Magics.Poison };
         TextManager textmanager;
 
         public Priest(PlayerDTO playerDTO) : base(playerDTO)
@@ -50,7 +50,7 @@ namespace BattleScene.Chara
 
         public void firstTurnAttack(Player defender, int turnNumber)
         {
-            IMagic magic = choiceMagic();
+            IMagic magic = this.choiceMagic();
             this.useMagic(magic, defender, turnNumber);
         }
 
@@ -66,20 +66,38 @@ namespace BattleScene.Chara
             }
         }
 
-        public IMagic choiceMagic()
+        /*public IMagic choiceMagic()
         {
-            int magicsNumber = useAbleMagics.Count;
+            int magicsNumber = priestuseAbleMagics.Count;
             string selectMagicName;
             do
             {
+                Debug.Log(this.priestuseAbleMagics[0]);
+                Debug.Log(this.priestuseAbleMagics[1]);
+                Debug.Log(this.priestuseAbleMagics[2]);
                 int selectMagicInt = UnityEngine.Random.Range(0, magicsNumber);
-                selectMagicName = useAbleMagics[selectMagicInt].ToString();
+                selectMagicName = priestuseAbleMagics[selectMagicInt].ToString();
+                Debug.Log(selectMagicName);
             }
             while (selectMagicName == "Heal");
             Type selectMagicType =
                 Type.GetType("BattleScene.Magic." + selectMagicName);
             IMagic selectMagic =
                 (IMagic) Activator.CreateInstance(selectMagicType);
+                Debug.Log(selectMagic.ToString());
+            return selectMagic;
+        }*/
+        public IMagic choiceMagic()
+        {
+            IMagic selectMagic = null;
+            int selectMagicInt = UnityEngine.Random.Range(0, 2);
+            if(selectMagicInt == 0)
+            {
+                selectMagic = new Poison();
+            }else
+            {
+                selectMagic = new Parise();
+            }
             return selectMagic;
         }
     }
