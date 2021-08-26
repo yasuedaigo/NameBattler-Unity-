@@ -109,7 +109,7 @@ namespace BattleScene.Chara
 
         public List<Player> getAGIDescendingList()
         {
-            AGIdescendingList.Sort((a, b) => a.HP - b.HP);
+            AGIdescendingList.Sort((a, b) => b.AGI - a.AGI);
             return AGIdescendingList;
         }
 
@@ -139,8 +139,8 @@ namespace BattleScene.Chara
 
         public Player getTargetInAttackTactics(Player attacker)
         {
-            getHPDescendingList();
-            Player targetPlayer = HPdescendingList.Find(n => ((n.canReceiveAttack(attacker))));
+            getHPAscendingList();
+            Player targetPlayer = HPascendingList.Find(n => ((n.canReceiveAttack(attacker))));
             return targetPlayer;
         }
 
@@ -168,11 +168,11 @@ namespace BattleScene.Chara
 
         public Player getTargetInDefenceTactics(Player attacker)
         {
-            getHPAscendingList();
-            Player targetPlayer = HPascendingList.Find(n => (n.canReceiveAttack(attacker)));
+            getHPDescendingList();
+            Player targetPlayer = HPdescendingList.Find(n => (n.canReceiveAttack(attacker)));
             if (attacker.canUseHeal())
             {
-                targetPlayer = HPascendingList.Find(n => (n.canReceiveHeal(attacker)));
+                targetPlayer = HPdescendingList.Find(n => (n.canReceiveHeal(attacker)));
             }
             return targetPlayer;
         }

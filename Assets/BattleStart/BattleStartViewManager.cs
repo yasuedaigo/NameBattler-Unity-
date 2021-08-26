@@ -22,8 +22,8 @@ namespace BattleStart
         List<Text> myTeamStatusTextList = new List<Text>();
         List<Text> enemyNameTextList = new List<Text>();
         List<Text> enemyStatusTextList = new List<Text>();
-        List<PlayerDTO> myTeamPlayerDTOList = new List<PlayerDTO>();
-        List<PlayerDTO> enemyPlayerDTOList = new List<PlayerDTO>();
+        public List<PlayerDTO> myTeamPlayerDTOList = new List<PlayerDTO>();
+        public List<PlayerDTO> enemyPlayerDTOList = new List<PlayerDTO>();
         List<GameObject> myTeamButtonList = new List<GameObject>();
         List<GameObject> enemyButtonList = new List<GameObject>();
 

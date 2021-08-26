@@ -21,78 +21,71 @@ namespace BattleSceneTests
 {
     public class Tests_Ninja
     {
+        Text battletext = GameObject.Find("battletext").GetComponent<Text>();
+        Testtool_Chara testtool_chara = new Testtool_Chara();
+
         [UnityTest]
-        public IEnumerator test_Attack()
+        public IEnumerator test_firstturnAttack()
         {
-            PlayerDTO attackerDTO = new PlayerDTO();
-            attackerDTO.PlayerName = "testAttacker";
-            attackerDTO.HP = 5;
-            attackerDTO.STR = 5;
-            attackerDTO.DEF = 5;
-            attackerDTO.LUCK = 100;
-            attackerDTO.AGI = 5;
-            attackerDTO.MP = 0;
-            attackerDTO.JOB = JOBs.Ninja;
-            attackerDTO.CreateDay = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            Player attacker = new Player(attackerDTO);
-            attacker.textmanager.Start();
-            PlayerDTO defenderDTO = new PlayerDTO();
-            defenderDTO = new PlayerDTO();
-            defenderDTO.PlayerName = "testDefender";
-            defenderDTO.HP = 100;
-            defenderDTO.STR = 5;
-            defenderDTO.DEF = 1;
-            defenderDTO.LUCK = 5;
-            defenderDTO.AGI = 5;
-            defenderDTO.MP = 0;
-            defenderDTO.JOB = JOBs.Fighter;
-            defenderDTO.CreateDay = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            Player defender = new Player(defenderDTO);
-            defender.textmanager.Start();
-            Text battletext = GameObject.Find("battletext").GetComponent<Text>();
-            /*PlayerDTO attackerDTO = new PlayerDTO();
-            attackerDTO.PlayerName = "testAttacker";
-            attackerDTO.HP = 5;
-            attackerDTO.STR = 5;
-            attackerDTO.DEF = 5;
-            attackerDTO.LUCK = 100;
-            attackerDTO.AGI = 5;
-            attackerDTO.MP = 0;
-            attackerDTO.JOB = JOBs.Fighter;
-            attackerDTO.CreateDay = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            Player attacker = new Player(attackerDTO);
-            attacker.textmanager.Start();
-            PlayerDTO defenderDTO = new PlayerDTO();
-            defenderDTO = new PlayerDTO();
-            defenderDTO.PlayerName = "testDefender";
-            defenderDTO.HP = 100;
-            defenderDTO.STR = 5;
-            defenderDTO.DEF = 1;
-            defenderDTO.LUCK = 5;
-            defenderDTO.AGI = 5;
-            defenderDTO.MP = 0;
-            defenderDTO.JOB = JOBs.Fighter;
-            defenderDTO.CreateDay = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            Player defender = new Player(defenderDTO);
-            defender.textmanager.Start();
-            Text battletext = GameObject.Find("battletext").GetComponent<Text>();
-            int criticaldamage = 5;
-            int normaldamage = 4;
+            Player attacker = testtool_chara.prepareNinja("testattacker",5,10,5,0,5,0);
+            Player defender = testtool_chara.prepareNinja("testdefender",100,5,2,1,5,0);
+            attacker.Abnormality = Abnormalitys.Parise;
+            int criticaldamage = 10;
             string criticalattackText = $"バトルスタート！\r\n{attacker.PlayerName}の攻撃 ➡ {defender.PlayerName}に{criticaldamage}のダメージ";
-            string normalattackText = $"バトルスタート！\r\n{attacker.PlayerName}の攻撃 ➡ {defender.PlayerName}に{normaldamage}のダメージ";
             attacker.Attack(defender,1);
             Assert.That(battletext.text == criticalattackText);
-            Assert.That(defender.HP == 95);
+            Assert.That(defender.HP == 90);
             Assert.That(attacker.AttackFinished = true);
-            attacker.LUCK = 0;
-            attacker.AttackFinished = false;
-            defender.HP = 100;
-            battletext.text = "バトルスタート！";
-            attacker.Attack(defender,1);
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator test_Attacktofighter()
+        {
+            Player attacker = testtool_chara.prepareNinja("testattacker",5,10,5,0,5,0);
+            Player defender = testtool_chara.prepareFighter("testdefender",100,5,2,1,5,0);
+            attacker.Abnormality = Abnormalitys.Parise;
+            int normaldamage = 9;
+            string normalattackText = $"バトルスタート！\r\n{attacker.PlayerName}の攻撃 ➡ {defender.PlayerName}に{normaldamage}のダメージ";
+            attacker.Attack(defender,2);
             Assert.That(battletext.text == normalattackText);
-            Assert.That(defender.HP == 96);
+            Assert.That(defender.HP == 91);
             Assert.That(attacker.AttackFinished = true);
-            yield return null;*/
+            Assert.That(defender.DEF == 2);
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator test_secondturnAttack()
+        {
+            int normalcount = 0;
+            int criticalcount = 0;
+            for(int i = 0; i <12; i++){
+                battletext.text = "バトルスタート！";
+                Player attacker = testtool_chara.prepareNinja("testattacker",5,10,5,50,5,0);
+                Player defender = testtool_chara.prepareWizard("testdefender",100,5,2,1,5,0);
+                attacker.Abnormality = Abnormalitys.Parise;
+                int normaldamage = 8;
+                int criticaldamage = 10;
+                string normalattackText = $"バトルスタート！\r\n{attacker.PlayerName}の攻撃 ➡ {defender.PlayerName}に{normaldamage}のダメージ";
+                string criticalattackText = $"バトルスタート！\r\n{attacker.PlayerName}の攻撃 ➡ {defender.PlayerName}に{criticaldamage}のダメージ";
+                attacker.Attack(defender,2);
+                if(battletext.text == normalattackText)
+                {
+                    Assert.That(defender.HP == 92);
+                    Assert.That(attacker.AttackFinished = true);
+                    normalcount++;
+                }else if(battletext.text == criticalattackText)
+                {
+                    Assert.That(defender.HP == 90);
+                    Assert.That(attacker.AttackFinished = true);
+                    criticalcount++;
+                }
+            }
+            Assert.That((criticalcount + normalcount) == 12);
+            Assert.That(criticalcount >= 1);
+            Assert.That(normalcount >= 1);
+            yield return null;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace BattleScene.Chara
     {
         TextManager textmanager;
 
-        List<Magics> useAbleMagic = new List<Magics>() { Magics.Fire, Magics.Thunder };
+        List<Magics> wizarduseAbleMagic = new List<Magics>() { Magics.Fire, Magics.Thunder };
 
         public Wizard(PlayerDTO playerDTO) : base(playerDTO)
         {
@@ -48,9 +48,9 @@ namespace BattleScene.Chara
 
         public IMagic choiceMagic()
         {
-            int magicsNumber = useAbleMagic.Count;
+            int magicsNumber = wizarduseAbleMagic.Count;
             int selectMagicInt = UnityEngine.Random.Range(0, magicsNumber);
-            string selectMagicName = useAbleMagic[selectMagicInt].ToString();
+            string selectMagicName = wizarduseAbleMagic[selectMagicInt].ToString();
             Type selectMagicType =
                 Type.GetType("BattleScene.Magic." + selectMagicName);
             IMagic selectMagic =

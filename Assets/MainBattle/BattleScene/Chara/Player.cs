@@ -148,10 +148,15 @@ namespace BattleScene.Chara
 
             if (this.isPoison())
             {
-                this.damage(POISON_DAMAGE);
+                this.poison();
                 textmanager.battleLog($"{this.PlayerName}は毒によるダメージを受けた");
             }
             this.downJudge();
+        }
+
+        public void poison()
+        {
+           this.HP = this.HP - POISON_DAMAGE;
         }
 
         public void downJudge()

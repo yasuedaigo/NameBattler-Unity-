@@ -132,19 +132,6 @@ namespace MakeCharaResultTests
             characterrepository.deletemyTeamPlayer(deleterow);
             }
             yield return null;
-            
-            /*preparation();
-            inputfield.text = "12345123451234512345";
-            inputfieldmanager.nameValidation();
-            Assert.That(messagetext.text == "");
-            Assert.That(InputFieldManager.charaName  == "12345123451234512345");
-            Assert.IsTrue(addbutton.interactable == true);
-            inputfield.text = "123451234512345123451";
-            inputfieldmanager.nameValidation();
-            Assert.That(messagetext.text == "プレイヤー名は20字以内にしてください");
-            Assert.That(InputFieldManager.charaName  == "123451234512345123451");
-            Assert.IsTrue(addbutton.interactable == false);
-            yield return null;*/
         }
 
     }
